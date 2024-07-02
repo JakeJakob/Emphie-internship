@@ -1,0 +1,147 @@
+_type: export
+__export_format: 4
+__export_date: 2024-07-01T19:56:23.335Z
+__export_source: insomnia.desktop.app:v9.2.0
+resources:
+  - _id: req_20f4dc35442740b2b440fb9ccf62cd15
+    parentId: wrk_scratchpad
+    modified: 1719863737986
+    created: 1719863721694
+    url: http://localhost:3000/tournaments/mock2
+    name: delete tournament
+    description: ""
+    method: DELETE
+    body: {}
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    metaSortKey: -1719863721694
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_scratchpad
+    parentId: null
+    modified: 1716043283646
+    created: 1716043283646
+    name: Scratch Pad
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_b42e8c0ea46b4e80be7e6336fe5b501f
+    parentId: wrk_scratchpad
+    modified: 1719863724548
+    created: 1719863521270
+    url: http://localhost:3000/tournaments/mock2
+    name: create tournament
+    description: ""
+    method: POST
+    body: {}
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    metaSortKey: -1719863521270
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_757253d70b354c5fb505ae6958a68ec0
+    parentId: wrk_scratchpad
+    modified: 1719863517284
+    created: 1719863462639
+    url: http://localhost:3000/tournaments/mock
+    name: get tournament
+    description: ""
+    method: GET
+    body: {}
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    metaSortKey: -1719863462639
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5b43c78d818f4aa3ba550b490adec5bf
+    parentId: wrk_scratchpad
+    modified: 1719863458917
+    created: 1719863449359
+    url: http://localhost:3000/tournaments
+    name: get all tournaments
+    description: ""
+    method: GET
+    body: {}
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    metaSortKey: -1719863449359
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1716043296232
+    created: 1716043296232
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1716043296232
+    _type: environment
+  - _id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1718028224864
+    created: 1716043296363
+    name: Default Jar
+    cookies:
+      - id: b4b009ae-3c7e-4367-ba06-604409de34cd
+        key: sessionid
+        value: jh74qcisjz4cyjfctbj08x0j05cfrea4
+        domain: baza.fundusz.org
+        expires: 2038-01-19T03:14:07.000Z
+        path: /
+        secure: false
+        httpOnly: false
+      - id: 15bd3afb-2aa0-4a9e-872c-ecd263a0dc8c
+        key: csrftoken
+        value: 9IYxa0nxB2PUXplnj23Px5hRzreCxcGS
+        domain: baza.fundusz.org
+        expires: 2038-01-19T03:14:07.000Z
+        path: /
+        secure: false
+        httpOnly: false
+    _type: cookie_jar
