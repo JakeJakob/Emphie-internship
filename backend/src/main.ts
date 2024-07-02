@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import http from "http";
 import { Server } from "socket.io";
 import { TournamentRouter } from "routes/tournaments.routes";
+import { PlayerRouter } from "routes/players.routes";
+import { JudgeRouter } from "routes/judges.routes";
+import { GameRouter } from "routes/games.routes";
 
 dotenv.config();
 
@@ -19,7 +22,11 @@ const io = new Server(server, {
 });
 
 app.use(bodyParser.json());
+
 app.use(TournamentRouter);
+app.use(PlayerRouter);
+app.use(JudgeRouter);
+app.use(GameRouter);
 
 server.listen(port, () => {
 	console.log(`Express is running at http://localhost:${port}`);
