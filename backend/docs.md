@@ -1,6 +1,6 @@
 ### Socket.io
 
-Note get and get_all are better suted as REST routes
+Note get and get_all are better suited as REST routes
 
 - tournament
 
