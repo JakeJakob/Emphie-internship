@@ -5,12 +5,13 @@ import { ChessTournament, EVENTS, ScoreboardResponse } from "types";
 
 const TournamentRouter = Router();
 
-export function get_tournament(
+export function tournament_middleware(
 	req: Request,
 	res: ScoreboardResponse,
-	next: NextFunction
+	next: NextFunction,
+	tournament_code: string
 ) {
-	const tournament = chess_tournament_store.get(req.params.tournament_code);
+	const tournament = chess_tournament_store.get(tournament_code);
 
 	if (!tournament) {
 		return res.status(404).json({ msg: "Tournament does not exist" });
@@ -20,9 +21,15 @@ export function get_tournament(
 	next();
 }
 
+TournamentRouter.param("tournament_code", (req, res, next, tournament_code) => {
+	tournament_middleware(req, res, next, tournament_code);
+});
+
 TournamentRouter.route("/tournaments")
 	.get((req: Request, res: ScoreboardResponse) => {
-		return res.json([...chess_tournament_store.values()]);
+		return res.json(
+			[...chess_tournament_store.values()].map((e) => e.flatten())
+		);
 	})
 	.post((req: Request, res: ScoreboardResponse) => {
 		const new_tournament = new ChessTournament(req.body.name);
@@ -30,21 +37,20 @@ TournamentRouter.route("/tournaments")
 		chess_tournament_store.set(new_tournament.code, new_tournament);
 		io.emit(EVENTS.TOURNAMENT_CREATED, JSON.stringify(new_tournament));
 
-		return res.json(new_tournament);
+		return res.json(new_tournament.flatten());
 	});
 
 TournamentRouter.route("/tournaments/:tournament_code")
-	.get(get_tournament, (req: Request, res: ScoreboardResponse) => {
-		return res.json(res.locals.tournament);
+	.get((req: Request, res: ScoreboardResponse) => {
+		return res.json(res.locals.tournament?.flatten());
 	})
-	.delete(get_tournament, (req: Request, res: ScoreboardResponse) => {
+	.delete((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
 
-		chess_tournament_store.delete(tournament.code);
+		chess_tournament_store.delete(tournament?.code || "");
 		io.emit(EVENTS.TOURNAMENT_DELETED, JSON.stringify(tournament));
 
-		return res.json(tournament);
+		return res.json(tournament?.flatten());
 	});
 
 export { TournamentRouter };

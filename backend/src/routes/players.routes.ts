@@ -1,21 +1,22 @@
 import { Router, Request, NextFunction } from "express";
 import { io } from "main";
-import { get_tournament } from "./tournaments.routes";
+import { tournament_middleware } from "./tournaments.routes";
 import { ChessPlayer, EVENTS, ScoreboardResponse } from "types";
 
 const PlayerRouter = Router();
 
-PlayerRouter.use(get_tournament);
+PlayerRouter.param("tournament_code", (req, res, next, tournament_code) => {
+	tournament_middleware(req, res, next, tournament_code);
+});
 
-export function get_player(
+export function player_middleware(
 	req: Request,
 	res: ScoreboardResponse,
-	next: NextFunction
+	next: NextFunction,
+	player_code: string
 ) {
 	const tournament = res.locals.tournament;
-	if (!tournament) return;
-
-	const player = tournament.players.get(req.params.player_code);
+	const player = tournament?.players.get(player_code);
 
 	if (!player) {
 		return res.status(404).json({ msg: "Player does not exist" });
@@ -24,6 +25,10 @@ export function get_player(
 	res.locals.player = player;
 	next();
 }
+
+PlayerRouter.param("player_code", (req, res, next, player_code) => {
+	player_middleware(req, res, next, player_code);
+});
 
 PlayerRouter.route("/tournaments/:tournament_code/players")
 	.get((req: Request, res: ScoreboardResponse) => {
@@ -34,8 +39,6 @@ PlayerRouter.route("/tournaments/:tournament_code/players")
 	})
 	.post((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const new_player = new ChessPlayer(
 			req.body.name,
 			req.body.last_name,
@@ -43,46 +46,39 @@ PlayerRouter.route("/tournaments/:tournament_code/players")
 			req.body.title
 		);
 
-		tournament.players.set(new_player.code, new_player);
+		tournament?.players.set(new_player.code, new_player);
 		io.emit(EVENTS.PLAYER_CREATED, JSON.stringify(new_player));
 
 		return res.json(new_player);
 	});
 
 PlayerRouter.route("/tournaments/:tournament_code/players/:player_code")
-	.get(get_player, (req: Request, res: ScoreboardResponse) => {
+	.get((req: Request, res: ScoreboardResponse) => {
 		const player = res.locals.player;
 
 		return res.json(player);
 	})
-	.put(get_player, (req: Request, res: ScoreboardResponse) => {
+	.put((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const player = res.locals.player;
-		if (!player) return;
-
 		const new_player = new ChessPlayer(
 			req.body.name,
 			req.body.last_name,
 			req.body.rank,
 			req.body.title
 		);
-		new_player.code = player.code;
+		new_player.code = player?.code || "";
 
-		tournament.players.set(new_player.code, new_player);
+		tournament?.players.set(new_player.code, new_player);
 		io.emit(EVENTS.PLAYER_UPDATED, JSON.stringify(new_player));
 
 		return res.json(new_player);
 	})
-	.delete(get_player, (req: Request, res: ScoreboardResponse) => {
+	.delete((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const player = res.locals.player;
-		if (!player) return;
 
-		tournament.players.delete(player.code);
+		tournament?.players.delete(player?.code || "");
 		io.emit(EVENTS.PLAYER_DELETED, JSON.stringify(player));
 
 		return res.json(player);

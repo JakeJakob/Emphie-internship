@@ -68,12 +68,22 @@ export class ChessJudge extends StoreUID {
 	}
 }
 
-// TODO: Create folder with types exported for frontend
+// This is needed for certain express endpoints
 export class ChessTournament extends StoreUID {
 	name: string;
 	players: Map<string, ChessPlayer> = new Map();
 	judges: Map<string, ChessJudge> = new Map();
 	games: Map<string, ChessGame> = new Map();
+
+	flatten() {
+		return {
+			code: this.code,
+			name: this.name,
+			players: [...this.players.values()],
+			judges: [...this.judges.values()],
+			games: [...this.games.values()],
+		};
+	}
 
 	constructor(name: string) {
 		super();

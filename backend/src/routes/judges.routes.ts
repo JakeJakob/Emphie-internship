@@ -1,21 +1,22 @@
 import { Router, Request, NextFunction } from "express";
 import { io } from "main";
-import { get_tournament } from "./tournaments.routes";
+import { tournament_middleware } from "./tournaments.routes";
 import { ChessJudge, EVENTS, ScoreboardResponse } from "types";
 
 const JudgeRouter = Router();
 
-JudgeRouter.use(get_tournament);
+JudgeRouter.param("tournament_code", (req, res, next, tournament_code) => {
+	tournament_middleware(req, res, next, tournament_code);
+});
 
-export function get_judge(
+export function judge_middleware(
 	req: Request,
 	res: ScoreboardResponse,
-	next: NextFunction
+	next: NextFunction,
+	judge_code: string
 ) {
 	const tournament = res.locals.tournament;
-	if (!tournament) return;
-
-	const judge = tournament.judges.get(req.params.judge_code);
+	const judge = tournament?.judges.get(judge_code);
 
 	if (!judge) {
 		return res.status(404).json({ msg: "Judge does not exist" });
@@ -24,6 +25,10 @@ export function get_judge(
 	res.locals.judge = judge;
 	next();
 }
+
+JudgeRouter.param("judge_code", (req, res, next, judge_code) => {
+	judge_middleware(req, res, next, judge_code);
+});
 
 JudgeRouter.route("/tournaments/:tournament_code/judges")
 	.get((req: Request, res: ScoreboardResponse) => {
@@ -34,45 +39,37 @@ JudgeRouter.route("/tournaments/:tournament_code/judges")
 	})
 	.post((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const new_judge = new ChessJudge(req.body.name);
 
-		tournament.judges.set(new_judge.code, new_judge);
+		tournament?.judges.set(new_judge.code, new_judge);
 		io.emit(EVENTS.JUDGE_CREATED, JSON.stringify(new_judge));
 
 		return res.json(new_judge);
 	});
 
 JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
-	.get(get_judge, (req: Request, res: ScoreboardResponse) => {
+	.get((req: Request, res: ScoreboardResponse) => {
 		const judge = res.locals.judge;
 
 		return res.json(judge);
 	})
-	.put(get_judge, (req: Request, res: ScoreboardResponse) => {
+	.put((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const judge = res.locals.judge;
-		if (!judge) return;
 
 		const new_judge = new ChessJudge(req.body.name);
-		new_judge.code = judge.code;
+		new_judge.code = judge?.code || "";
 
-		tournament.judges.set(new_judge.code, new_judge);
+		tournament?.judges.set(new_judge.code, new_judge);
 		io.emit(EVENTS.JUDGE_UPDATED, JSON.stringify(new_judge));
 
 		return res.json(new_judge);
 	})
-	.delete(get_judge, (req: Request, res: ScoreboardResponse) => {
+	.delete((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const judge = res.locals.judge;
-		if (!judge) return;
 
-		tournament.judges.delete(judge.code);
+		tournament?.judges.delete(judge?.code || "");
 		io.emit(EVENTS.JUDGE_DELETED, JSON.stringify(judge));
 
 		return res.json(judge);

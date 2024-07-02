@@ -1,21 +1,22 @@
 import { Router, Request, NextFunction } from "express";
 import { io } from "main";
-import { get_tournament } from "./tournaments.routes";
+import { tournament_middleware } from "./tournaments.routes";
 import { ChessGame, EVENTS, ScoreboardResponse } from "types";
 
 const GameRouter = Router();
 
-GameRouter.use(get_tournament);
+GameRouter.param("tournament_code", (req, res, next, tournament_code) => {
+	tournament_middleware(req, res, next, tournament_code);
+});
 
-export function get_game(
+export function game_middleware(
 	req: Request,
 	res: ScoreboardResponse,
-	next: NextFunction
+	next: NextFunction,
+	game_code: string
 ) {
 	const tournament = res.locals.tournament;
-	if (!tournament) return;
-
-	const game = tournament.games.get(req.params.game_code);
+	const game = tournament?.games.get(game_code);
 
 	if (!game) {
 		return res.status(404).json({ msg: "Game does not exist" });
@@ -24,6 +25,10 @@ export function get_game(
 	res.locals.game = game;
 	next();
 }
+
+GameRouter.param("game_code", (req, res, next, game_code) => {
+	game_middleware(req, res, next, game_code);
+});
 
 GameRouter.route("/tournaments/:tournament_code/games")
 	.get((req: Request, res: ScoreboardResponse) => {
@@ -34,33 +39,28 @@ GameRouter.route("/tournaments/:tournament_code/games")
 	})
 	.post((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const new_game = new ChessGame(
-			req.body.white,
-			req.body.black,
+			req.body.white_code,
+			req.body.black_code,
 			req.body.round,
-			req.body.winner
+			req.body.winner_code
 		);
 
-		tournament.games.set(new_game.code, new_game);
+		tournament?.games.set(new_game.code, new_game);
 		io.emit(EVENTS.GAME_CREATED, JSON.stringify(new_game));
 
 		return res.json(new_game);
 	});
 
 GameRouter.route("/tournaments/:tournament_code/games/:game_code")
-	.get(get_game, (req: Request, res: ScoreboardResponse) => {
+	.get((req: Request, res: ScoreboardResponse) => {
 		const game = res.locals.game;
 
 		return res.json(game);
 	})
-	.put(get_game, (req: Request, res: ScoreboardResponse) => {
+	.put((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const game = res.locals.game;
-		if (!game) return;
 
 		const new_game = new ChessGame(
 			req.body.white_code,
@@ -68,21 +68,18 @@ GameRouter.route("/tournaments/:tournament_code/games/:game_code")
 			req.body.round,
 			req.body.winner_code
 		);
-		new_game.code = game.code;
+		new_game.code = game?.code || "";
 
-		tournament.games.set(new_game.code, new_game);
+		tournament?.games.set(new_game.code, new_game);
 		io.emit(EVENTS.GAME_UPDATED, JSON.stringify(new_game));
 
 		return res.json(new_game);
 	})
-	.delete(get_game, (req: Request, res: ScoreboardResponse) => {
+	.delete((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
-		if (!tournament) return;
-
 		const game = res.locals.game;
-		if (!game) return;
 
-		tournament.games.delete(game.code);
+		tournament?.games.delete(game?.code || "");
 		io.emit(EVENTS.GAME_DELETED, JSON.stringify(game));
 
 		return res.json(game);
