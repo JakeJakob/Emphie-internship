@@ -82,6 +82,15 @@ export class ChessTournament extends StoreUID {
 }
 
 export enum EVENTS {
-	TOURNAMENT_CREATE = "tournament_created",
+	TOURNAMENT_CREATED = "tournament_created",
 	TOURNAMENT_DELETED = "tournament_deleted",
+	PLAYER_CREATED = "player_created",
+	PLAYER_UPDATED = "player_updated",
+	PLAYER_DELETED = "player_deleted",
+	JUDGE_CREATED = "judge_created",
+	JUDGE_UPDATED = "judge_updated",
+	JUDGE_DELETED = "judge_deleted",
+	GAME_CREATED = "game_created",
+	GAME_UPDATED = "game_updated",
+	GAME_DELETED = "game_deleted",
 }

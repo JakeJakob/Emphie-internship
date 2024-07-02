@@ -14,7 +14,7 @@ TournamentRouter.route("/tournaments")
 		let new_tournament = new ChessTournament(tournament_name);
 
 		chess_tournament_store.set(new_tournament.code, new_tournament);
-		io.emit(EVENTS.TOURNAMENT_CREATE, JSON.stringify(new_tournament));
+		io.emit(EVENTS.TOURNAMENT_CREATED, JSON.stringify(new_tournament));
 
 		return res.json(new_tournament);
 	});
