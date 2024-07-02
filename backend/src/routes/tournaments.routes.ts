@@ -1,17 +1,31 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { io } from "main";
 import { chess_tournament_store } from "store";
 import { ChessTournament, EVENTS } from "types";
 
 const TournamentRouter = Router();
 
+export function get_tournament(
+	req: Request,
+	res: Response,
+	next: NextFunction
+) {
+	const tournament = chess_tournament_store.get(req.params.tournament_code);
+
+	if (!tournament) {
+		return res.status(404).json({ msg: "Tournament does not exist" });
+	}
+
+	res.locals.tournament = tournament;
+	next();
+}
+
 TournamentRouter.route("/tournaments")
 	.get((req: Request, res: Response) => {
 		return res.json([...chess_tournament_store.values()]);
 	})
 	.post((req: Request, res: Response) => {
-		let tournament_name = req.body.name;
-		let new_tournament = new ChessTournament(tournament_name);
+		const new_tournament = new ChessTournament(req.body.name);
 
 		chess_tournament_store.set(new_tournament.code, new_tournament);
 		io.emit(EVENTS.TOURNAMENT_CREATED, JSON.stringify(new_tournament));
@@ -20,21 +34,11 @@ TournamentRouter.route("/tournaments")
 	});
 
 TournamentRouter.route("/tournaments/:tournament_code")
-	.get((req: Request, res: Response) => {
-		let tournament = chess_tournament_store.get(req.params.tournament_code);
-
-		if (!tournament) {
-			return res.status(404).json({ msg: "Tournament does not exist" });
-		}
-
-		return res.json(tournament);
+	.get(get_tournament, (req: Request, res: Response) => {
+		return res.json(res.locals.tournament);
 	})
-	.delete((req: Request, res: Response) => {
-		let tournament = chess_tournament_store.get(req.params.tournament_code);
-
-		if (!tournament) {
-			return res.status(404).json({ msg: "Tournament does not exist" });
-		}
+	.delete(get_tournament, (req: Request, res: Response) => {
+		const tournament = res.locals.tournament;
 
 		chess_tournament_store.delete(tournament.code);
 		io.emit(EVENTS.TOURNAMENT_DELETED, JSON.stringify(tournament));
