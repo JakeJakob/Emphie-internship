@@ -1,30 +1,28 @@
-### Socket.io
+### Routes
 
-Note get and get_all are better suited as REST routes
+- /tournaments
+  - GET /
+  - GET /:tournament_code
+  - POST / -> tournament_created
+  - DELETE /:tournament_code -> tournament_deleted
 
-- tournament
+  - /players
+    - GET /
+    - GET /:player_code
+    - POST / -> player_created
+    - PUT /:player_code -> player_updated
+    - DELETE /:player_code -> player_deleted
 
-  - tournament_create -> tournament_created
-  - tournament_delete -> tournament_deleted
-  - tournament_get
-  - tournament_get_all
+  - /judges
+    - GET /
+    - GET /:judge_code
+    - POST / -> judge_created
+    - PUT /:judge_code -> judge_updated
+    - DELETE /:judge_code -> judge_deleted
 
-- judge
-
-  - judge_create -> judge_created
-  - judge_delete -> judge_deleted
-  - judge_get -> judge
-  - judge_get_all -> judges
-
-- player
-
-  - player_create -> player_created
-  - player_delete -> player_deleted
-  - player_get -> player
-  - player_get_all -> players
-
-- score
-  - score_create -> socre_created
-  - score_delete -> score_deleted
-  - score_get -> score
-  - score_get_all -> scores
+  - /games
+    - GET /
+    - GET /:game_code
+    - POST / -> game_created
+    - PUT /:game_code -> game_updated
+    - DELETE /:game_code -> game_deleted

@@ -5,5 +5,11 @@
 		"editor.detectIndentation": false
 	},
 	"prettier.tabWidth": 4,
-	"prettier.useTabs": true
+	"prettier.useTabs": true,
+	"[markdown]": {
+		"editor.formatOnSave": false
+	},
+	"[yaml]": {
+		"editor.formatOnSave": false
+	}
 }
