@@ -14,7 +14,7 @@ if (process.env.MOCK_DATA == "true") {
 	const player1 = new ChessPlayer("Name1", "LastName", 2137, ChessTitle.GM);
 	const player2 = new ChessPlayer("Name2", "LastName", 2137, ChessTitle.CM);
 	const judge = new ChessJudge("Mock judge");
-	const game = new ChessGame(player1, player2, 1, player1);
+	const game = new ChessGame(player1.code, player2.code, 1, player1.code);
 
 	tourenament.players.set(player1.code, player1);
 	tourenament.players.set(player2.code, player2);

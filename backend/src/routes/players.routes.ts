@@ -1,14 +1,20 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { get_tournament } from "./tournaments.routes";
+import { Router, Request, NextFunction } from "express";
 import { io } from "main";
-import { ChessPlayer, EVENTS } from "types";
+import { get_tournament } from "./tournaments.routes";
+import { ChessPlayer, EVENTS, ScoreboardResponse } from "types";
 
 const PlayerRouter = Router();
 
 PlayerRouter.use(get_tournament);
 
-export function get_player(req: Request, res: Response, next: NextFunction) {
+export function get_player(
+	req: Request,
+	res: ScoreboardResponse,
+	next: NextFunction
+) {
 	const tournament = res.locals.tournament;
+	if (!tournament) return;
+
 	const player = tournament.players.get(req.params.player_code);
 
 	if (!player) {
@@ -20,13 +26,16 @@ export function get_player(req: Request, res: Response, next: NextFunction) {
 }
 
 PlayerRouter.route("/tournaments/:tournament_code/players")
-	.get((req: Request, res: Response) => {
+	.get((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
+		if (!tournament) return;
 
 		return res.json([...tournament.players.values()]);
 	})
-	.post((req: Request, res: Response) => {
+	.post((req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
+		if (!tournament) return;
+
 		const new_player = new ChessPlayer(
 			req.body.name,
 			req.body.last_name,
@@ -41,14 +50,17 @@ PlayerRouter.route("/tournaments/:tournament_code/players")
 	});
 
 PlayerRouter.route("/tournaments/:tournament_code/players/:player_code")
-	.get(get_player, (req: Request, res: Response) => {
+	.get(get_player, (req: Request, res: ScoreboardResponse) => {
 		const player = res.locals.player;
 
 		return res.json(player);
 	})
-	.put(get_player, (req: Request, res: Response) => {
+	.put(get_player, (req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
+		if (!tournament) return;
+
 		const player = res.locals.player;
+		if (!player) return;
 
 		const new_player = new ChessPlayer(
 			req.body.name,
@@ -63,9 +75,12 @@ PlayerRouter.route("/tournaments/:tournament_code/players/:player_code")
 
 		return res.json(new_player);
 	})
-	.delete(get_player, (req: Request, res: Response) => {
+	.delete(get_player, (req: Request, res: ScoreboardResponse) => {
 		const tournament = res.locals.tournament;
+		if (!tournament) return;
+
 		const player = res.locals.player;
+		if (!player) return;
 
 		tournament.players.delete(player.code);
 		io.emit(EVENTS.PLAYER_DELETED, JSON.stringify(player));
