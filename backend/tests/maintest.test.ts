@@ -14,17 +14,6 @@ describe("POST /tournaments | adding tournament without ACCESS_KEY", () => {
     });
 });
 
-describe("POST /tournaments | adding tournament with ACCESS_KEY", () => {
-    it("should return 201 CREATED", async () => {
-        await request(app)
-            .post("/tournaments")
-            .send({ name: "Test tournament" })
-            .expect('Content-Type', /json/)
-            .set("Authorization", header)
-            .expect(201)
-    });
-});
-
 let tournamentId: string;
 describe("POST /tournaments | adding tournament with ACCESS_KEY", () => {
     beforeAll(async () => {
@@ -34,7 +23,6 @@ describe("POST /tournaments | adding tournament with ACCESS_KEY", () => {
             .expect('Content-Type', /json/)
             .set("Authorization", header)
             .expect(201);
-        
         tournamentId = res.body.code;
     });
 
@@ -42,6 +30,22 @@ describe("POST /tournaments | adding tournament with ACCESS_KEY", () => {
         await request(app)
             .post(`/tournaments/${tournamentId}/games`)
             .send({ white_code: "9999999998", black_code: "9999999999", round: 3})
+            .expect('Content-Type', /json/)
+            .set("Authorization", header)
+            .expect(201);
+    });
+    it("should return 201 CREATED when adding a player to the created tournament", async () => {
+        await request(app)
+            .post(`/tournaments/${tournamentId}/players`)
+            .send({ name: "name", last_name: "test-surname", rank: 42, title: "GM" })
+            .expect('Content-Type', /json/)
+            .set("Authorization", header)
+            .expect(201);
+    });
+    it("should return 201 CREATED when adding a judge to the created tournament", async () => {
+        await request(app)
+            .post(`/tournaments/${tournamentId}/judges`)
+            .send({ name: "judge" })
             .expect('Content-Type', /json/)
             .set("Authorization", header)
             .expect(201);
