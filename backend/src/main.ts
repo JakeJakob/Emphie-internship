@@ -7,6 +7,7 @@ import { TournamentRouter } from "routes/tournaments.routes";
 import { PlayerRouter } from "routes/players.routes";
 import { JudgeRouter } from "routes/judges.routes";
 import { GameRouter } from "routes/games.routes";
+import { authMiddleware, socketAuthMiddleware } from "utils/auth";
 
 dotenv.config();
 
@@ -21,6 +22,9 @@ const io = new Server(server, {
 	},
 });
 
+io.use(socketAuthMiddleware);
+
+app.use(authMiddleware);
 app.use(bodyParser.json());
 
 app.use(TournamentRouter);
