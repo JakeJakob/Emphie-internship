@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { Express } from "express";
 import bodyParser from "body-parser";
 import http from "http";
+import { authMiddleware } from "authentication";
 import { Server } from "socket.io";
 import { TournamentRouter } from "routes/tournaments.routes";
 import { PlayerRouter } from "routes/players.routes";
@@ -21,6 +22,7 @@ const io = new Server(server, {
 	},
 });
 
+app.use(authMiddleware);
 app.use(bodyParser.json());
 
 app.use(TournamentRouter);

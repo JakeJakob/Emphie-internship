@@ -12,6 +12,10 @@ dotenv.config();
 // code -> ChessTournament
 export const chess_tournament_store: Map<string, ChessTournament> = new Map();
 
+if (process.env.ACCESS_KEY == undefined){
+	console.warn("no ACCESS_KEY supplied, please add it into .env")
+}
+
 if (process.env.MOCK_DATA == "true") {
 	const tourenament = new ChessTournament("Mock tournament");
 	const player1 = new ChessPlayer("Name1", "LastName", 2137, ChessTitle.GM);
