@@ -40,22 +40,22 @@ export class ChessPlayer extends StoreUID {
 }
 
 export class ChessGame extends StoreUID {
-	white: ChessPlayer;
-	black: ChessPlayer;
+	white_code: string;
+	black_code: string;
 	round: number;
-	winner: ChessPlayer | undefined;
+	winner_code: string | undefined;
 
 	constructor(
-		white: ChessPlayer,
-		black: ChessPlayer,
+		white_code: string,
+		black_code: string,
 		round: number,
-		winner: ChessPlayer | undefined = undefined
+		winner_code: string | undefined = undefined
 	) {
 		super();
-		this.white = white;
-		this.black = black;
+		this.white_code = white_code;
+		this.black_code = black_code;
 		this.round = round;
-		this.winner = winner;
+		this.winner_code = winner_code;
 	}
 }
 
@@ -68,12 +68,22 @@ export class ChessJudge extends StoreUID {
 	}
 }
 
-// TODO: Create folder with types exported for frontend
+// This is needed for certain express endpoints
 export class ChessTournament extends StoreUID {
 	name: string;
 	players: Map<string, ChessPlayer> = new Map();
 	judges: Map<string, ChessJudge> = new Map();
 	games: Map<string, ChessGame> = new Map();
+
+	flatten() {
+		return {
+			code: this.code,
+			name: this.name,
+			players: [...this.players.values()],
+			judges: [...this.judges.values()],
+			games: [...this.games.values()],
+		};
+	}
 
 	constructor(name: string) {
 		super();
@@ -94,3 +104,5 @@ export enum EVENTS {
 	GAME_UPDATED = "game_updated",
 	GAME_DELETED = "game_deleted",
 }
+
+export * from "./express";

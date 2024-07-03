@@ -1,0 +1,607 @@
+_type: export
+__export_format: 4
+__export_date: 2024-07-02T22:32:14.952Z
+__export_source: insomnia.desktop.app:v9.3.1
+resources:
+  - _id: req_7818fa0bc23b470bac9a909b787c92e5
+    parentId: fld_dcf59ae90392475da1d87fee2caa71d6
+    modified: 1719959287686
+    created: 1719957051137
+    url: http://localhost:3000/tournaments/9999999999/judges/9999999999
+    name: delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033424
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_dcf59ae90392475da1d87fee2caa71d6
+    parentId: wrk_scratchpad
+    modified: 1719959177565
+    created: 1719956978524
+    name: judge
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1719956978524
+    _type: request_group
+  - _id: wrk_scratchpad
+    parentId: null
+    modified: 1716043283646
+    created: 1716043283646
+    name: Scratch Pad
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_b00bdc30c6c044c6abd02642f6847568
+    parentId: fld_dcf59ae90392475da1d87fee2caa71d6
+    modified: 1719959141306
+    created: 1719957043926
+    url: http://localhost:3000/tournaments/9999999999/judges/9999999999
+    name: update
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Updated judge"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033324
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ec4de0aafd3245678428990bd84164c4
+    parentId: fld_dcf59ae90392475da1d87fee2caa71d6
+    modified: 1719959102562
+    created: 1719957042316
+    url: http://localhost:3000/tournaments/9999999999/judges/
+    name: create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "My judge"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033224
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_62719a43fb2e4ac6b28888f26ad2005e
+    parentId: fld_dcf59ae90392475da1d87fee2caa71d6
+    modified: 1719959049583
+    created: 1719957030966
+    url: http://localhost:3000/tournaments/9999999999/judges/9999999999
+    name: get one
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033124
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_08dc917747e64f72b03949526e65cc32
+    parentId: fld_dcf59ae90392475da1d87fee2caa71d6
+    modified: 1719957908121
+    created: 1719942052574
+    url: http://localhost:3000/tournaments/9999999999/judges/
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033024
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5d0489df95754573b0e74976f6c89f2f
+    parentId: fld_cbed455801034e1abd76869daa13d664
+    modified: 1719959301767
+    created: 1719959188527
+    url: http://localhost:3000/tournaments/9999999999/players/9999999999
+    name: delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033424
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cbed455801034e1abd76869daa13d664
+    parentId: wrk_scratchpad
+    modified: 1719959188519
+    created: 1719959188519
+    name: player
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1719956970344.5
+    _type: request_group
+  - _id: req_e7f68cbc281c4cda8714339852df2dae
+    parentId: fld_cbed455801034e1abd76869daa13d664
+    modified: 1719959270793
+    created: 1719959188525
+    url: http://localhost:3000/tournaments/9999999999/players/9999999999
+    name: update
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Franciszek",
+        	"last_name": "Łopuszański",
+        	"rank": 1,
+        	"title": "GM"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033324
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4e0a9cff87be457c8b80345be1eb46fa
+    parentId: fld_cbed455801034e1abd76869daa13d664
+    modified: 1719959228335
+    created: 1719959188524
+    url: http://localhost:3000/tournaments/9999999999/players/
+    name: create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Franciszek",
+        	"last_name": "Łopuszański",
+        	"rank": 69,
+        	"title": "GM"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033224
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f416cd1380ec402390fd95e499a0a319
+    parentId: fld_cbed455801034e1abd76869daa13d664
+    modified: 1719959199141
+    created: 1719959188522
+    url: http://localhost:3000/tournaments/9999999999/players/9999999999
+    name: get one
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033124
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_74ba80afa2aa4bebb8d36e4950924bee
+    parentId: fld_cbed455801034e1abd76869daa13d664
+    modified: 1719959193978
+    created: 1719959188520
+    url: http://localhost:3000/tournaments/9999999999/players/
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033024
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b32df6cf04bb4ab18d4f6974d030b32b
+    parentId: fld_e36416e79b594e82a55fa223241af759
+    modified: 1719959488766
+    created: 1719959326649
+    url: http://localhost:3000/tournaments/9999999999/games/9999999999
+    name: delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033424
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_e36416e79b594e82a55fa223241af759
+    parentId: wrk_scratchpad
+    modified: 1719959326645
+    created: 1719959326645
+    name: game
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1719956966254.75
+    _type: request_group
+  - _id: req_a6c3909a2da6447cbba4bd323ba15534
+    parentId: fld_e36416e79b594e82a55fa223241af759
+    modified: 1719959479807
+    created: 1719959326648
+    url: http://localhost:3000/tournaments/9999999999/games/9999999999
+    name: update
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"white_code": "9999999998",
+        	"black_code": "9999999999",
+        	"round": 1,
+        	"winner_code": "9999999999"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033324
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0f50fd29dba14a9bbec2c586aa8e8c76
+    parentId: fld_e36416e79b594e82a55fa223241af759
+    modified: 1719959448246
+    created: 1719959326647
+    url: http://localhost:3000/tournaments/9999999999/games/
+    name: create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"white_code": "9999999998",
+        	"black_code": "9999999999",
+        	"round": 3
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033224
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c2de8f8f560c41f5bbcab1428833cff2
+    parentId: fld_e36416e79b594e82a55fa223241af759
+    modified: 1719959338470
+    created: 1719959326647
+    url: http://localhost:3000/tournaments/9999999999/games/9999999999
+    name: get one
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033124
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_29a9c038206c4951816c1b2653973d98
+    parentId: fld_e36416e79b594e82a55fa223241af759
+    modified: 1719959331674
+    created: 1719959326646
+    url: http://localhost:3000/tournaments/9999999999/games/
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.3.1
+    authentication: {}
+    metaSortKey: -1719957033024
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_20f4dc35442740b2b440fb9ccf62cd15
+    parentId: fld_3bc170f804364a37a6a5fdfe7e36224e
+    modified: 1719959292579
+    created: 1719863721694
+    url: http://localhost:3000/tournaments/9999999999
+    name: delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    preRequestScript: ""
+    metaSortKey: -1719957014088
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_3bc170f804364a37a6a5fdfe7e36224e
+    parentId: wrk_scratchpad
+    modified: 1719956962165
+    created: 1719956962165
+    name: tournament
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1719956962165
+    _type: request_group
+  - _id: req_b42e8c0ea46b4e80be7e6336fe5b501f
+    parentId: fld_3bc170f804364a37a6a5fdfe7e36224e
+    modified: 1719957094036
+    created: 1719863521270
+    url: http://localhost:3000/tournaments
+    name: create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Test tournament"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    preRequestScript: ""
+    metaSortKey: -1719957013988
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_757253d70b354c5fb505ae6958a68ec0
+    parentId: fld_3bc170f804364a37a6a5fdfe7e36224e
+    modified: 1719957279168
+    created: 1719863462639
+    url: http://localhost:3000/tournaments/9999999999
+    name: get one
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    preRequestScript: ""
+    metaSortKey: -1719957013888
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5b43c78d818f4aa3ba550b490adec5bf
+    parentId: fld_3bc170f804364a37a6a5fdfe7e36224e
+    modified: 1719957085292
+    created: 1719863449359
+    url: http://localhost:3000/tournaments
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/9.2.0
+    authentication: {}
+    preRequestScript: ""
+    metaSortKey: -1719957013788
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1716043296232
+    created: 1716043296232
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1716043296232
+    _type: environment
+  - _id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1718028224864
+    created: 1716043296363
+    name: Default Jar
+    cookies:
+      - id: b4b009ae-3c7e-4367-ba06-604409de34cd
+        key: sessionid
+        value: jh74qcisjz4cyjfctbj08x0j05cfrea4
+        domain: baza.fundusz.org
+        expires: 2038-01-19T03:14:07.000Z
+        path: /
+        secure: false
+        httpOnly: false
+      - id: 15bd3afb-2aa0-4a9e-872c-ecd263a0dc8c
+        key: csrftoken
+        value: 9IYxa0nxB2PUXplnj23Px5hRzreCxcGS
+        domain: baza.fundusz.org
+        expires: 2038-01-19T03:14:07.000Z
+        path: /
+        secure: false
+        httpOnly: false
+    _type: cookie_jar
