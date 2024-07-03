@@ -1,7 +1,8 @@
-import { Router, Request, NextFunction } from "express";
+import { Router, Request } from "express";
+import { body } from "express-validator";
 import { io } from "main";
-import { tournament_middleware } from "./tournaments.routes";
 import { ChessPlayer, ChessTitle, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
+import { player_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
 
 const PlayerRouter = Router();
 
@@ -9,21 +10,11 @@ PlayerRouter.param("tournament_code", (req, res, next, tournament_code) => {
 	tournament_middleware(req, res, next, tournament_code);
 });
 
-export function player_middleware(_req: Request, res: TypedResponse<unknown, { tournament?: ChessTournament; player?: ChessPlayer }>, next: NextFunction, player_code: string) {
-	const tournament = res.locals.tournament;
-	const player = tournament?.players.get(player_code);
-
-	if (!player) {
-		return res.status(404).json({ msg: "Player does not exist" });
-	}
-
-	res.locals.player = player;
-	next();
-}
-
 PlayerRouter.param("player_code", (req, res, next, player_code) => {
 	player_middleware(req, res, next, player_code);
 });
+
+export const player_create_validator = [body("name").not().isEmpty(), body("last_name").not().isEmpty(), body("rank").isNumeric(), body("title").isIn(Object.values(ChessTitle))];
 
 PlayerRouter.route("/tournaments/:tournament_code/players")
 	.get((_req: Request, res: TypedResponse<ChessPlayer[], { tournament?: ChessTournament }>) => {
@@ -33,6 +24,8 @@ PlayerRouter.route("/tournaments/:tournament_code/players")
 		return res.json([...tournament.players.values()]);
 	})
 	.post(
+		player_create_validator,
+		validation_middleware,
 		(
 			req: TypedRequest<{
 				name: string;
@@ -59,6 +52,8 @@ PlayerRouter.route("/tournaments/:tournament_code/players/:player_code")
 		return res.json(player);
 	})
 	.put(
+		player_create_validator,
+		validation_middleware,
 		(
 			req: TypedRequest<{
 				name: string;
