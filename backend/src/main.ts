@@ -36,4 +36,4 @@ server.listen(port, () => {
 	console.log(`Express is running at http://localhost:${port}`);
 });
 
-export { io };
+export { io, app };
