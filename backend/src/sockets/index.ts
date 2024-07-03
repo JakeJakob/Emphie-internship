@@ -1,4 +1,4 @@
-import { io } from "main";
+import { io } from "../main";
 
 // TODO: Some token middleware
 

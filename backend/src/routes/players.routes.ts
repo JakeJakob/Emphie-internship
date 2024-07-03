@@ -1,8 +1,8 @@
 import { Router, Request } from "express";
 import { body } from "express-validator";
-import { io } from "main";
-import { ChessPlayer, ChessTitle, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
-import { player_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
+import { io } from "../main";
+import { ChessPlayer, ChessTitle, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "../types";
+import { player_middleware, tournament_middleware, validation_middleware } from "../utils/middlewares";
 
 const PlayerRouter = Router();
 

@@ -4,7 +4,7 @@ import {
 	ChessPlayer,
 	ChessTitle,
 	ChessTournament,
-} from "types";
+} from "./types";
 import dotenv from "dotenv";
 
 dotenv.config();
