@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../src/main";
+import { app } from "../src/app";
 
 const key = process.env.ACCESS_KEY;
 const header = `Bearer ${key}`;
