@@ -76,18 +76,28 @@ export class ChessTournament extends StoreUID {
 	games: Map<string, ChessGame> = new Map();
 
 	flatten() {
-		return {
-			code: this.code,
-			name: this.name,
-			players: [...this.players.values()],
-			judges: [...this.judges.values()],
-			games: [...this.games.values()],
-		};
+		return new FlattenChessTournament(this);
 	}
 
 	constructor(name: string) {
 		super();
 		this.name = name;
+	}
+}
+
+export class FlattenChessTournament {
+	code: string;
+	name: string;
+	players: ChessPlayer[];
+	judges: ChessJudge[];
+	games: ChessGame[];
+
+	constructor(chess_tournament: ChessTournament) {
+		this.code = chess_tournament.code;
+		this.name = chess_tournament.name;
+		this.players = [...chess_tournament.players.values()];
+		this.judges = [...chess_tournament.judges.values()];
+		this.games = [...chess_tournament.games.values()];
 	}
 }
 
