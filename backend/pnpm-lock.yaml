@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/body-parser':
-        specifier: ^1.19.5
-        version: 1.19.5
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
@@ -30,6 +27,9 @@ importers:
       '@eslint/js':
         specifier: ^9.6.0
         version: 9.6.0
+      '@types/body-parser':
+        specifier: ^1.19.5
+        version: 1.19.5
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
