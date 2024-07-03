@@ -1,11 +1,17 @@
-import { Response } from "express";
-import { ChessGame, ChessJudge, ChessPlayer, ChessTournament } from "types";
+import { Request, Response } from "express";
+import { Send } from "express-serve-static-core";
 
-export interface ScoreboardResponse extends Response {
-	locals: {
-		tournament?: ChessTournament;
-		player?: ChessPlayer;
-		judge?: ChessJudge;
-		game?: ChessGame;
-	};
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export interface TypedRequest<ResBody> extends Request {
+	body: ResBody;
+}
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export interface TypedResponse<
+	ResBody,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	ResLocals extends Record<never, never> = Record<never, never>
+> extends Response {
+	locals: ResLocals;
+	json: Send<ResBody, this>;
 }

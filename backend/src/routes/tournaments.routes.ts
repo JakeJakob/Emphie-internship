@@ -1,16 +1,11 @@
 import { Router, Request, NextFunction } from "express";
 import { io } from "main";
 import { chess_tournament_store } from "store";
-import { ChessTournament, EVENTS, ScoreboardResponse } from "types";
+import { ChessTournament, EVENTS, FlattenChessTournament, TypedRequest, TypedResponse } from "types";
 
 const TournamentRouter = Router();
 
-export function tournament_middleware(
-	req: Request,
-	res: ScoreboardResponse,
-	next: NextFunction,
-	tournament_code: string
-) {
+export function tournament_middleware(_req: Request, res: TypedResponse<unknown, { tournament?: ChessTournament }>, next: NextFunction, tournament_code: string) {
 	const tournament = chess_tournament_store.get(tournament_code);
 
 	if (!tournament) {
@@ -26,12 +21,10 @@ TournamentRouter.param("tournament_code", (req, res, next, tournament_code) => {
 });
 
 TournamentRouter.route("/tournaments")
-	.get((req: Request, res: ScoreboardResponse) => {
-		return res.json(
-			[...chess_tournament_store.values()].map((e) => e.flatten())
-		);
+	.get((_req: Request, res: TypedResponse<FlattenChessTournament[]>) => {
+		return res.json([...chess_tournament_store.values()].map((e) => e.flatten()));
 	})
-	.post((req: Request, res: ScoreboardResponse) => {
+	.post((req: TypedRequest<{ name: string }>, res: TypedResponse<FlattenChessTournament>) => {
 		const new_tournament = new ChessTournament(req.body.name);
 
 		chess_tournament_store.set(new_tournament.code, new_tournament);
@@ -41,10 +34,10 @@ TournamentRouter.route("/tournaments")
 	});
 
 TournamentRouter.route("/tournaments/:tournament_code")
-	.get((req: Request, res: ScoreboardResponse) => {
+	.get((_req: Request, res: TypedResponse<FlattenChessTournament, { tournament?: ChessTournament }>) => {
 		return res.json(res.locals.tournament?.flatten());
 	})
-	.delete((req: Request, res: ScoreboardResponse) => {
+	.delete((_req: Request, res: TypedResponse<FlattenChessTournament, { tournament?: ChessTournament }>) => {
 		const tournament = res.locals.tournament;
 
 		chess_tournament_store.delete(tournament?.code || "");
