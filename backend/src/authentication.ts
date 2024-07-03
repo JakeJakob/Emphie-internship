@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { Socket } from "socket.io";
+import { Server } from "http";
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
@@ -10,6 +12,18 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     const token = authHeader.split(' ')[1];
     if (token !== process.env.ACCESS_KEY) {
         return res.status(403).json({ message: "Wrong ACCESS_KEY" });
+    }
+
+    next();
+};
+
+
+export const socketAuthMiddleware = (socket: Socket, next: (err?: Error) => void) => {
+    const token = socket.handshake.auth.token;
+
+    if (token !== process.env.ACCESS_KEY) {
+        const err = new Error("Authentication error");
+        return next(err);
     }
 
     next();
