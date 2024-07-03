@@ -35,7 +35,7 @@ JudgeRouter.route("/tournaments/:tournament_code/judges")
 			tournament?.judges.set(new_judge.code, new_judge);
 			io.emit(EVENTS.JUDGE_CREATED, JSON.stringify(new_judge));
 
-			return res.json(new_judge);
+			return res.status(201).json(new_judge);
 		}
 	);
 
