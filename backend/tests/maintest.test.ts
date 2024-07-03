@@ -10,8 +10,5 @@ describe("POST /tournaments | adding tournament without ACCESS_KEY", () => {
             .send({ name: "Test tournament" })
             .expect('Content-Type', /json/)
             .expect(401)
-            .then((res) => {
-                expect(res.status).toBe(401);
-            });
     });
 });
