@@ -1,25 +1,14 @@
-import { Router, Request, NextFunction } from "express";
+import { Router, Request } from "express";
+import { body } from "express-validator";
 import { io } from "main";
-import { tournament_middleware } from "./tournaments.routes";
 import { ChessJudge, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
+import { judge_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
 
 const JudgeRouter = Router();
 
 JudgeRouter.param("tournament_code", (req, res, next, tournament_code) => {
 	tournament_middleware(req, res, next, tournament_code);
 });
-
-export function judge_middleware(_req: Request, res: TypedResponse<unknown, { tournament?: ChessTournament; judge?: ChessJudge }>, next: NextFunction, judge_code: string) {
-	const tournament = res.locals.tournament;
-	const judge = tournament?.judges.get(judge_code);
-
-	if (!judge) {
-		return res.status(404).json({ msg: "Judge does not exist" });
-	}
-
-	res.locals.judge = judge;
-	next();
-}
 
 JudgeRouter.param("judge_code", (req, res, next, judge_code) => {
 	judge_middleware(req, res, next, judge_code);
@@ -33,6 +22,7 @@ JudgeRouter.route("/tournaments/:tournament_code/judges")
 		return res.json([...tournament.judges.values()]);
 	})
 	.post(
+		body("name", "name cannot be empty").not().isEmpty(),
 		(
 			req: TypedRequest<{
 				name: string;
@@ -56,6 +46,8 @@ JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
 		return res.json(judge);
 	})
 	.put(
+		body("name", "name cannot be empty").not().isEmpty(),
+		validation_middleware,
 		(
 			req: TypedRequest<{
 				name: string;
