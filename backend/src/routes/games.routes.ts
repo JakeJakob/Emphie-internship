@@ -41,7 +41,7 @@ GameRouter.route("/tournaments/:tournament_code/games")
 			tournament?.games.set(new_game.code, new_game);
 			io.emit(EVENTS.GAME_CREATED, JSON.stringify(new_game));
 
-			return res.json(new_game);
+			return res.status(201).json(new_game);
 		}
 	);
 
