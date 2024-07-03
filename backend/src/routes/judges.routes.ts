@@ -2,6 +2,7 @@ import { Router, Request } from "express";
 import { body } from "express-validator";
 import { io } from "main";
 import { ChessJudge, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
+import { judgeOrAdmin, onlyAdmin } from "utils/auth";
 import { judge_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
 
 const JudgeRouter = Router();
@@ -22,6 +23,7 @@ JudgeRouter.route("/tournaments/:tournament_code/judges")
 		return res.json([...tournament.judges.values()]);
 	})
 	.post(
+		onlyAdmin,
 		body("name", "name cannot be empty").not().isEmpty(),
 		(
 			req: TypedRequest<{
@@ -46,6 +48,7 @@ JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
 		return res.json(judge);
 	})
 	.put(
+		judgeOrAdmin,
 		body("name", "name cannot be empty").not().isEmpty(),
 		validation_middleware,
 		(
@@ -66,7 +69,7 @@ JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
 			return res.json(new_judge);
 		}
 	)
-	.delete((_req: Request, res: TypedResponse<ChessJudge, { tournament?: ChessTournament; judge?: ChessJudge }>) => {
+	.delete(onlyAdmin, (_req: Request, res: TypedResponse<ChessJudge, { tournament?: ChessTournament; judge?: ChessJudge }>) => {
 		const tournament = res.locals.tournament;
 		const judge = res.locals.judge;
 

@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import { io } from "main";
 import { chess_tournament_store } from "store";
 import { ChessTournament, EVENTS, FlattenChessTournament, TypedRequest, TypedResponse } from "types";
+import { onlyAdmin } from "utils/auth";
 import { tournament_middleware, validation_middleware } from "utils/middlewares";
 
 const TournamentRouter = Router();
@@ -15,7 +16,7 @@ TournamentRouter.route("/tournaments")
 	.get((_req: Request, res: TypedResponse<FlattenChessTournament[]>) => {
 		return res.json([...chess_tournament_store.values()].map((e) => e.flatten()));
 	})
-	.post(body("name", "name cannot be empty").not().isEmpty(), validation_middleware, (req: TypedRequest<{ name: string }>, res: TypedResponse<FlattenChessTournament>) => {
+	.post(onlyAdmin, body("name", "name cannot be empty").not().isEmpty(), validation_middleware, (req: TypedRequest<{ name: string }>, res: TypedResponse<FlattenChessTournament>) => {
 		const new_tournament = new ChessTournament(req.body.name);
 
 		chess_tournament_store.set(new_tournament.code, new_tournament);
@@ -28,7 +29,7 @@ TournamentRouter.route("/tournaments/:tournament_code")
 	.get((_req: Request, res: TypedResponse<FlattenChessTournament, { tournament?: ChessTournament }>) => {
 		return res.json(res.locals.tournament?.flatten());
 	})
-	.delete((_req: Request, res: TypedResponse<FlattenChessTournament, { tournament?: ChessTournament }>) => {
+	.delete(onlyAdmin, (_req: Request, res: TypedResponse<FlattenChessTournament, { tournament?: ChessTournament }>) => {
 		const tournament = res.locals.tournament;
 
 		chess_tournament_store.delete(tournament?.code || "");

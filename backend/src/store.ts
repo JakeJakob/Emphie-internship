@@ -1,10 +1,4 @@
-import {
-	ChessGame,
-	ChessJudge,
-	ChessPlayer,
-	ChessTitle,
-	ChessTournament,
-} from "types";
+import { ChessGame, ChessJudge, ChessPlayer, ChessTitle, ChessTournament } from "types";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,7 +6,7 @@ dotenv.config();
 // code -> ChessTournament
 export const chess_tournament_store: Map<string, ChessTournament> = new Map();
 
-if (process.env.ACCESS_KEY == undefined){
+if (process.env.ACCESS_KEY == undefined) {
 	console.warn("no ACCESS_KEY supplied, please add it into .env");
 	process.exit(1); // 1 - cause failure
 }

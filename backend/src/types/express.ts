@@ -7,11 +7,7 @@ export interface TypedRequest<ResBody> extends Request {
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export interface TypedResponse<
-	ResBody,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	ResLocals extends Record<never, never> = Record<never, never>
-> extends Response {
+export interface TypedResponse<ResBody, ResLocals extends Record<never, never> = Record<never, never>> extends Response {
 	locals: ResLocals;
 	json: Send<ResBody, this>;
 }

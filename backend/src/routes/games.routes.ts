@@ -2,6 +2,7 @@ import { Router, Request } from "express";
 import { body } from "express-validator";
 import { io } from "main";
 import { ChessGame, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
+import { judgeOrAdmin } from "utils/auth";
 import { game_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
 
 const GameRouter = Router();
@@ -24,6 +25,7 @@ GameRouter.route("/tournaments/:tournament_code/games")
 		return res.json([...tournament.games.values()]);
 	})
 	.post(
+		judgeOrAdmin,
 		game_create_validator,
 		validation_middleware,
 		(
@@ -52,6 +54,7 @@ GameRouter.route("/tournaments/:tournament_code/games/:game_code")
 		return res.json(game);
 	})
 	.put(
+		judgeOrAdmin,
 		game_create_validator,
 		validation_middleware,
 		(
@@ -75,7 +78,7 @@ GameRouter.route("/tournaments/:tournament_code/games/:game_code")
 			return res.json(new_game);
 		}
 	)
-	.delete((_req: Request, res: TypedResponse<ChessGame, { tournament?: ChessTournament; game?: ChessGame }>) => {
+	.delete(judgeOrAdmin, (_req: Request, res: TypedResponse<ChessGame, { tournament?: ChessTournament; game?: ChessGame }>) => {
 		const tournament = res.locals.tournament;
 		const game = res.locals.game;
 
