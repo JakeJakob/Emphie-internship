@@ -22,7 +22,7 @@ TournamentRouter.route("/tournaments")
 		chess_tournament_store.set(new_tournament.code, new_tournament);
 		io.emit(EVENTS.TOURNAMENT_CREATED, JSON.stringify(new_tournament));
 
-		return res.json(new_tournament.flatten());
+		return res.status(201).json(new_tournament.flatten());
 	});
 
 TournamentRouter.route("/tournaments/:tournament_code")

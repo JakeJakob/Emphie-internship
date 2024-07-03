@@ -43,7 +43,7 @@ PlayerRouter.route("/tournaments/:tournament_code/players")
 			tournament?.players.set(new_player.code, new_player);
 			io.emit(EVENTS.PLAYER_CREATED, JSON.stringify(new_player));
 
-			return res.json(new_player);
+			return res.status(201).json(new_player);
 		}
 	);
 
