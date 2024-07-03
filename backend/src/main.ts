@@ -3,11 +3,11 @@ import express, { Express } from "express";
 import bodyParser from "body-parser";
 import http from "http";
 import { Server } from "socket.io";
-import { TournamentRouter } from "./routes/tournaments.routes";
-import { PlayerRouter } from "./routes/players.routes";
-import { JudgeRouter } from "./routes/judges.routes";
-import { GameRouter } from "./routes/games.routes";
-import { authMiddleware, socketAuthMiddleware } from "./utils/auth";
+import { TournamentRouter } from "routes/tournaments.routes";
+import { PlayerRouter } from "routes/players.routes";
+import { JudgeRouter } from "routes/judges.routes";
+import { GameRouter } from "routes/games.routes";
+import { authMiddleware, socketAuthMiddleware } from "utils/auth";
 
 dotenv.config();
 

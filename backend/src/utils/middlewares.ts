@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { chess_tournament_store } from "../store";
+import { chess_tournament_store } from "store";
 import { ChessGame, ChessJudge, ChessPlayer, ChessTournament, TypedResponse } from "../types";
 
 export function tournament_middleware(_req: Request, res: TypedResponse<unknown, { tournament?: ChessTournament }>, next: NextFunction, tournament_code: string) {
