@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "dist/main.js",
 	"scripts": {
-		"test": "jest --watchAll",
+		"test": "jest --watchAll --runInBand",
 		"dev": "tsx watch src/main.ts",
 		"start": "node dist/main.js",
 		"build": "tsup",
@@ -18,7 +18,8 @@
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
 		"express-validator": "^7.1.0",
-		"socket.io": "^4.7.5"
+		"socket.io": "^4.7.5",
+		"socket.io-client": "^4.7.5"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.6.0",

@@ -1,9 +1,19 @@
 import { Router, Request } from "express";
 import { body } from "express-validator";
 import { io } from "app";
-import { ChessJudge, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
+import {
+	ChessJudge,
+	ChessTournament,
+	EVENTS,
+	TypedRequest,
+	TypedResponse,
+} from "types";
 import { judgeOrAdmin, onlyAdmin } from "utils/auth";
-import { judge_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";
+import {
+	judge_middleware,
+	tournament_middleware,
+	validation_middleware,
+} from "utils/middlewares";
 
 const JudgeRouter = Router();
 
@@ -16,15 +26,21 @@ JudgeRouter.param("judge_code", (req, res, next, judge_code) => {
 });
 
 JudgeRouter.route("/tournaments/:tournament_code/judges")
-	.get((_req: Request, res: TypedResponse<ChessJudge[], { tournament?: ChessTournament }>) => {
-		const tournament = res.locals.tournament;
-		if (!tournament) return;
+	.get(
+		(
+			_req: Request,
+			res: TypedResponse<ChessJudge[], { tournament?: ChessTournament }>
+		) => {
+			const tournament = res.locals.tournament;
+			if (!tournament) return;
 
-		return res.json([...tournament.judges.values()]);
-	})
+			return res.json([...tournament.judges.values()]);
+		}
+	)
 	.post(
 		onlyAdmin,
 		body("name", "name cannot be empty").not().isEmpty(),
+		validation_middleware,
 		(
 			req: TypedRequest<{
 				name: string;
@@ -42,11 +58,16 @@ JudgeRouter.route("/tournaments/:tournament_code/judges")
 	);
 
 JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
-	.get((_req: Request, res: TypedResponse<ChessJudge, { judge?: ChessJudge }>) => {
-		const judge = res.locals.judge;
+	.get(
+		(
+			_req: Request,
+			res: TypedResponse<ChessJudge, { judge?: ChessJudge }>
+		) => {
+			const judge = res.locals.judge;
 
-		return res.json(judge);
-	})
+			return res.json(judge);
+		}
+	)
 	.put(
 		judgeOrAdmin,
 		body("name", "name cannot be empty").not().isEmpty(),
@@ -55,7 +76,10 @@ JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
 			req: TypedRequest<{
 				name: string;
 			}>,
-			res: TypedResponse<ChessJudge, { tournament?: ChessTournament; judge?: ChessJudge }>
+			res: TypedResponse<
+				ChessJudge,
+				{ tournament?: ChessTournament; judge?: ChessJudge }
+			>
 		) => {
 			const tournament = res.locals.tournament;
 			const judge = res.locals.judge;
@@ -69,14 +93,23 @@ JudgeRouter.route("/tournaments/:tournament_code/judges/:judge_code")
 			return res.json(new_judge);
 		}
 	)
-	.delete(onlyAdmin, (_req: Request, res: TypedResponse<ChessJudge, { tournament?: ChessTournament; judge?: ChessJudge }>) => {
-		const tournament = res.locals.tournament;
-		const judge = res.locals.judge;
+	.delete(
+		onlyAdmin,
+		(
+			_req: Request,
+			res: TypedResponse<
+				ChessJudge,
+				{ tournament?: ChessTournament; judge?: ChessJudge }
+			>
+		) => {
+			const tournament = res.locals.tournament;
+			const judge = res.locals.judge;
 
-		tournament?.judges.delete(judge?.code || "");
-		io.emit(EVENTS.JUDGE_DELETED, JSON.stringify(judge));
+			tournament?.judges.delete(judge?.code || "");
+			io.emit(EVENTS.JUDGE_DELETED, JSON.stringify(judge));
 
-		return res.json(judge);
-	});
+			return res.json(judge);
+		}
+	);
 
 export { JudgeRouter };

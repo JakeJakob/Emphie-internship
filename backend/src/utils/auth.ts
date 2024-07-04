@@ -10,6 +10,10 @@ export enum TokenType {
 }
 
 function match_token(token: string): TokenType {
+	if (!token) {
+		return TokenType.Unauthorized;
+	}
+
 	if (token === process.env.ACCESS_KEY) {
 		return TokenType.Admin;
 	}
@@ -32,21 +36,41 @@ function match_token(token: string): TokenType {
 
 export const onlyAdmin = (req: Request, res: Response, next: NextFunction) => {
 	if (res.locals.token_type != TokenType.Admin) {
-		return res.status(401).json({ message: "You need to be an admin to perform this operation" });
+		return res
+			.status(401)
+			.json({
+				message: "You need to be an admin to perform this operation",
+			});
 	}
 
 	next();
 };
 
-export const judgeOrAdmin = (req: Request, res: Response, next: NextFunction) => {
-	if (res.locals.token_type != TokenType.Admin && res.locals.token_type != TokenType.Judge) {
-		return res.status(401).json({ message: "You need to be a judge or an admin to perform this operation" });
+export const judgeOrAdmin = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	if (
+		res.locals.token_type != TokenType.Admin &&
+		res.locals.token_type != TokenType.Judge
+	) {
+		return res
+			.status(401)
+			.json({
+				message:
+					"You need to be a judge or an admin to perform this operation",
+			});
 	}
 
 	next();
 };
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	const authHeader = req.headers.authorization;
 
 	if (!authHeader) {
@@ -63,7 +87,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 	next();
 };
 
-export const socketAuthMiddleware = (socket: Socket, next: (err?: Error) => void) => {
+export const socketAuthMiddleware = (
+	socket: Socket,
+	next: (err?: Error) => void
+) => {
 	const token = socket.handshake.auth.token;
 
 	if (match_token(token) == TokenType.Unauthorized) {
