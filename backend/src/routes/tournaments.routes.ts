@@ -1,6 +1,6 @@
 import { Router, Request } from "express";
 import { body } from "express-validator";
-import { io } from "main";
+import { io } from "app";
 import { chess_tournament_store } from "store";
 import { ChessTournament, EVENTS, FlattenChessTournament, TypedRequest, TypedResponse } from "types";
 import { onlyAdmin } from "utils/auth";

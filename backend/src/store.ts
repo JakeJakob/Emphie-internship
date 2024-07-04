@@ -12,6 +12,14 @@ if (process.env.ACCESS_KEY == undefined) {
 }
 
 if (process.env.MOCK_DATA == "true") {
+	createTestData();
+}
+
+export function clearTestData() {
+	chess_tournament_store.clear();
+}
+
+export function createTestData() {
 	const tourenament = new ChessTournament("Mock tournament");
 	const player1 = new ChessPlayer("Name1", "LastName", 2137, ChessTitle.GM);
 	const player2 = new ChessPlayer("Name2", "LastName", 2137, ChessTitle.CM);

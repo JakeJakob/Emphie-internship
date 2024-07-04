@@ -1,6 +1,6 @@
 import { Router, Request } from "express";
 import { body } from "express-validator";
-import { io } from "main";
+import { io } from "app";
 import { ChessGame, ChessTournament, EVENTS, TypedRequest, TypedResponse } from "types";
 import { judgeOrAdmin } from "utils/auth";
 import { game_middleware, tournament_middleware, validation_middleware } from "utils/middlewares";

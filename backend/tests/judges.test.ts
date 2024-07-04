@@ -1,12 +1,14 @@
 import request from "supertest";
 import { app, server } from "../src/app";
 import { clearTestData, createTestData, chess_tournament_store } from "store";
+import { ChessJudge, ChessTournament, EVENTS } from "types";
 import { Socket, io } from "socket.io-client";
-import { ChessTournament, EVENTS } from "types";
 
-describe("Test /tournaments", () => {
+describe("Test /tournaments/:x/judges", () => {
 	const key = process.env.ACCESS_KEY;
 	const header = `Bearer ${key}`;
+	const tournament: ChessTournament =
+		chess_tournament_store.get("9999999999") || new ChessTournament("");
 	let created_code: string | undefined;
 	let socket: Socket;
 
@@ -27,79 +29,78 @@ describe("Test /tournaments", () => {
 		server.close();
 		socket.disconnect();
 	});
-	it("Get all tournaments", async () => {
+
+	it("Get all judges", async () => {
 		const res = await request(app)
-			.get("/tournaments")
+			.get("/tournaments/9999999999/judges")
 			.set("Authorization", header);
 
 		expect(res.type).toEqual("application/json");
 		expect(res.status).toBe(200);
-		expect(res.body).toEqual(
-			[...chess_tournament_store.values()].map((e) => e.flatten())
-		);
+		expect(res.body).toEqual([...tournament.judges.values()]);
 	});
-	it("Create tournament without body", async () => {
+	it("Create judge without body", async () => {
 		const res = await request(app)
-			.post("/tournaments")
+			.post("/tournaments/9999999999/judges")
 			.set("Authorization", header);
 
 		expect(res.status).toBe(400);
 	});
-	it("Create tournament", async () => {
-		socket.on(EVENTS.TOURNAMENT_CREATED, (res) => {
-			res = JSON.parse(res) as ChessTournament;
+	it("Create judge", async () => {
+		socket.on(EVENTS.JUDGE_CREATED, (res) => {
+			res = JSON.parse(res) as ChessJudge;
 
 			expect(res.code).toEqual(created_code);
-			expect(res.name).toEqual("Test tournament");
+			expect(res.name).toEqual("Test judge");
 		});
 
 		const res = await request(app)
-			.post("/tournaments")
+			.post("/tournaments/9999999999/judges")
 			.set("Authorization", header)
-			.send({ name: "Test tournament" });
+			.send({ name: "Test judge" });
 
 		expect(res.type).toEqual("application/json");
 		expect(res.status).toBe(201);
 		expect(res.body.code).toEqual(expect.any(String));
 		created_code = res.body.code;
-		expect(res.body.name).toEqual("Test tournament");
+		expect(res.body.name).toEqual("Test judge");
 	});
-	it("Get created tournament", async () => {
+	it("Get created judge", async () => {
 		const res = await request(app)
-			.get("/tournaments/" + created_code)
+			.get("/tournaments/9999999999/judges/" + created_code)
 			.set("Authorization", header);
 
 		expect(res.type).toEqual("application/json");
 		expect(res.status).toBe(200);
 		expect(res.body.code).toEqual(created_code);
-		expect(res.body.name).toEqual("Test tournament");
+		expect(res.body.name).toEqual("Test judge");
 	});
-	it("Delete tournament", async () => {
-		socket.on(EVENTS.TOURNAMENT_DELETED, (res) => {
-			res = JSON.parse(res) as ChessTournament;
+	it("Delete judge", async () => {
+		socket.on(EVENTS.JUDGE_DELETED, (res) => {
+			res = JSON.parse(res) as ChessJudge;
 
 			expect(res.code).toEqual(created_code);
-			expect(res.name).toEqual("Test tournament");
+			expect(res.name).toEqual("Test judge");
 		});
 
 		const res = await request(app)
-			.del("/tournaments/" + created_code)
+			.del("/tournaments/9999999999/judges/" + created_code)
 			.set("Authorization", header);
 
 		expect(res.type).toEqual("application/json");
 		expect(res.status).toBe(200);
 		expect(res.body.code).toEqual(created_code);
-		expect(res.body.name).toEqual("Test tournament");
+		expect(res.body.name).toEqual("Test judge");
 	});
-	it("Get non existing tournament", async () => {
+	it("Get non existing judge", async () => {
 		const res = await request(app)
-			.get("/tournaments/" + created_code)
+			.get("/tournaments/9999999999/judges/" + created_code)
 			.set("Authorization", header);
 
 		expect(res.type).toEqual("application/json");
 		expect(res.status).toBe(404);
 		expect(res.body).toEqual({
-			msg: "Tournament does not exist",
+			msg: "Judge does not exist",
 		});
 	});
 });
