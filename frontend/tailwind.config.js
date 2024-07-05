@@ -17,19 +17,18 @@ module.exports = {
       },
     },
     extend: {
-      colors: {
-        fontFamily: {
-          inter: ['Inter'],
-          ptSans: ['PT Sans'],
+      fontFamily: {
+          inter: ['Inter, sans-serif'],
+          ptSans: ['PT Sans, sans-serif'],
           anton: ['Anton SC']
-
         },
-
-        primaryA: '#275396',
-        secondaryA: '#0F7AC8',
-        accentA: '#FFFFFF',
-
-
+      colors: {
+        // project specific colors
+        project_primary: '#275396',
+        project_secondary: '#0F7AC8',
+        project_accent: '#FFFFFF',
+        project_error: '#B92B2B',
+        // ... 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

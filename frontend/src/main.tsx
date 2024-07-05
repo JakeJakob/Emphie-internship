@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './view-tournament.tsx'
+import Start from './admin-panel/start-page.tsx'
+import Tournament from './admin-panel/tournament-page.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <Start />
+    <Tournament />
   </React.StrictMode>,
 )
