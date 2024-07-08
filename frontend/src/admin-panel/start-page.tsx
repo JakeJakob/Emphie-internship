@@ -113,7 +113,7 @@ function StartPage() {
                           <span id='error-msg' className="mt-1 mb-1 hidden font-normal text-project_error peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                               Błędny kod sędzi
                           </span>
-                          <Button className='mt-3' href='tournament-page.tsx'> Dołącz </Button>
+                          <Link to={"Landing_Page"}><Button className='mt-3'> Dołącz </Button></Link>
                     </label>
                 </CardContent>
               </Card>
