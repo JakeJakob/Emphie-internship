@@ -49,7 +49,8 @@ import {
     FormLabel,
     FormMessage,
   } from "@/components/ui/form"
-  import { useForm } from "react-hook-form"
+
+
 
 
 
@@ -87,23 +88,6 @@ function LandingPage (){
       <DrawerTitle>Dodaj Gracza</DrawerTitle>
       <DrawerDescription>Dodawanie danych użytkownika</DrawerDescription>
     </DrawerHeader>
-
-        <FormField control='useForm().control'
-        render={({field}) => (
-            <FormItem>
-            <Input placeholder="Imię" />
-                  <FormDescription>This is your public display name.</FormDescription>
-
-            <Input placeholder="Nazwisko" />
-            <Input placeholder="Ranga" />
-            <Input placeholder="Tytuł" />
-            </FormItem>
-        )}    
-        />
-
-
-
-   
     <DrawerFooter>
       <Button className='w-full'>Zapisz</Button>
       <DrawerClose className='min-w-xl'>
