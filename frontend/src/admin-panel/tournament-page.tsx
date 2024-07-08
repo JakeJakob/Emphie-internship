@@ -5,6 +5,7 @@ import ref from '../../public/icons/ref.svg'
 import results from '../../public/icons/results.svg'
 import list from '../../public/icons/list.svg'
 
+import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -52,23 +53,7 @@ import {
 
 
 
-  function ProfileForm({ className }: React.ComponentProps<"form">) {
-    return (
-      <form className={cn("grid items-start gap-4", className)}>
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input type="email" id="email" defaultValue="shadcn@example.com" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="username">Username</Label>
-          <Input id="username" defaultValue="@shadcn" />
-        </div>
-        <Button type="submit">Save changes</Button>
-      </form>
-    )
-}
-  
-function App (){
+function LandingPage (){
     return (
         <>
         <div className='min-h-screen p-0.5 box-border'>
@@ -101,21 +86,24 @@ function App (){
     <DrawerHeader>
       <DrawerTitle>Dodaj Gracza</DrawerTitle>
       <DrawerDescription>Dodawanie danych użytkownika</DrawerDescription>
-        <div className='inline-flex'>
-      <Label className='my-auto p-2'>Imię</Label>
-      <Input type="email" placeholder="Email" className='w-[250px]'/>
-      </div>
-        <div className='inline-flex'>
-      <Label className='my-auto p-2'>Nazwisko</Label>
-      <Input type="email" placeholder="Email" className='w-[250px]'/>
-      </div>
-        <div className='inline-flex'>
-      <Label className='my-auto p-2'>Ranga</Label>
-      <Input type="email" placeholder="Email" className='w-[250px]'/>
-      </div>
-    
-
     </DrawerHeader>
+
+        <FormField control='useForm().control'
+        render={({field}) => (
+            <FormItem>
+            <Input placeholder="Imię" />
+                  <FormDescription>This is your public display name.</FormDescription>
+
+            <Input placeholder="Nazwisko" />
+            <Input placeholder="Ranga" />
+            <Input placeholder="Tytuł" />
+            </FormItem>
+        )}    
+        />
+
+
+
+   
     <DrawerFooter>
       <Button className='w-full'>Zapisz</Button>
       <DrawerClose className='min-w-xl'>
@@ -148,7 +136,7 @@ function App (){
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Anuluj</AlertDialogCancel>
-          <AlertDialogAction>Zakończ</AlertDialogAction>
+          <Link to='/'><AlertDialogAction>Zakończ</AlertDialogAction></Link>
         </AlertDialogFooter>
       </AlertDialogContent>
     
@@ -199,4 +187,4 @@ function App (){
 
 
 
-export default App;
+export default LandingPage;

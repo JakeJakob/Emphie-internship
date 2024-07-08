@@ -1,11 +1,13 @@
 import '../index.css'
 import chessGrowLogo from '../../public/chessgrow.svg'
+import { Link } from "react-router-dom"
 
 // start if component imports
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+
 
 
 import {
@@ -30,7 +32,7 @@ import {
 // end of component imports
 
 
-function startPage() {
+function StartPage() {
 
   return (
     <>
@@ -70,7 +72,7 @@ function startPage() {
                               Błędny kod dostępu
                           </span>
                     </label>
-                    <Button type='submit' className='... mt-3 group-invalid:pointer-events-none group-invalid'> Wyświetl </Button>
+                   <Link to='Landing_Page'> <Button type='submit' className='... mt-3 group-invalid:pointer-events-none group-invalid' > Wyświetl </Button></Link>
                 </CardContent>
               </Card>
           </TabsContent>
@@ -164,4 +166,4 @@ function startPage() {
   )
 }
 
-export default startPage
+export default StartPage
