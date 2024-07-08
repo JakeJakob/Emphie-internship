@@ -6,6 +6,8 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   prefix: "",
   theme: {
@@ -15,8 +17,24 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
+      extend: {},
     },
     extend: {
+      height: {
+        'line-height': '82,82px',
+        'frame32-height': '83px',
+        'frame48-height': '99px',
+      },
+      width:{
+        'frame-width': '1872px',
+        'hr-width': '400px',
+      },
+      backgroundColor:{
+        'custom': '#275396'
+      },
+      backgroundImage:{
+        'board-bg': "url('C:\Users\Emi\Desktop\emphie\scoreboard\frontend\public\board.svg')"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
