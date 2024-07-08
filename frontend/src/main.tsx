@@ -15,6 +15,8 @@ export function ErrorBoundary() {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    errorElement={<ErrorBoundary />}
+
   </React.StrictMode>,
 )
+
+
