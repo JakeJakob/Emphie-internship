@@ -128,11 +128,11 @@ function StartPage() {
 
                 <CardContent>
                 <label htmlFor="tournament-code">
-                        <p className='mb-1  font-medium'> Kod turnieju </p>
+                        <p className='mb-1  font-medium'> Kod Dostępu </p>
                         <Input 
                           type="text" 
                           id='tournament-code' 
-                          placeholder="np. AX46BF"
+                          placeholder="np. AAAAAAAAAAAAAAAA"
                           className="... peer invalid:[&:not(:placeholder-shown):not(:focus)]"
                           required
                           pattern=".{6,7}"
