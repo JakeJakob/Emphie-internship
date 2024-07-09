@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import cors from "cors";
 import bodyParser from "body-parser";
 import http from "http";
 import { Server } from "socket.io";
@@ -10,6 +11,11 @@ import { authMiddleware, socketAuthMiddleware } from "utils/auth";
 
 const app: Express = express();
 const server = http.createServer(app);
+
+const corsOptions = {
+	origin: "http://localhost:5173",
+};
+app.use(cors(corsOptions));
 
 const io = new Server(server, {
 	cors: {
