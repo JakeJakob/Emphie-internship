@@ -13,29 +13,23 @@ import { CreateJudgeDrawer } from "@components/judge";
 import { EndTournament } from "@components/tournament";
 import { TokenType } from "@types";
 
-export function ActionListCard(props: { token_type: TokenType }) {
+export function ActionListCard({ token_type }: { token_type: TokenType }) {
 	return (
 		<Card className="h-min">
 			<CardHeader>
 				<p className="text-xl font-semibold">Akcje</p>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				{props.token_type == TokenType.Admin ||
-				props.token_type == TokenType.Judge ? (
+				{(token_type === TokenType.Admin ||
+					token_type === TokenType.Judge) && (
 					<>
 						<CreatePlayerDrawer />
 						<CreateGameDrawer />
 					</>
-				) : (
-					<></>
 				)}
-				{props.token_type == TokenType.Admin ? (
-					<CreateJudgeDrawer />
-				) : (
-					<></>
-				)}
+				{token_type === TokenType.Admin && <CreateJudgeDrawer />}
 
-				<Link to="./games">
+				<Link to="./games" className="w-full">
 					<Button className="w-full">
 						<img src={results} className="w-5 m-2" alt="." />
 						Wyniki Gier
@@ -54,11 +48,7 @@ export function ActionListCard(props: { token_type: TokenType }) {
 					</Button>
 				</Link>
 
-				{props.token_type == TokenType.Admin ? (
-					<EndTournament />
-				) : (
-					<></>
-				)}
+				{token_type === TokenType.Admin && <EndTournament />}
 			</CardContent>
 		</Card>
 	);

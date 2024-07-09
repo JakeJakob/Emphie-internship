@@ -15,50 +15,30 @@ import {
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useNavigate } from "react-router-dom";
 import { useTournamentStore } from "@/lib/stores/tournament.store";
+import { endTournament } from "@/lib/api";
 
 export function EndTournament() {
 	const navigate = useNavigate();
 
-	const removeAuthorization = useAuthStore(
+	const getAuthorization = useAuthStore((state) => state.getAuthorization);
+	const tournament_code = useTournamentStore((state) => state.code);
+	const storeRemoveAuthorization = useAuthStore(
 		(state) => state.removeAuthorization
 	);
-	const getAuthorization = useAuthStore((state) => state.getAuthorization);
-	const tournament_code = useAuthStore((state) => state.tournament_code);
-
-	const endTournamentStore = useTournamentStore(
+	const storeEndTournament = useTournamentStore(
 		(state) => state.endTournament
 	);
 
-	const endTournament = () => {
-		fetch("http://localhost:3000/tournaments/" + tournament_code, {
-			method: "DELETE",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-				Authorization: getAuthorization(),
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					alert(response.statusText);
-					return;
-				}
+	const onEndTournament = async () => {
+		const tournament = await endTournament(
+			getAuthorization,
+			storeEndTournament,
+			storeRemoveAuthorization,
+			tournament_code || ""
+		);
+		if (!tournament) return;
 
-				return response.json();
-			})
-			.then((data) => {
-				if (!data) {
-					return;
-				}
-
-				endTournamentStore();
-				removeAuthorization();
-
-				navigate("/");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		navigate("/");
 	};
 
 	return (
@@ -79,7 +59,7 @@ export function EndTournament() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Anuluj</AlertDialogCancel>
-					<AlertDialogAction onClick={endTournament}>
+					<AlertDialogAction onClick={onEndTournament}>
 						Zakończ
 					</AlertDialogAction>
 				</AlertDialogFooter>

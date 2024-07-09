@@ -2,61 +2,41 @@ import "@index.css";
 import { Input } from "@shadcn/input";
 import { Button } from "@shadcn/button";
 import { useAuthStore } from "@lib/stores/auth.store";
-import { TokenType } from "@types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Card, CardContent, CardDescription, CardHeader } from "@shadcn/card";
-import { useTournamentStore } from "@/lib/stores/tournament.store";
+import { useTournamentStore } from "@lib/stores/tournament.store";
+
+import { createTournament } from "@lib/api";
+import { TokenType } from "@/lib/types";
 
 export function CreateTournamentCard() {
 	const [access_key, setAccessKey] = useState("");
 	const [tournament_name, setTournamentName] = useState("");
 	const navigate = useNavigate();
 
-	const setTokenType = useAuthStore((state) => state.setTokenType);
-	const setAuthAccessKey = useAuthStore((state) => state.setAccessKey);
-	const setTournamentCode = useAuthStore((state) => state.setTournamentCode);
-	const createTournamentStore = useTournamentStore(
+	const setAuth = useAuthStore((state) => state.setAuth);
+	const getAuthorization = useAuthStore((state) => state.getAuthorization);
+
+	const storeCreateTournament = useTournamentStore(
 		(state) => state.createTournament
 	);
 
-	const createTournament = () => {
-		fetch("http://localhost:3000/tournaments", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + access_key,
-			},
-			body: JSON.stringify({
-				name: tournament_name,
-			}),
-		})
-			.then((response) => {
-				if (!response.ok) {
-					alert(response.statusText);
-					return;
-				}
+	const onCreateTournament = async () => {
+		setAuth({
+			token_type: TokenType.Admin,
+			access_key: access_key,
+		});
 
-				return response.json();
-			})
-			.then((data) => {
-				if (!data) {
-					return;
-				}
+		const tournament = await createTournament(
+			getAuthorization,
+			storeCreateTournament,
+			tournament_name
+		);
 
-				setTokenType(TokenType.Admin);
-				setAuthAccessKey(access_key);
-				setTournamentCode(data.code);
-
-				createTournamentStore(data.code, data.name);
-
-				navigate("/tournament/" + data.code);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (!tournament) return;
+		navigate("/tournament/" + tournament.code);
 	};
 
 	return (
@@ -111,9 +91,8 @@ export function CreateTournamentCard() {
 					>
 						nazwa turnieju musi mieć od 6 do 36 znaków
 					</span>
-					<Button className="mt-3" onClick={createTournament}>
-						{" "}
-						Dołącz{" "}
+					<Button className="mt-3" onClick={onCreateTournament}>
+						{"Dołącz "}
 					</Button>
 				</label>
 			</CardContent>

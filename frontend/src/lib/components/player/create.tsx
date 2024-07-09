@@ -5,64 +5,34 @@ import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 import { useTournamentStore } from "@/lib/stores/tournament.store";
 import { useAuthStore } from "@/lib/stores/auth.store";
-import { ChessPlayer } from "@/lib/types";
+import { ChessTitle } from "@/lib/types";
 import { useState } from "react";
+
+import { addPlayer } from "@lib/api";
 
 export function CreatePlayerDrawer() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
-	const tournament_code = useAuthStore((state) => state.tournament_code);
-	const addPlayer = useTournamentStore((state) => state.addPlayer);
+	const tournament_code = useTournamentStore((state) => state.code);
+	const storeAddPlayer = useTournamentStore((state) => state.addPlayer);
 
-	const createPlayer = (formData: Record<string, string>) => {
-		fetch(
-			"http://localhost:3000/tournaments/" +
-				tournament_code +
-				"/players/",
+	const onAddPlayer = (formData: Record<string, string>) => {
+		const player = addPlayer(
+			getAuthorization,
+			storeAddPlayer,
+			tournament_code || "",
 			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					Authorization: getAuthorization(),
-				},
-				body: JSON.stringify({
-					name: formData.first_name,
-					last_name: formData.last_name,
-					rank: formData.rank,
-					title: formData.title,
-				}),
+				code: "",
+				name: formData.first_name || "",
+				last_name: formData.last_name || "",
+				rank: parseInt(formData.rank) || 0,
+				title: (formData.title as ChessTitle) || ChessTitle.GM,
 			}
-		)
-			.then((response) => {
-				if (!response.ok) {
-					alert(response.statusText);
-					return;
-				}
+		);
 
-				return response.json();
-			})
-			.then((data) => {
-				if (!data) {
-					return;
-				}
-
-				addPlayer(
-					new ChessPlayer(
-						data.code,
-						data.name,
-						data.last_name,
-						data.rank,
-						data.title
-					)
-				);
-
-				setIsOpen(false);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (!player) return;
+		setIsOpen(false);
 	};
 
 	return (
@@ -100,7 +70,7 @@ export function CreatePlayerDrawer() {
 						placeholder: "GM",
 					},
 				]}
-				onSubmit={createPlayer}
+				onSubmit={onAddPlayer}
 			/>
 		</Drawer>
 	);
