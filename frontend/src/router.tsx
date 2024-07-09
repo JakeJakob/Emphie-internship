@@ -1,11 +1,23 @@
-import { createBrowserRouter, Link} from "react-router-dom";
-import Starting_Page from "./admin-panel/start-page.tsx";
-import Landing_Page from "./admin-panel/tournament-page.tsx";
+import { createBrowserRouter } from "react-router-dom";
+import StartingPage from "@routes/starting-page";
+import LandingPage from "@routes/main-panel";
 
 export const router = createBrowserRouter([
-    {path: "/", element: <Starting_Page/>},
-    {
-      path: "Landing_Page",
-      element: <Landing_Page/>,
-    }
-  ]);
+	{ path: "/", element: <StartingPage /> },
+	{
+		path: "/tournament/:id",
+		element: <LandingPage />,
+	},
+	{
+		path: "/tournament/:id/players",
+	},
+	{
+		path: "/tournament/:id/judges",
+	},
+	{
+		path: "/tournament/:id/games",
+	},
+	{
+		path: "/tournament/:id/scoreboard",
+	},
+]);
