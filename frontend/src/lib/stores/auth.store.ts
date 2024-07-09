@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { TokenType } from "@types";
 
-interface AuthState {
+export interface AuthState {
 	token_type: TokenType;
 	tournament_code: string;
 	access_key?: string;
@@ -11,6 +11,7 @@ interface AuthState {
 export const useAuthStore = create<
 	AuthState & {
 		getAuthorization: () => string;
+		removeAuthorization: () => void;
 		setTokenType: (tokenType: TokenType) => void;
 		setTournamentCode: (tournamentCode: string) => void;
 		setAccessKey: (accessKey?: string) => void;
@@ -35,6 +36,13 @@ export const useAuthStore = create<
 
 		return "Bearer " + state.tournament_code;
 	},
+	removeAuthorization: () =>
+		set({
+			token_type: TokenType.Admin,
+			tournament_code: "",
+			access_key: undefined,
+			judge_code: undefined,
+		}),
 	setTokenType: (token_type: TokenType) => set({ token_type: token_type }),
 	setTournamentCode: (tournament_code: string) =>
 		set({ tournament_code: tournament_code }),

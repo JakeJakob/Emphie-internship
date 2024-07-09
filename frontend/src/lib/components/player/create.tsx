@@ -11,13 +11,11 @@ import { useState } from "react";
 export function CreatePlayerDrawer() {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const getAuthorization = useAuthStore(
-		(state: any) => state.getAuthorization
-	);
-	const tournament_code = useAuthStore((state: any) => state.tournament_code);
+	const getAuthorization = useAuthStore((state) => state.getAuthorization);
+	const tournament_code = useAuthStore((state) => state.tournament_code);
 	const addPlayer = useTournamentStore((state) => state.addPlayer);
 
-	const createPlayer = (formData: Record<string, any>) => {
+	const createPlayer = (formData: Record<string, string>) => {
 		fetch(
 			"http://localhost:3000/tournaments/" +
 				tournament_code +

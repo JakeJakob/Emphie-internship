@@ -1,6 +1,4 @@
 import "@index.css";
-import { Card, CardContent, CardHeader } from "@shadcn/card";
-
 import { PlayerListCard } from "@components/player";
 import { GameListCard } from "@components/game";
 import { JudgeListCard } from "@components/judge";

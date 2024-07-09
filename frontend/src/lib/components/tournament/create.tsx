@@ -14,14 +14,11 @@ export function CreateTournamentCard() {
 	const [tournament_name, setTournamentName] = useState("");
 	const navigate = useNavigate();
 
-	const setTokenType = useAuthStore((state: any) => state.setTokenType);
-	const setAuthAccessKey = useAuthStore((state: any) => state.setAccessKey);
-	const setTournamentCode = useAuthStore(
-		(state: any) => state.setTournamentCode
-	);
-
+	const setTokenType = useAuthStore((state) => state.setTokenType);
+	const setAuthAccessKey = useAuthStore((state) => state.setAccessKey);
+	const setTournamentCode = useAuthStore((state) => state.setTournamentCode);
 	const createTournamentStore = useTournamentStore(
-		(state: any) => state.createTournament
+		(state) => state.createTournament
 	);
 
 	const createTournament = () => {

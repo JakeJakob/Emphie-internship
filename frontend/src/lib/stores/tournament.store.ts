@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { ChessGame, ChessJudge, ChessPlayer, ChessTournament } from "@types";
 
 interface TournamentState extends ChessTournament {
+	createTournament: (code: string, name: string) => void;
+	endTournament: () => void;
+
 	addPlayer: (player: ChessPlayer) => void;
 	removePlayer: (code: string) => void;
 
@@ -23,6 +26,14 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 		set({
 			code,
 			name,
+		}),
+	endTournament: () =>
+		set({
+			code: "",
+			name: "",
+			players: new Map(),
+			judges: new Map(),
+			games: new Map(),
 		}),
 
 	addPlayer: (player: ChessPlayer) =>
