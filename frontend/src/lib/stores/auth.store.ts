@@ -40,7 +40,7 @@ export const useAuthStore = create<
 
 		return set({
 			token_type: TokenType.Admin,
-			tournament_code: "",
+			tournament_code: undefined,
 			access_key: undefined,
 			judge_code: undefined,
 		});

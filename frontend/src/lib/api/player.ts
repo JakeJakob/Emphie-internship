@@ -15,11 +15,11 @@ export const getPlayers = async (
 			}
 		);
 
-		const new_palyers: ChessPlayer[] = await handleResponse(response);
-		new_palyers.forEach((player) => {
+		const players: ChessPlayer[] = await handleResponse(response);
+		players.forEach((player) => {
 			storeAddPlayer(player);
 		});
-		return new_palyers;
+		return players;
 	} catch (error) {
 		handleError(error);
 	}

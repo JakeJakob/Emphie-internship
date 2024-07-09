@@ -38,8 +38,8 @@ export const endTournament = async (
 
 		const new_tournament: ChessTournament = await handleResponse(response);
 
-		storeEndTournament();
-		storeRemoveAuthorization();
+		await storeEndTournament();
+		await storeRemoveAuthorization();
 
 		return new_tournament;
 	} catch (error) {

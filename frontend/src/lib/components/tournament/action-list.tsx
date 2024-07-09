@@ -29,7 +29,7 @@ export function ActionListCard({ token_type }: { token_type: TokenType }) {
 				)}
 				{token_type === TokenType.Admin && <CreateJudgeDrawer />}
 
-				<Link to="./games" className="w-full">
+				<Link to="./scoreboard" className="w-full">
 					<Button className="w-full">
 						<img src={results} className="w-5 m-2" alt="." />
 						Wyniki Gier

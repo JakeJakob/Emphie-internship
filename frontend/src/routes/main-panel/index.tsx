@@ -14,8 +14,10 @@ function LandingPage() {
 	const storeAddPlayer = useTournamentStore((state) => state.addPlayer);
 	const storeAddGame = useTournamentStore((state) => state.addGame);
 
-	getPlayers(getAuthorization, storeAddPlayer, tournament_code);
-	getGames(getAuthorization, storeAddGame, tournament_code);
+	if (tournament_code) {
+		getPlayers(getAuthorization, storeAddPlayer, tournament_code);
+		getGames(getAuthorization, storeAddGame, tournament_code);
+	}
 
 	return (
 		<>

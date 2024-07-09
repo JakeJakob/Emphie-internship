@@ -20,3 +20,4 @@ export const apiHeaders = (getAuthorization: () => string) => ({
 export * from "./tournament";
 export * from "./player";
 export * from "./game";
+export * from "./judge";

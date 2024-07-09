@@ -15,11 +15,11 @@ export const getGames = async (
 			}
 		);
 
-		const new_game: ChessGame[] = await handleResponse(response);
-		new_game.forEach((player) => {
-			storeAddGame(player);
+		const games: ChessGame[] = await handleResponse(response);
+		games.forEach((game) => {
+			storeAddGame(game);
 		});
-		return new_game;
+		return games;
 	} catch (error) {
 		handleError(error);
 	}
