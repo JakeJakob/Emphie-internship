@@ -27,7 +27,8 @@ module.exports = {
       },
       width:{
         'frame-width': '1872px',
-        'hr-width': '400px',
+        'hr1-width': '400px',
+        'hr2-width': '430px',
       },
       backgroundColor:{
         'custom': '#275396'
