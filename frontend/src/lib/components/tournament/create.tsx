@@ -24,6 +24,7 @@ export function CreateTournamentCard() {
 	);
 
 	const onCreateTournament = async () => {
+		localStorage.clear();
 		setAuth({
 			token_type: TokenType.Admin,
 			access_key: access_key,
