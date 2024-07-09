@@ -4,6 +4,8 @@ import Board_Main from "./board-main/Board_Main.tsx";
 import BoardFooter from "./board-footer/BoardFooter.tsx";
 
 import Table from "./title/Table.tsx";
+import During from "./title/During.tsx";
+import LastBatches from "./title/Last_Batches.tsx";
 
 function Board() {
   return (
