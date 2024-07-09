@@ -41,18 +41,14 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
   import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-  } from "@/components/ui/form"
-
-
-
-
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 function LandingPage (){
     return (
@@ -88,10 +84,49 @@ function LandingPage (){
       <DrawerTitle>Dodaj Gracza</DrawerTitle>
       <DrawerDescription>Dodawanie danych użytkownika</DrawerDescription>
     </DrawerHeader>
+      <form className='flex flex-col min-w-full my-4 px-4 gap-2'>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Imię </label>
+        <Input></Input>
+      </div>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Nazwisko </label>
+        <Input></Input>
+      </div>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Ranga </label>
+        <Input></Input>
+      </div>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Tytuł </label>
+        <Select>
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper" className='max-h-[200px]'>
+                  <SelectItem value="GM">GM</SelectItem>
+                  <SelectItem value="WGM">WGM</SelectItem>
+                  <SelectItem value="IM">IM</SelectItem>
+                  <SelectItem value="WIM">WIM</SelectItem>
+                  <SelectItem value="M">M</SelectItem>
+                  <SelectItem value="K">K</SelectItem>
+                  <SelectItem value="I">I</SelectItem>
+                  <SelectItem value="II">II</SelectItem>
+                  <SelectItem value="III">III</SelectItem>
+                  <SelectItem value="IV">IV</SelectItem>
+                  <SelectItem value="V">V</SelectItem>
+                </SelectContent>
+              </Select>
+      </div>
+  
+        
+        </form>
+      
+
     <DrawerFooter>
-      <Button className='w-full'>Zapisz</Button>
-      <DrawerClose className='min-w-xl'>
-        <Button variant="outline" className='w-full'>Anuluj</Button>
+      <Button>Zapisz</Button>
+      <DrawerClose>
+        <Button variant="outline" className='min-w-full'>Anuluj</Button>
       </DrawerClose>
     </DrawerFooter>
   </DrawerContent>
@@ -120,7 +155,7 @@ function LandingPage (){
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Anuluj</AlertDialogCancel>
-          <Link to='/'><AlertDialogAction>Zakończ</AlertDialogAction></Link>
+          <Link to='/'><AlertDialogAction className='min-w-full'>Zakończ</AlertDialogAction></Link>
         </AlertDialogFooter>
       </AlertDialogContent>
     
