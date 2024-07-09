@@ -3,20 +3,23 @@ import { PlayerListCard } from "@components/player";
 import { GameListCard } from "@components/game";
 import { JudgeListCard } from "@components/judge";
 import { ActionListCard, TournamentInfoCard } from "@components/tournament";
-import { TokenType } from "@/lib/types";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useTournamentStore } from "@/lib/stores/tournament.store";
-import { getPlayers, getGames } from "@/lib/api";
+import { getPlayers, getGames, getJudges } from "@/lib/api";
 
 function LandingPage() {
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
 	const tournament_code = useTournamentStore((state) => state.code);
+	const token_type = useAuthStore((state) => state.token_type);
+
 	const storeAddPlayer = useTournamentStore((state) => state.addPlayer);
 	const storeAddGame = useTournamentStore((state) => state.addGame);
+	const storeAddJudge = useTournamentStore((state) => state.addJudge);
 
 	if (tournament_code) {
 		getPlayers(getAuthorization, storeAddPlayer, tournament_code);
 		getGames(getAuthorization, storeAddGame, tournament_code);
+		getJudges(getAuthorization, storeAddJudge, tournament_code);
 	}
 
 	return (
@@ -31,7 +34,7 @@ function LandingPage() {
 
 				<div className="grid  md:grid-cols-4 grid-cols-none gap-4 p-4 ">
 					<TournamentInfoCard />
-					<ActionListCard token_type={TokenType.Admin} />
+					<ActionListCard token_type={token_type} />
 
 					<GameListCard />
 					<JudgeListCard />

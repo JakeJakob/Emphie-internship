@@ -11,7 +11,7 @@ import { useTournamentStore } from "@lib/stores/tournament.store";
 import { createTournament } from "@lib/api";
 import { TokenType } from "@/lib/types";
 
-export function CreateTournamentCard() {
+export function NewTournamentCard() {
 	const [access_key, setAccessKey] = useState("");
 	const [tournament_name, setTournamentName] = useState("");
 	const navigate = useNavigate();
@@ -19,8 +19,8 @@ export function CreateTournamentCard() {
 	const setAuth = useAuthStore((state) => state.setAuth);
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
 
-	const storeCreateTournament = useTournamentStore(
-		(state) => state.createTournament
+	const storeAddTournament = useTournamentStore(
+		(state) => state.addTournament
 	);
 
 	const onCreateTournament = async () => {
@@ -32,7 +32,7 @@ export function CreateTournamentCard() {
 
 		const tournament = await createTournament(
 			getAuthorization,
-			storeCreateTournament,
+			storeAddTournament,
 			tournament_name
 		);
 

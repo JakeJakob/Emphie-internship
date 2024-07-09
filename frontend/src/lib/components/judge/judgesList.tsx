@@ -4,8 +4,9 @@ import { ListCard } from "../common";
 export function JudgeListCard() {
 	const judge_names = [
 		...useTournamentStore((state) => state.judges).values(),
-	].map((judge) => judge.name);
-
+	]
+		.filter((judge) => judge != undefined)
+		.map((judge) => judge.name);
 	return (
 		<ListCard
 			header="Sędziowie"

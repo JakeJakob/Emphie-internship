@@ -1,2 +1,2 @@
-export * from "./create";
-export * from "./list-card";
+export * from "./createJudge";
+export * from "./judgesList";
