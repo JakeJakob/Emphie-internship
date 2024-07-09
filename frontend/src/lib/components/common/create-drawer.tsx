@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/lib/components/shadcn/button";
 import {
 	DrawerClose,
@@ -23,7 +24,21 @@ export function CreateDrawer(props: {
 	header: string;
 	description: string;
 	fields: FormField[];
+	onSubmit: (formData: Record<string, any>) => void;
 }) {
+	const [formData, setFormData] = useState<Record<string, any>>({});
+
+	const handleInputChange = (id: string, value: any) => {
+		setFormData((prev) => ({
+			...prev,
+			[id]: value,
+		}));
+	};
+
+	const handleSubmit = () => {
+		props.onSubmit(formData);
+	};
+
 	return (
 		<DrawerContent>
 			<DrawerHeader>
@@ -46,16 +61,19 @@ export function CreateDrawer(props: {
 								"w-4/5 peer invalid:[&:not(:placeholder-shown):not(:focus)]"
 							}
 							pattern={field.pattern}
-							{...(field.required == undefined || field.required
-								? { required: true }
-								: {})}
+							required={field.required}
+							onChange={(e) =>
+								handleInputChange(field.id, e.target.value)
+							}
 						/>
 					</div>
 				))}
 			</div>
 
 			<DrawerFooter>
-				<Button className="w-full">Zapisz</Button>
+				<Button className="w-full" onClick={handleSubmit}>
+					Zapisz
+				</Button>
 				<DrawerClose>
 					<Button variant="outline" className="w-full">
 						Anuluj

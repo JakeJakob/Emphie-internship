@@ -25,6 +25,7 @@ export function CreateJudgeDrawer() {
 						placeholder: "Mateusz Nowak",
 					},
 				]}
+				onSubmit={() => {}}
 			/>
 		</Drawer>
 	);

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Card, CardContent, CardDescription, CardHeader } from "@shadcn/card";
+import { useTournamentStore } from "@/lib/stores/tournament.store";
 
 export function CreateTournamentCard() {
 	const [access_key, setAccessKey] = useState("");
@@ -17,6 +18,10 @@ export function CreateTournamentCard() {
 	const setAuthAccessKey = useAuthStore((state: any) => state.setAccessKey);
 	const setTournamentCode = useAuthStore(
 		(state: any) => state.setTournamentCode
+	);
+
+	const createTournamentStore = useTournamentStore(
+		(state: any) => state.createTournament
 	);
 
 	const createTournament = () => {
@@ -45,8 +50,10 @@ export function CreateTournamentCard() {
 				}
 
 				setTokenType(TokenType.Admin);
-				setAuthAccessKey(data.code);
-				setTournamentCode(access_key);
+				setAuthAccessKey(access_key);
+				setTournamentCode(data.code);
+
+				createTournamentStore(data.code, data.name);
 
 				navigate("/tournament/" + data.code);
 			})

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@shadcn/card";
 import { PlayerListCard } from "@components/player";
 import { GameListCard } from "@components/game";
 import { JudgeListCard } from "@components/judge";
-import { ActionListCard } from "@components/tournament";
+import { ActionListCard, TournamentInfoCard } from "@components/tournament";
 import { TokenType } from "@/lib/types";
 
 function LandingPage() {
@@ -19,19 +19,7 @@ function LandingPage() {
 				</div>
 
 				<div className="grid  md:grid-cols-4 grid-cols-none gap-4 p-4 ">
-					<Card className="h-min">
-						<CardHeader>
-							<p className="text-xl font-semibold">
-								{" "}
-								Wielkie przykładowe mistrzostwa{" "}
-							</p>
-						</CardHeader>
-						<CardContent>
-							<p className="text-lg">Kod turnieju:</p>
-							<h1 className="text-4xl font-bold">AX46BF</h1>
-						</CardContent>
-					</Card>
-
+					<TournamentInfoCard />
 					<ActionListCard token_type={TokenType.Admin} />
 
 					<GameListCard />

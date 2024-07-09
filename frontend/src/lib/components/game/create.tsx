@@ -42,6 +42,7 @@ export function CreateGameDrawer() {
 						required: false,
 					},
 				]}
+				onSubmit={() => {}}
 			/>
 		</Drawer>
 	);

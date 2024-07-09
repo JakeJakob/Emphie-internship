@@ -10,6 +10,7 @@ interface AuthState {
 
 export const useAuthStore = create<
 	AuthState & {
+		getAuthorization: () => string;
 		setTokenType: (tokenType: TokenType) => void;
 		setTournamentCode: (tournamentCode: string) => void;
 		setAccessKey: (accessKey?: string) => void;
@@ -21,6 +22,19 @@ export const useAuthStore = create<
 	access_key: undefined,
 	judge_code: undefined,
 
+	getAuthorization: () => {
+		const state: AuthState = useAuthStore.getState();
+
+		if (state.token_type == TokenType.Admin) {
+			return "Bearer " + state.access_key;
+		}
+
+		if (state.token_type == TokenType.Judge) {
+			return "Bearer " + state.tournament_code + "+" + state.judge_code;
+		}
+
+		return "Bearer " + state.tournament_code;
+	},
 	setTokenType: (token_type: TokenType) => set({ token_type: token_type }),
 	setTournamentCode: (tournament_code: string) =>
 		set({ tournament_code: tournament_code }),
