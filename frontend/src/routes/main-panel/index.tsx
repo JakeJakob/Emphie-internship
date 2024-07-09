@@ -1,26 +1,15 @@
-import "../../index.css";
+import "@index.css";
 import ref from "/icons/ref.svg";
 import results from "/icons/results.svg";
 import list from "/icons/list.svg";
 
-import { Link } from "react-router-dom";
-import { Button } from "@/lib/components/shadcn/button";
-import { Card, CardContent, CardHeader } from "@/lib/components/shadcn/card";
+import { Button } from "@shadcn/button";
+import { Card, CardContent, CardHeader } from "@shadcn/card";
 
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@/lib/components/shadcn/alert-dialog";
-import { CreatePlayerDrawer } from "@/lib/components/player";
-import { CreateGameDrawer } from "@/lib/components/game";
-import { CreateJudgeDrawer } from "@/lib/components/judge";
+import { CreatePlayerDrawer } from "@components/player";
+import { CreateGameDrawer } from "@components/game";
+import { CreateJudgeDrawer } from "@components/judge";
+import { EndTournament } from "@components/tournament";
 
 function LandingPage() {
 	return (
@@ -71,37 +60,7 @@ function LandingPage() {
 								<img src={ref} className="w-5 m-2" alt="." />
 								Lista Sędziów
 							</Button>
-							<AlertDialog>
-								<AlertDialogTrigger asChild>
-									<Button variant="destructive">
-										Zakończ turniej
-									</Button>
-								</AlertDialogTrigger>
-
-								<AlertDialogContent>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
-											Czy na pewno chcesz zakończyć ten
-											turniej?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
-											Tej akcji nie da się odwrócić.
-											Zakończony turniej nie zostaje
-											nigdzie zapisany.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel>
-											Anuluj
-										</AlertDialogCancel>
-										<Link to="/">
-											<AlertDialogAction>
-												Zakończ
-											</AlertDialogAction>
-										</Link>
-									</AlertDialogFooter>
-								</AlertDialogContent>
-							</AlertDialog>
+							<EndTournament />
 						</CardContent>
 					</Card>
 

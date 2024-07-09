@@ -1,8 +1,8 @@
 import { CreateDrawer } from "../common";
-import "../../../index.css";
+import "@index.css";
 import addJudge from "/icons/ref.svg";
-import { Button } from "@/lib/components/shadcn/button";
-import { Drawer, DrawerTrigger } from "@/lib/components/shadcn/drawer";
+import { Button } from "@shadcn/button";
+import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 
 export function CreateJudgeDrawer() {
 	return (
