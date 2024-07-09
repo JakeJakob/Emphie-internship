@@ -13,8 +13,10 @@ export function ListCard(props: {
 				<p className="text-xl font-semibold">{props.header}</p>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				{props.items.map((item: string) => (
-					<p className="border w-full p-2 font-bold">{item}</p>
+				{props.items.map((item: string, index: number) => (
+					<p key={index} className="border w-full p-2 font-bold">
+						{item}
+					</p>
 				))}
 				<Link to={props.show_all_path}>
 					<Button className="w-full"> Pokaż wszystkich </Button>

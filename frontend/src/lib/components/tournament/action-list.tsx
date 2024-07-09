@@ -11,17 +11,30 @@ import { CreatePlayerDrawer } from "@components/player";
 import { CreateGameDrawer } from "@components/game";
 import { CreateJudgeDrawer } from "@components/judge";
 import { EndTournament } from "@components/tournament";
+import { TokenType } from "@types";
 
-export function ActionListCard() {
+export function ActionListCard(props: { token_type: TokenType }) {
 	return (
 		<Card className="h-min">
 			<CardHeader>
 				<p className="text-xl font-semibold">Akcje</p>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				<CreatePlayerDrawer />
-				<CreateGameDrawer />
-				<CreateJudgeDrawer />
+				{props.token_type == TokenType.Admin ||
+				props.token_type == TokenType.Judge ? (
+					<>
+						<CreatePlayerDrawer />
+						<CreateGameDrawer />
+					</>
+				) : (
+					<></>
+				)}
+				{props.token_type == TokenType.Admin ? (
+					<CreateJudgeDrawer />
+				) : (
+					<></>
+				)}
+
 				<Link to="./games">
 					<Button className="w-full">
 						<img src={results} className="w-5 m-2" alt="." />
@@ -40,7 +53,12 @@ export function ActionListCard() {
 						Lista Sędziów
 					</Button>
 				</Link>
-				<EndTournament />
+
+				{props.token_type == TokenType.Admin ? (
+					<EndTournament />
+				) : (
+					<></>
+				)}
 			</CardContent>
 		</Card>
 	);

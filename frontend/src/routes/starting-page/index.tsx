@@ -7,6 +7,7 @@ import { Input } from "@shadcn/input";
 import { Button } from "@shadcn/button";
 
 import { Card, CardContent, CardDescription, CardHeader } from "@shadcn/card";
+import { CreateTournamentCard } from "@/lib/components/tournament";
 
 function StartPage() {
 	return (
@@ -24,17 +25,17 @@ function StartPage() {
 					</h1>
 				</div>
 
-				<Tabs defaultValue="view" className="w-xs text-sm">
+				<Tabs defaultValue="create" className="w-xs text-sm">
 					<TabsList>
 						<TabsTrigger value="create">
 							{" "}
 							Utwórz turniej{" "}
 						</TabsTrigger>
-						<TabsTrigger value="referee">
+						<TabsTrigger value="referee" disabled>
 							{" "}
 							Zostań sędzią{" "}
 						</TabsTrigger>
-						<TabsTrigger value="view">
+						<TabsTrigger value="view" disabled>
 							{" "}
 							Wyświetl turniej{" "}
 						</TabsTrigger>
@@ -149,62 +150,7 @@ function StartPage() {
 					</TabsContent>
 
 					<TabsContent value="create">
-						<Card className="w-xs max-w-[400px]">
-							<CardHeader>
-								<CardDescription>
-									{" "}
-									Ta opcja pozwala na utworzenie nowego
-									turnieju do którego mogą dołączyć się
-									sędziowie.{" "}
-								</CardDescription>
-							</CardHeader>
-
-							<CardContent>
-								<label htmlFor="tournament-code">
-									<p className="mb-1  font-medium">
-										{" "}
-										Kod Dostępu{" "}
-									</p>
-									<Input
-										type="text"
-										id="tournament-code"
-										placeholder="np. AAAAAAAAAAAAAAAA"
-										className="... peer invalid:[&:not(:placeholder-shown):not(:focus)]"
-										required
-										pattern=".{6,7}"
-									/>
-									<span
-										id="error-msg"
-										className="mt-1 mb-1 hidden font-normal text-project_error peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
-									>
-										Błędny kod dostępu
-									</span>
-								</label>
-
-								<label htmlFor="referee-code">
-									<p className="mb-1 mt-1 font-medium">
-										{" "}
-										Nazwa turnieju{" "}
-									</p>
-									<Input
-										type="text"
-										id="tournament-code"
-										placeholder="np. Wielkie przykładowe mistrzostwa"
-										className="... peer invalid:[&:not(:placeholder-shown):not(:focus)]"
-										required
-										pattern=".{6,36}"
-									/>
-									<span
-										id="error-msg"
-										className="mt-1 mb-1 hidden font-normal text-project_error peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
-									>
-										nazwa turnieju musi mieć od 6 do 36
-										znaków
-									</span>
-									<Button className="mt-3"> Dołącz </Button>
-								</label>
-							</CardContent>
-						</Card>
+						<CreateTournamentCard />
 					</TabsContent>
 				</Tabs>
 			</div>

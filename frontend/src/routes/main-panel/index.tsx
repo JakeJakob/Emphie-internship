@@ -5,6 +5,7 @@ import { PlayerListCard } from "@components/player";
 import { GameListCard } from "@components/game";
 import { JudgeListCard } from "@components/judge";
 import { ActionListCard } from "@components/tournament";
+import { TokenType } from "@/lib/types";
 
 function LandingPage() {
 	return (
@@ -31,7 +32,7 @@ function LandingPage() {
 						</CardContent>
 					</Card>
 
-					<ActionListCard />
+					<ActionListCard token_type={TokenType.Admin} />
 
 					<GameListCard />
 					<JudgeListCard />
