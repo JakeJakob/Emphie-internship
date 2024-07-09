@@ -1,8 +1,8 @@
 export enum TokenType {
-	Unauthorized,
-	Guest,
-	Judge,
-	Admin,
+	Unauthorized = "Unauthorized",
+	Guest = "Guest",
+	Judge = "Judge",
+	Admin = "Admin",
 }
 
 export enum ChessTitle {

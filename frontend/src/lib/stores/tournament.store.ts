@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { ChessGame, ChessJudge, ChessPlayer, ChessTournament } from "@types";
 
 interface TournamentState extends ChessTournament {
+	createTournament: (code: string, name: string) => void;
+	endTournament: () => void;
+
 	addPlayer: (player: ChessPlayer) => void;
 	removePlayer: (code: string) => void;
 
@@ -13,17 +16,33 @@ interface TournamentState extends ChessTournament {
 }
 
 export const useTournamentStore = create<TournamentState>()((set) => ({
-	code: "",
-	name: "",
+	code: localStorage.getItem("tournament_code") || "",
+	name: localStorage.getItem("tournament_name") || "",
 	players: new Map(),
 	judges: new Map(),
 	games: new Map(),
 
-	createTournament: (code: string, name: string) =>
-		set({
+	createTournament: (code: string, name: string) => {
+		localStorage.setItem("tournament_code", code);
+		localStorage.setItem("tournament_name", name);
+
+		return set({
 			code,
 			name,
-		}),
+		});
+	},
+	endTournament: () => {
+		localStorage.removeItem("tournament_code");
+		localStorage.removeItem("tournament_name");
+
+		return set({
+			code: "",
+			name: "",
+			players: new Map(),
+			judges: new Map(),
+			games: new Map(),
+		});
+	},
 
 	addPlayer: (player: ChessPlayer) =>
 		set((state) => {

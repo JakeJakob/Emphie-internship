@@ -1,5 +1,4 @@
 import "@index.css";
-import { Link } from "react-router-dom";
 import { Button } from "@shadcn/button";
 
 import {
@@ -13,8 +12,35 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@shadcn/alert-dialog";
+import { useAuthStore } from "@/lib/stores/auth.store";
+import { useNavigate } from "react-router-dom";
+import { useTournamentStore } from "@/lib/stores/tournament.store";
+import { endTournament } from "@/lib/api";
 
 export function EndTournament() {
+	const navigate = useNavigate();
+
+	const getAuthorization = useAuthStore((state) => state.getAuthorization);
+	const tournament_code = useTournamentStore((state) => state.code);
+	const storeRemoveAuthorization = useAuthStore(
+		(state) => state.removeAuthorization
+	);
+	const storeEndTournament = useTournamentStore(
+		(state) => state.endTournament
+	);
+
+	const onEndTournament = async () => {
+		const tournament = await endTournament(
+			getAuthorization,
+			storeEndTournament,
+			storeRemoveAuthorization,
+			tournament_code || ""
+		);
+		if (!tournament) return;
+
+		navigate("/");
+	};
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,9 +59,9 @@ export function EndTournament() {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Anuluj</AlertDialogCancel>
-					<Link to="/">
-						<AlertDialogAction>Zakończ</AlertDialogAction>
-					</Link>
+					<AlertDialogAction onClick={onEndTournament}>
+						Zakończ
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

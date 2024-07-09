@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { TokenType } from "@types";
 
-interface AuthState {
+export interface AuthState {
 	token_type: TokenType;
-	tournament_code: string;
+	tournament_code?: string;
 	access_key?: string;
 	judge_code?: string;
 }
@@ -11,16 +11,16 @@ interface AuthState {
 export const useAuthStore = create<
 	AuthState & {
 		getAuthorization: () => string;
-		setTokenType: (tokenType: TokenType) => void;
-		setTournamentCode: (tournamentCode: string) => void;
-		setAccessKey: (accessKey?: string) => void;
-		setJudgeCode: (judgeCode?: string) => void;
+		removeAuthorization: () => void;
+		setAuth: (auth: AuthState) => void;
 	}
 >()((set) => ({
-	token_type: TokenType.Admin,
-	tournament_code: "",
-	access_key: undefined,
-	judge_code: undefined,
+	token_type:
+		(localStorage.getItem("auth_token_type") as TokenType) ||
+		TokenType.Admin,
+	tournament_code: localStorage.getItem("auth_tournament_code") || undefined,
+	access_key: localStorage.getItem("auth_access_key") || undefined,
+	judge_code: localStorage.getItem("auth_judge_code") || undefined,
 
 	getAuthorization: () => {
 		const state: AuthState = useAuthStore.getState();
@@ -35,9 +35,25 @@ export const useAuthStore = create<
 
 		return "Bearer " + state.tournament_code;
 	},
-	setTokenType: (token_type: TokenType) => set({ token_type: token_type }),
-	setTournamentCode: (tournament_code: string) =>
-		set({ tournament_code: tournament_code }),
-	setAccessKey: (access_key?: string) => set({ access_key: access_key }),
-	setJudgeCode: (judge_code?: string) => set({ judge_code: judge_code }),
+	removeAuthorization: () => {
+		localStorage.clear();
+
+		return set({
+			token_type: TokenType.Admin,
+			tournament_code: undefined,
+			access_key: undefined,
+			judge_code: undefined,
+		});
+	},
+	setAuth: (auth: AuthState) => {
+		localStorage.setItem("auth_token_type", auth.token_type);
+		localStorage.setItem(
+			"auth_tournament_code",
+			auth.tournament_code || ""
+		);
+		localStorage.setItem("auth_access_key", auth.access_key || "");
+		localStorage.setItem("auth_judge_code", auth.judge_code || "");
+
+		return set(auth);
+	},
 }));

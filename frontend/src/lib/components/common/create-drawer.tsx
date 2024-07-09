@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Button } from "@/lib/components/shadcn/button";
 import {
@@ -37,6 +38,7 @@ export function CreateDrawer(props: {
 
 	const handleSubmit = () => {
 		props.onSubmit(formData);
+		setFormData({});
 	};
 
 	return (

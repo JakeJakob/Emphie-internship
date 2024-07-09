@@ -3,8 +3,8 @@ import "@index.css";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 
 export function TournamentInfoCard() {
-	const code = useTournamentStore((state: any) => state.code);
-	const name = useTournamentStore((state: any) => state.name);
+	const code = useTournamentStore((state) => state.code);
+	const name = useTournamentStore((state) => state.name);
 
 	return (
 		<Card className="h-min">

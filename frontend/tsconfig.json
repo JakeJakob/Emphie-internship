@@ -26,7 +26,7 @@
 			"@/*": ["src/*"],
 			"@routes/*": ["src/routes/*"],
 			"@lib/*": ["src/lib/*"],
-			"@types": ["src/lib/types/index.ts"],
+			"@types": ["src/lib/types.ts"],
 			"@components/*": ["src/lib/components/*"],
 			"@shadcn/*": ["src/lib/components/shadcn/*"],
 			"@index.css": ["src/index.css"]
