@@ -4,8 +4,19 @@ import { GameListCard } from "@components/game";
 import { JudgeListCard } from "@components/judge";
 import { ActionListCard, TournamentInfoCard } from "@components/tournament";
 import { TokenType } from "@/lib/types";
+import { useAuthStore } from "@/lib/stores/auth.store";
+import { useTournamentStore } from "@/lib/stores/tournament.store";
+import { getPlayers, getGames } from "@/lib/api";
 
 function LandingPage() {
+	const getAuthorization = useAuthStore((state) => state.getAuthorization);
+	const tournament_code = useTournamentStore((state) => state.code);
+	const storeAddPlayer = useTournamentStore((state) => state.addPlayer);
+	const storeAddGame = useTournamentStore((state) => state.addGame);
+
+	getPlayers(getAuthorization, storeAddPlayer, tournament_code);
+	getGames(getAuthorization, storeAddGame, tournament_code);
+
 	return (
 		<>
 			<div className="min-h-screen p-0.5 box-border">
