@@ -1,15 +1,10 @@
 import "@index.css";
-import ref from "/icons/ref.svg";
-import results from "/icons/results.svg";
-import list from "/icons/list.svg";
-
-import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 
-import { CreatePlayerDrawer } from "@components/player";
-import { CreateGameDrawer } from "@components/game";
-import { CreateJudgeDrawer } from "@components/judge";
-import { EndTournament } from "@components/tournament";
+import { PlayerListCard } from "@components/player";
+import { GameListCard } from "@components/game";
+import { JudgeListCard } from "@components/judge";
+import { ActionListCard } from "@components/tournament";
 
 function LandingPage() {
 	return (
@@ -36,121 +31,11 @@ function LandingPage() {
 						</CardContent>
 					</Card>
 
-					<Card className="h-min">
-						<CardHeader>
-							<p className="text-xl font-semibold">Akcje</p>
-						</CardHeader>
-						<CardContent className="flex flex-col gap-2">
-							<CreatePlayerDrawer />
-							<CreateGameDrawer />
-							<CreateJudgeDrawer />
-							<Button>
-								<img
-									src={results}
-									className="w-5 m-2"
-									alt="."
-								/>
-								Wyniki Gier
-							</Button>
-							<Button>
-								<img src={list} className="w-5 m-2" alt="." />
-								Lista Graczy
-							</Button>
-							<Button>
-								<img src={ref} className="w-5 m-2" alt="." />
-								Lista Sędziów
-							</Button>
-							<EndTournament />
-						</CardContent>
-					</Card>
+					<ActionListCard />
 
-					<Card className="h-min">
-						<CardHeader>
-							<p className="text-xl font-semibold ">
-								Aktywne gry
-							</p>
-						</CardHeader>
-						<CardContent className="flex flex-col gap-2">
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Chlost vs Michalak
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Piętka vs Zdrzałek
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Piętka vs Zdrzałek
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Piętka vs Zdrzałek
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Piętka vs Zdrzałek
-							</p>
-							<Button> Pokaż wszystkie </Button>
-						</CardContent>
-					</Card>
-
-					<Card className="h-min">
-						<CardHeader>
-							<p className="text-xl font-semibold">Sędziowie</p>
-						</CardHeader>
-						<CardContent className="flex flex-col gap-2">
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Jan Kowalski
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Adam Nowak{" "}
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Mateusz Zdrzałek
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Cezary Michalak
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Adrian Piętka
-							</p>
-							<Button> Pokaż wszystkich </Button>
-						</CardContent>
-					</Card>
-					<Card className="h-min">
-						<CardHeader>
-							<p className="text-xl font-semibold">Gracze</p>
-						</CardHeader>
-						<CardContent className="flex flex-col gap-2">
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Jan Kowalski
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Adam Nowak{" "}
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Mateusz Zdrzałek
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Cezary Michalak
-							</p>
-							<p className="border w-full p-2 font-bold">
-								{" "}
-								Adrian Piętka
-							</p>
-							<Button> Pokaż wszystkich </Button>
-						</CardContent>
-					</Card>
+					<GameListCard />
+					<JudgeListCard />
+					<PlayerListCard />
 				</div>
 			</div>
 		</>
