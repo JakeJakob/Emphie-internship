@@ -11,7 +11,7 @@ function LandingPage() {
 	if (token_type == TokenType.Admin || token_type == TokenType.Judge) {
 		return (
 			<>
-				<div className="min-h-screen p-0.5 box-border">
+				<div className="min-h-screen p-0.5 box-border h-full">
 					<div className="max-w-screen py-1 px-6 border box-border">
 						<h1 className="text-project_primary text-2xl font-bold my-3 font-ptSans">
 							{" "}
@@ -19,7 +19,7 @@ function LandingPage() {
 						</h1>
 					</div>
 
-					<div className="grid  md:grid-cols-4 grid-cols-none gap-4 p-4 ">
+					<div className="grid md:grid-cols-4 grid-cols-none gap-4 p-4">
 						<TournamentInfoCard />
 						<ActionListCard token_type={token_type} />
 

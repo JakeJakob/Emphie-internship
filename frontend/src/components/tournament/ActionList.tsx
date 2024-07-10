@@ -14,7 +14,7 @@ import { TokenType } from "@types";
 
 export function ActionListCard({ token_type }: { token_type: TokenType }) {
 	return (
-		<Card className="h-min">
+		<Card className="min-h-96">
 			<CardHeader>
 				<p className="text-xl font-semibold">Akcje</p>
 			</CardHeader>

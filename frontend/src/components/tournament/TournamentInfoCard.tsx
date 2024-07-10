@@ -6,7 +6,7 @@ export function TournamentInfoCard() {
 	const name = useTournamentStore((state) => state.name);
 
 	return (
-		<Card className="h-min">
+		<Card className="min-h-96">
 			<CardHeader>
 				<p className="text-4xl font-semibold">{" " + name + " "}</p>
 			</CardHeader>

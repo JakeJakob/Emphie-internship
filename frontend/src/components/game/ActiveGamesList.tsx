@@ -2,8 +2,8 @@ import { useTournamentStore } from "@stores/tournament.store";
 import { ListCard } from "../common/ItemListCard";
 
 export function GameListCard() {
-	const players = useTournamentStore((state) => state.players);
-	const games = useTournamentStore((state) => state.games);
+	const players = useTournamentStore((state) => state.players) || new Map();
+	const games = useTournamentStore((state) => state.games) || new Map();
 
 	const versus_strings = [...games.values()]
 		.filter((game) => !game.winner_code)
