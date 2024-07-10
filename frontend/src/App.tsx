@@ -1,8 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
-import { useAuthStore } from "./lib/stores/auth.store";
-import { useTournamentStore } from "./lib/stores/tournament.store";
-import { getGames, getJudges, getPlayers } from "./lib/api";
+import { useAuthStore } from "@stores/auth.store";
+import { useTournamentStore } from "@stores/tournament.store";
+import { getGames, getJudges, getPlayers } from "@api";
 
 export function App() {
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
@@ -12,7 +12,10 @@ export function App() {
 	const storeAddGame = useTournamentStore((state) => state.addGame);
 	const storeAddJudge = useTournamentStore((state) => state.addJudge);
 
-	if (tournament_code) {
+	if (
+		window.location.pathname.split("/")[1] == "tournament" &&
+		tournament_code
+	) {
 		getPlayers(getAuthorization, storeAddPlayer, tournament_code);
 		getGames(getAuthorization, storeAddGame, tournament_code);
 		getJudges(getAuthorization, storeAddJudge, tournament_code);

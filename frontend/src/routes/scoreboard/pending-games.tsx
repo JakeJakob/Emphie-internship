@@ -1,6 +1,6 @@
 import scoreLogo from "/icons/scoreLogo.svg";
-import { VsCard } from "@/lib/components/scores/vsCard";
-import { useTournamentStore } from "@/lib/stores/tournament.store";
+import { VsCard } from "@components/scores/VsCard";
+import { useTournamentStore } from "@stores/tournament.store";
 
 export function PendingGamesPage() {
 	const players = useTournamentStore((state) => state.players);

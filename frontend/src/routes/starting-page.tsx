@@ -4,7 +4,7 @@ import {
 	JoinAsAdminCard,
 	JoinAsJudgeCard,
 	JoinAsGuestCard,
-} from "@/lib/components/tournament";
+} from "@components/tournament";
 
 function StartPage() {
 	return (

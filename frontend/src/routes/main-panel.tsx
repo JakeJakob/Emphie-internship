@@ -1,9 +1,9 @@
-import { PlayerListCard } from "@components/player";
-import { GameListCard } from "@components/game";
-import { JudgeListCard } from "@components/judge";
+import { PlayerListCard } from "@components/player/PlayersList";
+import { GameListCard } from "@components/game/ActiveGamesList";
+import { JudgeListCard } from "@components/judge/JudgesList";
 import { ActionListCard, TournamentInfoCard } from "@components/tournament";
-import { useAuthStore } from "@/lib/stores/auth.store";
-import { TokenType } from "@/lib/types";
+import { useAuthStore } from "@stores/auth.store";
+import { TokenType } from "@types";
 
 function LandingPage() {
 	const token_type = useAuthStore((state) => state.token_type);
