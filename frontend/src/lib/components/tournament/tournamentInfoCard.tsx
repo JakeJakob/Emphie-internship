@@ -1,5 +1,4 @@
 import { useTournamentStore } from "@/lib/stores/tournament.store";
-import "@index.css";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 
 export function TournamentInfoCard() {

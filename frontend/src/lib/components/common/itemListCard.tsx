@@ -14,7 +14,10 @@ export function ListCard(props: {
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
 				{props.items.map((item: string, index: number) => (
-					<p key={index} className="border w-full p-2 font-bold">
+					<p
+						key={index}
+						className="border w-full p-2 font-bold pl-3 rounded-sm"
+					>
 						{item}
 					</p>
 				))}

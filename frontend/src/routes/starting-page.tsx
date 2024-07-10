@@ -1,4 +1,3 @@
-import "@index.css";
 import chessGrowLogo from "/chessgrow.svg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shadcn/tabs";
 import {

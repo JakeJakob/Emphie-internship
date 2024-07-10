@@ -1,5 +1,4 @@
 import { CreateDrawer } from "../common";
-import "@index.css";
 import createFlagIcon from "/icons/createFlag.svg";
 import { Button } from "@/lib/components/shadcn/button";
 import { Drawer, DrawerTrigger } from "@/lib/components/shadcn/drawer";
@@ -10,6 +9,8 @@ import { useState } from "react";
 
 export function CreateGameDrawer() {
 	const [isOpen, setIsOpen] = useState(false);
+
+	const players = useTournamentStore((state) => state.players);
 
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
 	const tournament_code = useTournamentStore((state) => state.code);
@@ -44,17 +45,24 @@ export function CreateGameDrawer() {
 			<CreateDrawer
 				header="Utwórz grę"
 				description="Tworzenie gry."
-				// TODO: Dropdown menu
 				fields={[
 					{
 						name: "Białe",
 						id: "white_player",
-						placeholder: "Mateusz Nowak",
+						type: "select",
+						options: [...players.values()].map((t) => ({
+							id: t.code || "",
+							text: t.name + " " + t.last_name,
+						})),
 					},
 					{
 						name: "Czarne",
 						id: "black_player",
-						placeholder: "Mateusz Nowak",
+						type: "select",
+						options: [...players.values()].map((t) => ({
+							id: t.code || "",
+							text: t.name + " " + t.last_name,
+						})),
 					},
 					{
 						name: "Runda",
@@ -65,7 +73,11 @@ export function CreateGameDrawer() {
 					{
 						name: "Wygrana",
 						id: "winner",
-						placeholder: "",
+						type: "select",
+						options: [...players.values()].map((t) => ({
+							id: t.code || "",
+							text: t.name + " " + t.last_name,
+						})),
 						required: false,
 					},
 				]}

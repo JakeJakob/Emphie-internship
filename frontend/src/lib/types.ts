@@ -28,14 +28,14 @@ export class ChessPlayer extends StoreUID {
 	name: string;
 	last_name: string;
 	rank: number;
-	title: ChessTitle;
+	title?: ChessTitle;
 
 	constructor(
 		code: string,
 		name: string,
 		last_name: string,
 		rank: number,
-		title: ChessTitle
+		title: ChessTitle | undefined = undefined
 	) {
 		super(code);
 		this.name = name;
@@ -49,7 +49,7 @@ export class ChessGame extends StoreUID {
 	white_code: string;
 	black_code: string;
 	round: number;
-	winner_code: string | undefined;
+	winner_code?: string;
 
 	constructor(
 		code: string,

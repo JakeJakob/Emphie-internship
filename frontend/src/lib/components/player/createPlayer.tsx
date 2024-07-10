@@ -1,5 +1,4 @@
 import { CreateDrawer } from "../common";
-import "@index.css";
 import addPersonIcon from "/icons/addPerson.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
@@ -26,7 +25,7 @@ export function CreatePlayerDrawer() {
 				name: formData.first_name || "",
 				last_name: formData.last_name || "",
 				rank: parseInt(formData.rank) || 0,
-				title: (formData.title as ChessTitle) || ChessTitle.GM,
+				title: formData.title as ChessTitle,
 			}
 		);
 
@@ -66,7 +65,12 @@ export function CreatePlayerDrawer() {
 					{
 						name: "Tytuł",
 						id: "title",
-						placeholder: "GM",
+						type: "select",
+						options: [...Object.values(ChessTitle)].map((t) => ({
+							id: t as string,
+							text: t as string,
+						})),
+						required: false,
 					},
 				]}
 				onSubmit={onAddPlayer}

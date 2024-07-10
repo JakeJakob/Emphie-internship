@@ -1,4 +1,3 @@
-import "@index.css";
 import { Button } from "@shadcn/button";
 
 import {

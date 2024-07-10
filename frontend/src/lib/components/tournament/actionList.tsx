@@ -1,4 +1,3 @@
-import "@index.css";
 import judgeIcon from "/icons/judge.svg";
 import resultsIcon from "/icons/results.svg";
 import peopleIcon from "/icons/people.svg";
@@ -29,7 +28,7 @@ export function ActionListCard({ token_type }: { token_type: TokenType }) {
 				)}
 				{token_type === TokenType.Admin && <CreateJudgeDrawer />}
 
-				<Link to="./scoreboard" className="w-full">
+				<Link to="./games" className="w-full">
 					<Button className="w-full">
 						<img src={resultsIcon} className="w-5 m-2" alt="." />
 						Wyniki Gier

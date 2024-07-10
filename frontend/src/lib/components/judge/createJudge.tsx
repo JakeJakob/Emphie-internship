@@ -1,5 +1,4 @@
 import { CreateDrawer } from "../common";
-import "@index.css";
 import judgeIcon from "/icons/judge.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";

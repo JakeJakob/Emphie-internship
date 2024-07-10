@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Button } from "@/lib/components/shadcn/button";
+import { Button } from "@shadcn/button";
 import {
 	DrawerClose,
 	DrawerContent,
@@ -8,8 +8,15 @@ import {
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
-} from "@/lib/components/shadcn/drawer";
-import { Input } from "@/lib/components/shadcn/input";
+} from "@shadcn/drawer";
+import { Input } from "@shadcn/input";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@shadcn/select";
 
 export interface FormField {
 	name: string;
@@ -19,6 +26,7 @@ export interface FormField {
 	className?: string;
 	pattern?: string;
 	required?: boolean;
+	options?: { id: string; text: string }[];
 }
 
 export function CreateDrawer(props: {
@@ -54,20 +62,51 @@ export function CreateDrawer(props: {
 						<label htmlFor={field.id} className="mr-1 w-1/5">
 							<p className="font-medium">{field.name}</p>
 						</label>
-						<Input
-							type={field.type || "text"}
-							id={field.id}
-							placeholder={field.placeholder}
-							className={
-								field.className ||
-								"w-4/5 peer invalid:[&:not(:placeholder-shown):not(:focus)]"
-							}
-							pattern={field.pattern}
-							required={field.required}
-							onChange={(e) =>
-								handleInputChange(field.id, e.target.value)
-							}
-						/>
+						{field.type == "select" ? (
+							<Select
+								onValueChange={(value) =>
+									handleInputChange(field.id, value)
+								}
+								required={field.required}
+							>
+								<SelectTrigger
+									id={field.id}
+									className={
+										field.className ||
+										"w-4/5 peer invalid:[&:not(:placeholder-shown):not(:focus)]"
+									}
+								>
+									<SelectValue
+										placeholder={field.placeholder}
+									/>
+								</SelectTrigger>
+								<SelectContent position="popper">
+									{field.options?.map((option) => (
+										<SelectItem
+											key={option.id}
+											value={option.id}
+										>
+											{option.text}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						) : (
+							<Input
+								type={field.type || "text"}
+								id={field.id}
+								placeholder={field.placeholder}
+								className={
+									field.className ||
+									"w-4/5 peer invalid:[&:not(:placeholder-shown):not(:focus)]"
+								}
+								pattern={field.pattern}
+								required={field.required}
+								onChange={(e) =>
+									handleInputChange(field.id, e.target.value)
+								}
+							/>
+						)}
 					</div>
 				))}
 			</div>

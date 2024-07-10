@@ -25,7 +25,9 @@ export function PlayerCard({
 			>
 				<div className="flex items-center justify-between h-2/3 w-full px-3">
 					{align_left && playerPiece}
-					<p className="text-white text-[75px] font-normal">
+					<p
+						className={`text-white text-[65px] font-normal ${align_left ? "mr-auto" : "ml-auto"}`}
+					>
 						{playerName}
 					</p>
 					{!align_left && playerPiece}

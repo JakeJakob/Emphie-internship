@@ -1,4 +1,3 @@
-import "@index.css";
 import { Input } from "@shadcn/input";
 import { Button } from "@shadcn/button";
 import { useAuthStore } from "@lib/stores/auth.store";

@@ -1,4 +1,3 @@
-import "@index.css";
 import { Input } from "@shadcn/input";
 import { Button } from "@shadcn/button";
 import { Card, CardContent, CardDescription, CardHeader } from "@shadcn/card";
