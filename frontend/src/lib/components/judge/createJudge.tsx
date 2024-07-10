@@ -1,6 +1,6 @@
 import { CreateDrawer } from "../common";
 import "@index.css";
-import refIcon from "/icons/ref.svg";
+import judgeIcon from "/icons/judge.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 import { useAuthStore } from "@/lib/stores/auth.store";
@@ -21,7 +21,6 @@ export function CreateJudgeDrawer() {
 			storeAddJudge,
 			tournament_code || "",
 			{
-				code: "",
 				name: formData.name || "",
 			}
 		);
@@ -35,7 +34,7 @@ export function CreateJudgeDrawer() {
 			<DrawerTrigger asChild>
 				<Button>
 					{" "}
-					<img src={refIcon} className="w-5 m-2" alt="." />
+					<img src={judgeIcon} className="w-5 m-2" alt="." />
 					Dodaj sędzię
 				</Button>
 			</DrawerTrigger>

@@ -11,7 +11,7 @@ import { useTournamentStore } from "@lib/stores/tournament.store";
 import { createTournament } from "@lib/api";
 import { TokenType } from "@/lib/types";
 
-export function NewTournamentCard() {
+export function JoinAsAdminCard() {
 	const [access_key, setAccessKey] = useState("");
 	const [tournament_name, setTournamentName] = useState("");
 	const navigate = useNavigate();

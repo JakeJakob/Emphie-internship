@@ -1,6 +1,6 @@
 import { CreateDrawer } from "../common";
 import "@index.css";
-import addIcon from "/icons/add.svg";
+import addPersonIcon from "/icons/addPerson.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 import { useTournamentStore } from "@/lib/stores/tournament.store";
@@ -23,7 +23,6 @@ export function CreatePlayerDrawer() {
 			storeAddPlayer,
 			tournament_code || "",
 			{
-				code: "",
 				name: formData.first_name || "",
 				last_name: formData.last_name || "",
 				rank: parseInt(formData.rank) || 0,
@@ -40,7 +39,7 @@ export function CreatePlayerDrawer() {
 			<DrawerTrigger asChild>
 				<Button>
 					{" "}
-					<img src={addIcon} className="w-5 m-2" alt="." />
+					<img src={addPersonIcon} className="w-5 m-2" alt="." />
 					Dodaj gracza
 				</Button>
 			</DrawerTrigger>

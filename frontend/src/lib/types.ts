@@ -17,7 +17,7 @@ export enum ChessTitle {
 }
 
 export class StoreUID {
-	code: string;
+	code?: string;
 
 	constructor(code: string) {
 		this.code = code;

@@ -1,6 +1,6 @@
 import { CreateDrawer } from "../common";
 import "@index.css";
-import createIcon from "/icons/create.svg";
+import createFlagIcon from "/icons/createFlag.svg";
 import { Button } from "@/lib/components/shadcn/button";
 import { Drawer, DrawerTrigger } from "@/lib/components/shadcn/drawer";
 import { useAuthStore } from "@/lib/stores/auth.store";
@@ -21,7 +21,6 @@ export function CreateGameDrawer() {
 			storeAddGame,
 			tournament_code || "",
 			{
-				code: "",
 				white_code: formData.white_player || "",
 				black_code: formData.black_player || "",
 				round: parseInt(formData.round) || 0,
@@ -38,7 +37,7 @@ export function CreateGameDrawer() {
 			<DrawerTrigger asChild>
 				<Button>
 					{" "}
-					<img src={createIcon} className="w-5 m-2" alt="." />
+					<img src={createFlagIcon} className="w-5 m-2" alt="." />
 					Utwórz grę
 				</Button>
 			</DrawerTrigger>

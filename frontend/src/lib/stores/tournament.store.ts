@@ -23,7 +23,7 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 	games: new Map(),
 
 	addTournament: (tournament: ChessTournament) => {
-		localStorage.setItem("tournament_code", tournament.code);
+		localStorage.setItem("tournament_code", tournament.code || "");
 		localStorage.setItem("tournament_name", tournament.name);
 
 		return set(tournament);
@@ -33,7 +33,6 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 		localStorage.removeItem("tournament_name");
 
 		return set({
-			code: "",
 			name: "",
 			players: new Map(),
 			judges: new Map(),
@@ -43,6 +42,8 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 
 	addPlayer: (player: ChessPlayer) =>
 		set((state) => {
+			if (!player.code) return {};
+
 			const newPlayers = new Map(state.players);
 			newPlayers.set(player.code, player);
 			return { players: newPlayers };
@@ -56,6 +57,8 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 
 	addJudge: (judge: ChessJudge) => {
 		set((state) => {
+			if (!judge.code) return {};
+
 			const newJudges = new Map(state.judges);
 			newJudges.set(judge.code, judge);
 			return { judges: newJudges };
@@ -70,6 +73,8 @@ export const useTournamentStore = create<TournamentState>()((set) => ({
 
 	addGame: (game: ChessGame) =>
 		set((state) => {
+			if (!game.code) return {};
+
 			const newGames = new Map(state.games);
 			newGames.set(game.code, game);
 			return { games: newGames };

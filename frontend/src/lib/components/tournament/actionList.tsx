@@ -1,7 +1,7 @@
 import "@index.css";
-import ref from "/icons/ref.svg";
-import results from "/icons/results.svg";
-import list from "/icons/list.svg";
+import judgeIcon from "/icons/judge.svg";
+import resultsIcon from "/icons/results.svg";
+import peopleIcon from "/icons/people.svg";
 import { Link } from "react-router-dom";
 
 import { Button } from "@shadcn/button";
@@ -31,19 +31,19 @@ export function ActionListCard({ token_type }: { token_type: TokenType }) {
 
 				<Link to="./scoreboard" className="w-full">
 					<Button className="w-full">
-						<img src={results} className="w-5 m-2" alt="." />
+						<img src={resultsIcon} className="w-5 m-2" alt="." />
 						Wyniki Gier
 					</Button>
 				</Link>
 				<Link to="./players">
 					<Button className="w-full">
-						<img src={list} className="w-5 m-2" alt="." />
+						<img src={peopleIcon} className="w-5 m-2" alt="." />
 						Lista Graczy
 					</Button>
 				</Link>
 				<Link to="./judges">
 					<Button className="w-full">
-						<img src={ref} className="w-5 m-2" alt="." />
+						<img src={judgeIcon} className="w-5 m-2" alt="." />
 						Lista Sędziów
 					</Button>
 				</Link>
