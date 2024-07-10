@@ -1,11 +1,10 @@
-import "@index.css";
 import chessGrowLogo from "/chessgrow.svg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shadcn/tabs";
 import {
 	JoinAsAdminCard,
 	JoinAsJudgeCard,
 	JoinAsGuestCard,
-} from "@/lib/components/tournament";
+} from "@components/tournament";
 
 function StartPage() {
 	return (
