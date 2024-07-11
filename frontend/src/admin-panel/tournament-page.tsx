@@ -233,13 +233,13 @@ function tournament_page (){
 
 
 
-      <Link to='Players' className='w-full' ><Button className='w-full'><img src={list} className="w-5 m-2"  alt="."/>Lista Graczy</Button></Link>
+      <Link to='Players' ><Button className='w-full'><img src={list} className="w-5 m-2"  alt="."/>Lista Graczy</Button></Link>
     
 
     {/* Ref_list */}
 
     
-    <Button><img src={ref} className="w-5 m-2" alt="."/>Lista Sędziów</Button>
+    <Link to='refs'><Button className='w-full'><img src={ref} className="w-5 m-2" alt="."/>Lista Sędziów</Button></Link>
 
 
     {/* end_tournament */}
