@@ -50,7 +50,7 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 
-function LandingPage (){
+function tournament_page (){
     return (
         <>
         <div className='min-h-screen p-0.5 box-border'>
@@ -74,6 +74,7 @@ function LandingPage (){
     <CardHeader><p className='text-xl font-semibold'>Akcje</p></CardHeader>
   <CardContent className='flex flex-col gap-2'>
 
+{/* add_player */}
 
   <Drawer>
    <DrawerTrigger asChild> 
@@ -95,7 +96,7 @@ function LandingPage (){
       </div>
       <div className='flex'>
         <label className='min-w-[100px]'> Ranga </label>
-        <Input></Input>
+        <Input  type='number'></Input>
       </div>
       <div className='flex'>
         <label className='min-w-[100px]'> Tytuł </label>
@@ -117,11 +118,9 @@ function LandingPage (){
                   <SelectItem value="V">V</SelectItem>
                 </SelectContent>
               </Select>
-      </div>
-  
-        
+    </div>  
         </form>
-      
+
 
     <DrawerFooter>
       <Button>Zapisz</Button>
@@ -133,15 +132,119 @@ function LandingPage (){
 </Drawer>
 
 
+{/*  Create game */}
 
 
+<Drawer>
+   <DrawerTrigger asChild> 
+            <Button><img src={create} className="w-5 m-2" alt="."/>Utwórz grę</Button>
+    </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Utwórz grę</DrawerTitle>
+      <DrawerDescription>Tworzenie gry.</DrawerDescription>
+    </DrawerHeader>
+      <form className='flex flex-col min-w-full my-4 px-4 gap-2'>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Białe </label>
+        <Select>
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper" className='max-h-[200px]'>
+                  <SelectItem value="GM">Marlena Chlost</SelectItem>
+                  <SelectItem value="WGM">Cezary Michalak</SelectItem>
+                </SelectContent>
+              </Select>
+      </div>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Czarne </label>
+        <Select>
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper" className='max-h-[200px]'>
+                  <SelectItem value="GM">Marlena Chlost</SelectItem>
+                  <SelectItem value="WGM">Cezary Michalak</SelectItem>
+                </SelectContent>
+              </Select>
+      </div>
+
+      <div className='flex'>
+        <label className='min-w-[100px]'> Runda </label>
+        <Input  type='number'></Input>
+      </div>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Wygrany(a) </label>
+        <Select>
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper" className='max-h-[200px]'>
+                <SelectItem value="player_id_a">Marlena Chlost</SelectItem>
+                <SelectItem value="player_id_b">Cezary Michalak</SelectItem>
+  
+                </SelectContent>
+              </Select>
+      </div>
+      </form>
+<DrawerFooter>
+      <Button>Zapisz</Button>
+      <DrawerClose>
+        <Button variant="outline" className='min-w-full'>Anuluj</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
 
 
-    <Button><img src={create} className="w-5 m-2" alt="."/>Utwórz grę</Button>
-    <Button><img src={ref} className="w-5 m-2" alt="."/>Dodaj sędzię</Button>
+      {/* add_reffere */}
+
+
+      <Drawer>
+   <DrawerTrigger asChild> 
+          <Button><img src={ref} className="w-5 m-2" alt="."/>Dodaj sędzię</Button>
+    </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Dodaj sędzie</DrawerTitle>
+      <DrawerDescription>Dodawanie nowego sędzi</DrawerDescription>
+    </DrawerHeader>
+      <form className='flex flex-col min-w-full my-4 px-4 gap-2'>
+      <div className='flex'>
+        <label className='min-w-[100px]'> Nazwa </label>
+        <Input></Input>
+      </div>
+        
+        </form>
+        <DrawerFooter>
+      <Button>Dodaj</Button>
+      <DrawerClose>
+        <Button variant="outline" className='min-w-full'>Anuluj</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+
+{/* Results*/}
     <Button><img src={results} className="w-5 m-2" alt="."/>Wyniki Gier</Button>
-    <Button><img src={list} className="w-5 m-2" alt="."/>Lista Graczy</Button>
+    
+{/* player_list */}
+
+
+
+      <Link to='Players' className='w-full' ><Button className='w-full'><img src={list} className="w-5 m-2"  alt="."/>Lista Graczy</Button></Link>
+    
+
+    {/* Ref_list */}
+
+    
     <Button><img src={ref} className="w-5 m-2" alt="."/>Lista Sędziów</Button>
+
+
+    {/* end_tournament */}
+
+
    <AlertDialog><AlertDialogTrigger asChild>
         <Button variant='destructive'>Zakończ turniej</Button>
     </AlertDialogTrigger>
@@ -206,4 +309,4 @@ function LandingPage (){
 
 
 
-export default LandingPage;
+export default tournament_page;
