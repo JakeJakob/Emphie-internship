@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -18,17 +18,17 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-          inter: ['Inter, sans-serif'],
-          ptSans: ['PT Sans, sans-serif'],
-          anton: ['Anton SC']
-        },
+        inter: ["Inter, sans-serif"],
+        ptSans: ["PT Sans, sans-serif"],
+        anton: ["Anton SC"],
+      },
       colors: {
         // project specific colors
-        project_primary: '#275396',
-        project_secondary: '#0F7AC8',
-        project_accent: '#FFFFFF',
-        project_error: '#B92B2B',
-        // ... 
+        project_primary: "#275396",
+        project_secondary: "#0F7AC8",
+        project_accent: "#FFFFFF",
+        project_error: "#B92B2B",
+        // ...
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -85,4 +85,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
