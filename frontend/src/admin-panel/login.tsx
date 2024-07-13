@@ -2,7 +2,7 @@ import "../index.css";
 import chessGrowLogo from "../../public/chessgrow.svg";
 import { Link } from "react-router-dom";
 
-// start if component imports
+// start of component imports
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -16,16 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 
 // end of component imports
 
@@ -75,7 +65,7 @@ function StartPage() {
                     Błędny kod dostępu
                   </span>
                 </label>
-                <Link to="Landing_Page">
+                <Link to="admin_panel">
                   {" "}
                   <Button
                     type="submit"
@@ -134,7 +124,7 @@ function StartPage() {
                   >
                     Błędny kod sędzi
                   </span>
-                  <Link to={"Landing_Page"}>
+                  <Link to={"admin_panel"}>
                     <Button className="mt-3"> Dołącz </Button>
                   </Link>
                 </label>

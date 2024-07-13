@@ -1,12 +1,17 @@
 import "../index.css";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
+
+// icons
+
 import addPlayer from "../../public/icons/add.svg";
 import create from "../../public/icons/create.svg";
 import ref from "../../public/icons/ref.svg";
 import results from "../../public/icons/results.svg";
 import list from "../../public/icons/list.svg";
 
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+// start of components imports
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -50,6 +55,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// end of comp imports
+
 function tournament_page() {
   return (
     <>
@@ -60,6 +67,8 @@ function tournament_page() {
             Scoreboard{" "}
           </h1>
         </div>
+
+        {/* tournament name and code card */}
 
         <div className="grid  md:grid-cols-4 grid-cols-none gap-4 p-4 ">
           <Card className="h-min">
@@ -75,12 +84,14 @@ function tournament_page() {
             </CardContent>
           </Card>
 
+          {/* actions card */}
+
           <Card className="h-min">
             <CardHeader>
               <p className="text-xl font-semibold">Akcje</p>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
-              {/* add_player */}
+              {/* add_player btn */}
 
               <Drawer>
                 <DrawerTrigger asChild>
@@ -147,7 +158,7 @@ function tournament_page() {
                 </DrawerContent>
               </Drawer>
 
-              {/*  Create game */}
+              {/*  Create game btn */}
 
               <Drawer>
                 <DrawerTrigger asChild>
@@ -228,7 +239,7 @@ function tournament_page() {
                 </DrawerContent>
               </Drawer>
 
-              {/* add_reffere */}
+              {/* add_reffere btn */}
 
               <Drawer>
                 <DrawerTrigger asChild>
@@ -261,31 +272,31 @@ function tournament_page() {
                 </DrawerContent>
               </Drawer>
 
-              {/* Results*/}
+              {/* Results btn */}
               <Button>
                 <img src={results} className="w-5 m-2" alt="." />
                 Wyniki Gier
               </Button>
 
-              {/* player_list */}
+              {/* player_list btn*/}
 
-              <Link to="Players">
+              <Link to="players">
                 <Button className="w-full">
                   <img src={list} className="w-5 m-2" alt="." />
                   Lista Graczy
                 </Button>
               </Link>
 
-              {/* Ref_list */}
+              {/* Ref_list btn*/}
 
-              <Link to="refs">
+              <Link to="referees">
                 <Button className="w-full">
                   <img src={ref} className="w-5 m-2" alt="." />
                   Lista Sędziów
                 </Button>
               </Link>
 
-              {/* end_tournament */}
+              {/* end_tournament dialog */}
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
@@ -315,6 +326,8 @@ function tournament_page() {
             </CardContent>
           </Card>
 
+          {/* active games card */}
+
           <Card className="h-min">
             <CardHeader>
               <p className="text-xl font-semibold ">Aktywne gry</p>
@@ -328,6 +341,8 @@ function tournament_page() {
               <Button> Pokaż wszystkie </Button>
             </CardContent>
           </Card>
+
+          {/* ref list card */}
 
           <Card className="h-min">
             <CardHeader>

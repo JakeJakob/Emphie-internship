@@ -1,23 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Starting_Page from "./admin-panel/start-page.tsx";
-import Landing_Page from "./admin-panel/tournament-page.tsx";
+import Login from "./admin-panel/login.tsx";
+import AdminPanel from "./admin-panel/admin_panel.tsx";
 import Players from "./admin-panel/players.tsx";
-import Refs from "./admin-panel/refs.tsx";
+import Refs from "./admin-panel/referees.tsx";
 import Error from "./Error.tsx";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <Starting_Page />, errorElement: <Error /> },
+  { path: "/", element: <Login />, errorElement: <Error /> },
   {
-    path: "Landing_Page",
-    element: <Landing_Page />,
+    path: "admin_panel",
+    element: <AdminPanel />,
   },
   {
-    path: "Landing_Page/Players",
+    path: "admin_panel/players",
     element: <Players />,
   },
   {
-    path: "Landing_Page/refs",
+    path: "admin_panel/referees",
     element: <Refs />,
   },
 ]);
