@@ -1,11 +1,15 @@
-import { PlayerListCard } from "@components/player/PlayersList";
-import { GameListCard } from "@components/game/ActiveGamesList";
-import { JudgeListCard } from "@components/judge/JudgesList";
-import { ActionListCard, TournamentInfoCard } from "@components/tournament";
+import { CommonListCard } from "@/components/common/ListCard";
+import { TournamentInfoCard } from "@/components/tournamentInfoCard";
+import { useTournamentStore } from "@/stores/tournament.store";
+import { TournamentActionList } from "@components/tournamentActionCard";
 import { useAuthStore } from "@stores/auth.store";
-import { TokenType } from "@types";
+import { ChessGame, ChessJudge, ChessPlayer, TokenType } from "@types";
 
-function LandingPage() {
+export default function LandingPage() {
+	const [tournament_code, tournament_name] = useTournamentStore((state) => [
+		state.code,
+		state.name,
+	]);
 	const token_type = useAuthStore((state) => state.token_type);
 
 	if (token_type == TokenType.Admin || token_type == TokenType.Judge) {
@@ -20,8 +24,11 @@ function LandingPage() {
 					</div>
 
 					<div className="grid md:grid-cols-4 grid-cols-none gap-4 p-4">
-						<TournamentInfoCard />
-						<ActionListCard token_type={token_type} />
+						<TournamentInfoCard
+							name={tournament_name}
+							code={tournament_code || ""}
+						/>
+						<TournamentActionList token_type={token_type} />
 
 						<GameListCard />
 						<JudgeListCard />
@@ -31,8 +38,59 @@ function LandingPage() {
 			</>
 		);
 	} else {
-		return <h1>Unauthorized</h1>;
+		return (
+			<h1 className="text-project_primary text-2xl font-bold my-3 font-ptSans">
+				Unauthorized
+			</h1>
+		);
 	}
 }
 
-export default LandingPage;
+function PlayerListCard() {
+	const player_names = [
+		...useTournamentStore((state) => state.players).values(),
+	].map((player: ChessPlayer) => player.name + " " + player.last_name);
+
+	return (
+		<CommonListCard
+			title="Gracze"
+			items={player_names}
+			overflow_href="./players"
+		/>
+	);
+}
+
+function JudgeListCard() {
+	const judge_names = [
+		...useTournamentStore((state) => state.judges).values(),
+	].map((judge: ChessJudge) => judge.name);
+
+	return (
+		<CommonListCard
+			title="Sędziowie"
+			items={judge_names}
+			overflow_href="./judges"
+		/>
+	);
+}
+function GameListCard() {
+	const players = useTournamentStore((state) => state.players);
+	const versus_names = [
+		...useTournamentStore((state) => state.games).values(),
+	]
+		.filter((game) => !game.winner_code)
+		.map(
+			(game: ChessGame) =>
+				players.get(game.white_code)?.last_name +
+				" vs " +
+				players.get(game.black_code)?.last_name
+		);
+
+	return (
+		<CommonListCard
+			title="Aktywne gry"
+			items={versus_names}
+			overflow_href="./players"
+		/>
+	);
+}

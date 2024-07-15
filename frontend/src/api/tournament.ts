@@ -1,70 +1,61 @@
-import { apiHeaders, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
 import { ChessTournament } from "@types";
+import { useAuthStore } from "@stores/auth.store";
+import { useTournamentStore } from "@/stores/tournament.store";
 
-export const getTournament = async (
-	getAuthorization: () => string,
-	storeAddTournament: (tournament: ChessTournament) => void,
-	tournament_code: string
+const getTournament = async (
+	code: string
 ): Promise<ChessTournament | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code,
-			{
-				method: "GET",
-				headers: apiHeaders(getAuthorization),
-			}
-		);
+		const { addTournament } = useTournamentStore.getState();
 
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${code}`,
+			"GET"
+		);
 		const tournament: ChessTournament = await handleResponse(response);
-		storeAddTournament(tournament);
+		addTournament(tournament);
 		return tournament;
 	} catch (error) {
 		handleError(error);
 	}
 };
 
-export const createTournament = async (
-	getAuthorization: () => string,
-	storeAddTournament: (tournament: ChessTournament) => void,
+const createTournament = async (
 	name: string
 ): Promise<ChessTournament | undefined> => {
 	try {
-		const response = await fetch("http://localhost:3000/tournaments", {
-			method: "POST",
-			headers: apiHeaders(getAuthorization),
-			body: JSON.stringify({ name }),
+		const { addTournament } = useTournamentStore.getState();
+
+		const response = await apiFetch(`${BASE_URL}/tournaments/`, "POST", {
+			name,
 		});
-
-		const new_tournament: ChessTournament = await handleResponse(response);
-		storeAddTournament(new_tournament);
-		return new_tournament;
+		const newTournament: ChessTournament = await handleResponse(response);
+		addTournament(newTournament);
+		return newTournament;
 	} catch (error) {
 		handleError(error);
 	}
 };
 
-export const endTournament = async (
-	getAuthorization: () => string,
-	storeEndTournament: () => void,
-	storeRemoveAuthorization: () => void,
-	tournament_code: string
-): Promise<ChessTournament | undefined> => {
+const endTournament = async (): Promise<ChessTournament | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code,
-			{
-				method: "DELETE",
-				headers: apiHeaders(getAuthorization),
-			}
+		const { endTournament, code } = useTournamentStore.getState();
+		const { removeAuthorization } = useAuthStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${code}`,
+			"DELETE"
 		);
+		const endedTournament: ChessTournament = await handleResponse(response);
 
-		const new_tournament: ChessTournament = await handleResponse(response);
+		endTournament();
+		removeAuthorization();
 
-		await storeEndTournament();
-		await storeRemoveAuthorization();
-
-		return new_tournament;
+		return endedTournament;
 	} catch (error) {
 		handleError(error);
 	}
 };
+
+export { getTournament, createTournament, endTournament };

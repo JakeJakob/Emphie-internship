@@ -1,5 +1,5 @@
-import whitePiece from "/icons/whitePiece.svg";
-import blackPiece from "/icons/blackPiece.svg";
+import whitePiece from "/icons/whitePawn.svg";
+import blackPiece from "/icons/blackPawn.svg";
 import { ChessPlayer } from "@types";
 import { TitleToColor } from "@utils";
 

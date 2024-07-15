@@ -1,5 +1,5 @@
 import { CreateDrawer } from "../common/CreateDrawerContent";
-import judgeIcon from "/icons/judge.svg";
+import judgeIcon from "/icons/ref.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 import { useAuthStore } from "@stores/auth.store";

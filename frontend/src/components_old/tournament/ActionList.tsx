@@ -1,6 +1,6 @@
-import judgeIcon from "/icons/judge.svg";
+import judgeIcon from "/icons/ref.svg";
 import resultsIcon from "/icons/results.svg";
-import peopleIcon from "/icons/people.svg";
+import peopleIcon from "/icons/list.svg";
 import { Link } from "react-router-dom";
 
 import { Button } from "@shadcn/button";

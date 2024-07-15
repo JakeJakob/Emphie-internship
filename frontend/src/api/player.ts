@@ -1,55 +1,52 @@
-import { apiHeaders, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
 import { ChessPlayer } from "@types";
+import { useTournamentStore } from "@/stores/tournament.store";
 
-export const getPlayers = async (
-	getAuthorization: () => string,
-	storeAddPlayer: (player: ChessPlayer) => void,
-	tournament_code: string
-): Promise<ChessPlayer[] | undefined> => {
+const getPlayers = async (): Promise<ChessPlayer[] | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code + "/players",
-			{
-				method: "GET",
-				headers: apiHeaders(getAuthorization),
-			}
-		);
+		const { addPlayer } = useTournamentStore();
+		const { code: tournament_code } = useTournamentStore();
 
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/players`,
+			"GET"
+		);
 		const players: ChessPlayer[] = await handleResponse(response);
+
 		players.forEach((player) => {
-			storeAddPlayer(player);
+			addPlayer(player);
 		});
+
 		return players;
 	} catch (error) {
 		handleError(error);
 	}
 };
 
-export const addPlayer = async (
-	getAuthorization: () => string,
-	storeAddPlayer: (player: ChessPlayer) => void,
-	tournament_code: string,
+const addPlayer = async (
 	player: ChessPlayer
 ): Promise<ChessPlayer | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code + "/players",
+		const { addPlayer } = useTournamentStore();
+		const { code: tournament_code } = useTournamentStore();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/players`,
+			"POST",
 			{
-				method: "POST",
-				headers: apiHeaders(getAuthorization),
-				body: JSON.stringify({
-					name: player.name,
-					last_name: player.last_name,
-					rank: player.rank,
-					title: player.title,
-				}),
+				name: player.name,
+				last_name: player.last_name,
+				rank: player.rank,
+				title: player.title,
 			}
 		);
 
 		const new_palyer: ChessPlayer = await handleResponse(response);
-		storeAddPlayer(new_palyer);
+		addPlayer(new_palyer);
 		return new_palyer;
 	} catch (error) {
 		handleError(error);
 	}
 };
+
+export { getPlayers, addPlayer };

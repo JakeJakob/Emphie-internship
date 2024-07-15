@@ -1,5 +1,5 @@
 import { CreateDrawer } from "../common/CreateDrawerContent";
-import addPersonIcon from "/icons/addPerson.svg";
+import addPersonIcon from "/icons/add.svg";
 import { Button } from "@shadcn/button";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 import { useTournamentStore } from "@stores/tournament.store";

@@ -1,3 +1,6 @@
+import { useAuthStore } from "@/stores/auth.store";
+export const BASE_URL = "http://localhost:3000";
+
 export const handleResponse = async (response: Response) => {
 	if (!response.ok) {
 		alert(response.statusText);
@@ -16,6 +19,25 @@ export const apiHeaders = (getAuthorization: () => string) => ({
 	"Content-Type": "application/json",
 	Authorization: getAuthorization(),
 });
+
+export const apiFetch = async (
+	url: string,
+	method: string,
+	body?: object
+): Promise<Response> => {
+	const { getAuthorization } = useAuthStore.getState();
+
+	const options: RequestInit = {
+		method,
+		headers: apiHeaders(getAuthorization),
+	};
+
+	if (body) {
+		options.body = JSON.stringify(body);
+	}
+
+	return fetch(url, options);
+};
 
 export * from "./tournament";
 export * from "./player";
