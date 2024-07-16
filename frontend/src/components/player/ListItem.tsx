@@ -1,6 +1,6 @@
 import { ChessPlayer } from "@/types";
-import { DeletePlayer } from "./Delete";
-import { EditPlayer } from "./Edit";
+import { DeletePlayer } from "./DeletePlayer";
+import { EditPlayer } from "./EditPlayer";
 
 export function PlayerListItem(props: { player: ChessPlayer }) {
 	return (

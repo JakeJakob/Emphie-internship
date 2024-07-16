@@ -43,4 +43,48 @@ const addJudge = async (judge: ChessJudge): Promise<ChessJudge | undefined> => {
 	}
 };
 
-export { getJudges, addJudge };
+const editJudge = async (
+	judge_code: string,
+	judge: ChessJudge
+): Promise<ChessJudge | undefined> => {
+	try {
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges/${judge_code}`,
+			"PUT",
+			{
+				name: judge.name,
+			}
+		);
+
+		const new_judge: ChessJudge = await handleResponse(response);
+		addJudge(new_judge);
+		return new_judge;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+const deleteJudge = async (
+	judge_code: string
+): Promise<ChessJudge | undefined> => {
+	try {
+		const { removeJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges/${judge_code}`,
+			"DELETE"
+		);
+
+		const deleted_judge: ChessJudge = await handleResponse(response);
+		removeJudge(deleted_judge.code || "");
+		return deleted_judge;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export { getJudges, addJudge, editJudge, deleteJudge };

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@shadcn/input";
 import {
 	Select,
@@ -8,38 +8,48 @@ import {
 	SelectValue,
 } from "@shadcn/select";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
-import { ChessTitle } from "@types";
+import { ChessTitle, ChessPlayer } from "@types";
 import { CommonEditDrawer } from "@components/common/EditDrawer";
-import { addPlayer } from "@/api";
 
-export function CreatePlayer(props: { trigger: ReactNode }) {
+interface PlayerFormProps {
+	title: string;
+	desc: string;
+	trigger: React.ReactNode;
+	onSubmit: (player: ChessPlayer) => void;
+	initialPlayer?: Partial<ChessPlayer>;
+}
+
+export function PlayerForm({
+	title,
+	desc,
+	trigger,
+	onSubmit,
+	initialPlayer = {},
+}: PlayerFormProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [name, setName] = useState(initialPlayer.name || "");
+	const [last_name, setLastName] = useState(initialPlayer.last_name || "");
+	const [rank, setRank] = useState(initialPlayer.rank || 0);
+	const [chess_title, setTitle] = useState(
+		initialPlayer.title || ("NONE" as ChessTitle)
+	);
 
-	const [name, setName] = useState("");
-	const [last_name, setLastName] = useState("");
-	const [rank, setRank] = useState(0);
-	const [title, setTitle] = useState("NONE" as ChessTitle);
-
-	const onSubmit = () => {
-		const player = addPlayer({
+	const handleSubmit = () => {
+		const player = Object.assign(initialPlayer, {
 			name,
 			last_name,
 			rank,
-			title,
+			title: chess_title,
 		});
 
-		if (!player) return;
+		onSubmit(player as ChessPlayer);
 		setIsOpen(false);
 	};
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
-			<DrawerTrigger asChild>{props.trigger}</DrawerTrigger>
-			<CommonEditDrawer
-				title="Dodaj Gracza"
-				desc="Dodawanie danych użytkownika."
-				onSubmit={onSubmit}
-			>
+			<DrawerTrigger asChild>{trigger}</DrawerTrigger>
+			<CommonEditDrawer title={title} desc={desc} onSubmit={handleSubmit}>
 				<div className="flex">
 					<label className="min-w-[100px]"> Imię </label>
 					<Input
@@ -59,7 +69,7 @@ export function CreatePlayer(props: { trigger: ReactNode }) {
 				<div className="flex">
 					<label className="min-w-[100px]"> Ranga </label>
 					<Input
-						id="Rank"
+						id="rank"
 						type="number"
 						value={rank}
 						onChange={(e) => setRank(parseInt(e.target.value))}
@@ -68,7 +78,7 @@ export function CreatePlayer(props: { trigger: ReactNode }) {
 				<div className="flex">
 					<label className="min-w-[100px]"> Tytuł </label>
 					<Select
-						value={title}
+						value={chess_title}
 						onValueChange={(e) => setTitle(e as ChessTitle)}
 					>
 						<SelectTrigger id="title">

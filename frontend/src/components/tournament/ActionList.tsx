@@ -9,9 +9,9 @@ import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 import { TokenType } from "@/types";
 
-import { CreatePlayer } from "../player/Create";
+import { CreatePlayer } from "../player/CreatePlayer";
 import { CreateGame } from "./CreateGame";
-import { CreateJudge } from "./CreateJudge";
+import { CreateJudge } from "../judge/CreateJudge";
 import { EndTournament } from "./EndTournament";
 
 export function TournamentActionList(props: { token_type: TokenType }) {
@@ -39,7 +39,20 @@ export function TournamentActionList(props: { token_type: TokenType }) {
 						<CreateGame />
 					</>
 				)}
-				{props.token_type === TokenType.Admin && <CreateJudge />}
+				{props.token_type === TokenType.Admin && (
+					<CreateJudge
+						trigger={
+							<Button className="w-full">
+								<img
+									src={refIcon}
+									className="w-5 m-2"
+									alt="."
+								/>
+								Dodaj sędzię
+							</Button>
+						}
+					/>
+				)}
 
 				<Link to="./games" className="w-full">
 					<Button className="w-full">
