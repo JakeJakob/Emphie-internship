@@ -22,7 +22,9 @@ export function CommonEditDrawer(props: {
 				<DrawerDescription>{props.desc}</DrawerDescription>
 			</DrawerHeader>
 
-			<div className="p-4 ml-12 mr-12">{props.children}</div>
+			<form className="flex flex-col min-w-full my-4 px-4 gap-2">
+				{props.children}
+			</form>
 
 			<DrawerFooter>
 				<Button className="w-full" onClick={props.onSubmit}>

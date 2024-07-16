@@ -14,10 +14,10 @@ export const handleError = (error: unknown) => {
 	throw error;
 };
 
-export const apiHeaders = (getAuthorization: () => string) => ({
+export const apiHeaders = (getAuthorization: () => string | undefined) => ({
 	Accept: "application/json",
 	"Content-Type": "application/json",
-	Authorization: getAuthorization(),
+	Authorization: getAuthorization() || "",
 });
 
 export const apiFetch = async (

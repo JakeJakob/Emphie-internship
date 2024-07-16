@@ -8,7 +8,7 @@ import { useState } from "react";
 import { TokenType } from "@/types";
 import { LabeledInput } from "@/components/common/LabeledInput";
 
-export default function StartPage() {
+export default function LandingPage() {
 	return (
 		<div className="box-border flex flex-col items-center justify-center min-h-screen p-3 font-inter">
 			<div className="max-w-xs flex flex-col items-center">

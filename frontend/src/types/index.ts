@@ -6,6 +6,7 @@ export enum TokenType {
 }
 
 export enum ChessTitle {
+	NONE = "None",
 	GM = "GM",
 	IM = "IM",
 	FM = "FM",

@@ -1,11 +1,11 @@
 import { CommonListCard } from "@/components/common/ListCard";
 import { TournamentInfoCard } from "@/components/tournamentInfoCard";
 import { useTournamentStore } from "@/stores/tournament.store";
-import { TournamentActionList } from "@components/tournamentActionCard";
+import { TournamentActionList } from "@components/tournament/ActionList";
 import { useAuthStore } from "@stores/auth.store";
 import { ChessGame, ChessJudge, ChessPlayer, TokenType } from "@types";
 
-export default function LandingPage() {
+export default function DashboardPage() {
 	const [tournament_code, tournament_name] = useTournamentStore((state) => [
 		state.code,
 		state.name,
@@ -23,7 +23,7 @@ export default function LandingPage() {
 						</h1>
 					</div>
 
-					<div className="grid md:grid-cols-4 grid-cols-none gap-4 p-4">
+					<div className="grid md:grid-cols-4 grid-cols-none gap-2 p-4">
 						<TournamentInfoCard
 							name={tournament_name}
 							code={tournament_code || ""}

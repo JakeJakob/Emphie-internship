@@ -4,8 +4,8 @@ import { useTournamentStore } from "@/stores/tournament.store";
 
 const getJudges = async (): Promise<ChessJudge[] | undefined> => {
 	try {
-		const { addJudge } = useTournamentStore();
-		const { code: tournament_code } = useTournamentStore();
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
 
 		const response = await apiFetch(
 			`${BASE_URL}/tournaments/${tournament_code}/judges`,
@@ -24,8 +24,8 @@ const getJudges = async (): Promise<ChessJudge[] | undefined> => {
 
 const addJudge = async (judge: ChessJudge): Promise<ChessJudge | undefined> => {
 	try {
-		const { addJudge } = useTournamentStore();
-		const { code: tournament_code } = useTournamentStore();
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
 
 		const response = await apiFetch(
 			`${BASE_URL}/tournaments/${tournament_code}/judges`,

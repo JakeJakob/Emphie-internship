@@ -32,11 +32,11 @@ import {
 	SelectValue,
 } from "@shadcn/select";
 
-import edit from "/icons/edit.svg";
-import trash from "/icons/trash.svg";
-import plus from "/icons/plus.svg";
+import editIcon from "/icons/edit.svg";
+import trashIcon from "/icons/trash.svg";
+import plusIcon from "/icons/plus.svg";
 
-function Players() {
+export default function PlayersPage() {
 	return (
 		<>
 			<div className="min-h-screen p-0.5 box-border">
@@ -51,7 +51,11 @@ function Players() {
 						<p className="justify-between flex w-full text-xl font-semibold border-b-2 pb-4">
 							Gracze{" "}
 							<button className="justify-self-center w-max border rounded-md">
-								<img src={plus} className="w-5 m-2 " alt="." />
+								<img
+									src={plusIcon}
+									className="w-5 m-2 "
+									alt="."
+								/>
 							</button>
 						</p>
 					</CardHeader>
@@ -64,7 +68,7 @@ function Players() {
 									<DrawerTrigger asChild>
 										<button className=" border rounded-md mx-4">
 											<img
-												src={edit}
+												src={editIcon}
 												className="w-5 m-2 "
 												alt="."
 											/>
@@ -170,7 +174,7 @@ function Players() {
 									<AlertDialogTrigger asChild>
 										<button className="align-right border rounded-md">
 											<img
-												src={trash}
+												src={trashIcon}
 												className="w-5 m-2 "
 												alt="."
 											/>
@@ -207,5 +211,3 @@ function Players() {
 		</>
 	);
 }
-
-export default Players;

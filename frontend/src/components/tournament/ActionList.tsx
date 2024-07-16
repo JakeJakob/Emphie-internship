@@ -1,14 +1,17 @@
-import judgeIcon from "/icons/ref.svg";
+import { Link } from "react-router-dom";
+
+import refIcon from "/icons/ref.svg";
 import resultsIcon from "/icons/results.svg";
-import peopleIcon from "/icons/list.svg";
-import { Link, useNavigate } from "react-router-dom";
+import listIcon from "/icons/list.svg";
 
 import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
+import { TokenType } from "@/types";
 
-import { TokenType } from "@types";
-import { CommonDeletePopup } from "./common/DeletePopup";
-import { endTournament } from "@/api";
+import { CreatePlayer } from "./CreatePlayer";
+import { CreateGame } from "./CreateGame";
+import { CreateJudge } from "./CreateJudge";
+import { EndTournament } from "./EndTournament";
 
 export function TournamentActionList(props: { token_type: TokenType }) {
 	return (
@@ -34,13 +37,13 @@ export function TournamentActionList(props: { token_type: TokenType }) {
 				</Link>
 				<Link to="./players">
 					<Button className="w-full">
-						<img src={peopleIcon} className="w-5 m-2" alt="." />
+						<img src={listIcon} className="w-5 m-2" alt="." />
 						Lista Graczy
 					</Button>
 				</Link>
 				<Link to="./judges">
 					<Button className="w-full">
-						<img src={judgeIcon} className="w-5 m-2" alt="." />
+						<img src={refIcon} className="w-5 m-2" alt="." />
 						Lista Sędziów
 					</Button>
 				</Link>
@@ -49,36 +52,4 @@ export function TournamentActionList(props: { token_type: TokenType }) {
 			</CardContent>
 		</Card>
 	);
-}
-
-function EndTournament() {
-	const navigate = useNavigate();
-
-	return (
-		<CommonDeletePopup
-			title="Zakończ turniej"
-			confirmation_text="Czy na pewno chcesz zakończyć ten turniej?"
-			warning_text="Tej akcji nie da się odwrócić. Zakończony turniej nie zostaje nigdzie zapisany."
-			submit_text="Zakończ"
-			onSubmit={async () => {
-				const tournament = await endTournament();
-
-				if (!tournament) return;
-
-				navigate("/");
-			}}
-		/>
-	);
-}
-
-function CreatePlayer() {
-	return <></>;
-}
-
-function CreateJudge() {
-	return <></>;
-}
-
-function CreateGame() {
-	return <></>;
 }

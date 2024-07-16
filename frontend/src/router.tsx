@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import StartingPage from "@routes/starting-page";
-import LandingPage from "@routes/main-panel";
+import StartingPage from "@/routes/LandingPage";
+import LandingPage from "@/routes/Dashboard";
 import { PendingGamesPage, ScoreTablePage } from "@routes/scoreboard";
-import PlayersPage from "./routes/players";
+import PlayersPage from "./routes/Players";
 
 export const router = createBrowserRouter([
 	{ path: "/", element: <StartingPage /> },
