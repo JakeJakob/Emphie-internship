@@ -10,16 +10,16 @@ export const router = createBrowserRouter([
 		path: "/tournament/:id",
 		element: <LandingPage />,
 	},
-	// {
-	// 	path: "/tournament/:id/players",
-	// 	element: <PlayersPage />,
-	// },
-	// {
-	// 	path: "/tournament/:id/judges",
-	// },
-	// {
-	// 	path: "/tournament/:id/games",
-	// },
+	{
+		path: "/tournament/:id/players",
+		element: <PlayersPage />,
+	},
+	{
+		path: "/tournament/:id/judges",
+	},
+	{
+		path: "/tournament/:id/games",
+	},
 	// {
 	// 	path: "/tournament/:id/scoreboard",
 	// 	element: <ScoreTablePage />,

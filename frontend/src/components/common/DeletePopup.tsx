@@ -1,5 +1,3 @@
-import { Button } from "@shadcn/button";
-
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,9 +9,10 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@shadcn/alert-dialog";
+import { ReactNode } from "react";
 
 export function CommonDeletePopup(props: {
-	title: string;
+	trigger: ReactNode;
 	confirmation_text: string;
 	warning_text: string;
 	submit_text: string;
@@ -21,9 +20,7 @@ export function CommonDeletePopup(props: {
 }) {
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger asChild>
-				<Button variant="destructive">{props.title}</Button>
-			</AlertDialogTrigger>
+			<AlertDialogTrigger asChild>{props.trigger}</AlertDialogTrigger>
 
 			<AlertDialogContent>
 				<AlertDialogHeader>

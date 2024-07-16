@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import addIcon from "/icons/add.svg";
 import refIcon from "/icons/ref.svg";
 import resultsIcon from "/icons/results.svg";
 import listIcon from "/icons/list.svg";
@@ -8,7 +9,7 @@ import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 import { TokenType } from "@/types";
 
-import { CreatePlayer } from "./CreatePlayer";
+import { CreatePlayer } from "../player/Create";
 import { CreateGame } from "./CreateGame";
 import { CreateJudge } from "./CreateJudge";
 import { EndTournament } from "./EndTournament";
@@ -23,7 +24,18 @@ export function TournamentActionList(props: { token_type: TokenType }) {
 				{(props.token_type === TokenType.Admin ||
 					props.token_type === TokenType.Judge) && (
 					<>
-						<CreatePlayer />
+						<CreatePlayer
+							trigger={
+								<Button className="w-full">
+									<img
+										src={addIcon}
+										className="w-5 m-2"
+										alt="."
+									/>
+									Dodaj gracza
+								</Button>
+							}
+						/>
 						<CreateGame />
 					</>
 				)}

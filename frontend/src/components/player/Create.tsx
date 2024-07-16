@@ -1,6 +1,4 @@
-import { useState } from "react";
-import addIcon from "/icons/add.svg";
-import { Button } from "@shadcn/button";
+import { ReactNode, useState } from "react";
 import { Input } from "@shadcn/input";
 import {
 	Select,
@@ -14,7 +12,7 @@ import { ChessTitle } from "@types";
 import { CommonEditDrawer } from "@components/common/EditDrawer";
 import { addPlayer } from "@/api";
 
-export function CreatePlayer() {
+export function CreatePlayer(props: { trigger: ReactNode }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [name, setName] = useState("");
@@ -36,13 +34,7 @@ export function CreatePlayer() {
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
-			<DrawerTrigger asChild>
-				<Button className="w-full">
-					{" "}
-					<img src={addIcon} className="w-5 m-2" alt="." />
-					Dodaj gracza
-				</Button>
-			</DrawerTrigger>
+			<DrawerTrigger asChild>{props.trigger}</DrawerTrigger>
 			<CommonEditDrawer
 				title="Dodaj Gracza"
 				desc="Dodawanie danych użytkownika."
@@ -87,7 +79,9 @@ export function CreatePlayer() {
 							className="max-h-[200px]"
 						>
 							{Object.values(ChessTitle).map((title) => (
-								<SelectItem value={title}>{title}</SelectItem>
+								<SelectItem key={title} value={title}>
+									{title}
+								</SelectItem>
 							))}
 						</SelectContent>
 					</Select>

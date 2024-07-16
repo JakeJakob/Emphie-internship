@@ -1,42 +1,11 @@
-import { Link } from "react-router-dom";
-import { Input } from "@shadcn/input";
-import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
-
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@shadcn/alert-dialog";
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerDescription,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger,
-} from "@shadcn/drawer";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@shadcn/select";
-
-import editIcon from "/icons/edit.svg";
-import trashIcon from "/icons/trash.svg";
 import plusIcon from "/icons/plus.svg";
+import { PlayerListItem } from "@components/player/ListItem";
+import { useTournamentStore } from "@stores/tournament.store";
+import { CreatePlayer } from "@components/player/Create";
 
 export default function PlayersPage() {
+	const players = useTournamentStore((state) => [...state.players.values()]);
 	return (
 		<>
 			<div className="min-h-screen p-0.5 box-border">
@@ -50,161 +19,23 @@ export default function PlayersPage() {
 					<CardHeader>
 						<p className="justify-between flex w-full text-xl font-semibold border-b-2 pb-4">
 							Gracze{" "}
-							<button className="justify-self-center w-max border rounded-md">
-								<img
-									src={plusIcon}
-									className="w-5 m-2 "
-									alt="."
-								/>
-							</button>
+							<CreatePlayer
+								trigger={
+									<button className="justify-self-center w-max border rounded-md">
+										<img
+											src={plusIcon}
+											className="w-5 m-2 "
+											alt="."
+										/>
+									</button>
+								}
+							/>
 						</p>
 					</CardHeader>
 					<CardContent className="flex flex-col gap-2 border-none">
-						<p className="border w-full p-2 font-bold rounded flex justify-between items-center">
-							{" "}
-							Chlost vs Michalak
-							<div className="flex ">
-								<Drawer>
-									<DrawerTrigger asChild>
-										<button className=" border rounded-md mx-4">
-											<img
-												src={editIcon}
-												className="w-5 m-2 "
-												alt="."
-											/>
-										</button>
-									</DrawerTrigger>
-									<DrawerContent>
-										<DrawerHeader>
-											<DrawerTitle>
-												Dodaj Gracza
-											</DrawerTitle>
-											<DrawerDescription>
-												Dodawanie danych użytkownika
-											</DrawerDescription>
-										</DrawerHeader>
-										<form className="flex flex-col min-w-full my-4 px-4 gap-2">
-											<div className="flex">
-												<label className="min-w-[100px]">
-													{" "}
-													Imię{" "}
-												</label>
-												<Input></Input>
-											</div>
-											<div className="flex">
-												<label className="min-w-[100px]">
-													{" "}
-													Nazwisko{" "}
-												</label>
-												<Input></Input>
-											</div>
-											<div className="flex">
-												<label className="min-w-[100px]">
-													{" "}
-													Ranga{" "}
-												</label>
-												<Input type="number"></Input>
-											</div>
-											<div className="flex">
-												<label className="min-w-[100px]">
-													{" "}
-													Tytuł{" "}
-												</label>
-												<Select>
-													<SelectTrigger id="framework">
-														<SelectValue placeholder="Select" />
-													</SelectTrigger>
-													<SelectContent
-														position="popper"
-														className="max-h-[200px]"
-													>
-														<SelectItem value="GM">
-															GM
-														</SelectItem>
-														<SelectItem value="WGM">
-															WGM
-														</SelectItem>
-														<SelectItem value="IM">
-															IM
-														</SelectItem>
-														<SelectItem value="WIM">
-															WIM
-														</SelectItem>
-														<SelectItem value="M">
-															M
-														</SelectItem>
-														<SelectItem value="K">
-															K
-														</SelectItem>
-														<SelectItem value="I">
-															I
-														</SelectItem>
-														<SelectItem value="II">
-															II
-														</SelectItem>
-														<SelectItem value="III">
-															III
-														</SelectItem>
-														<SelectItem value="IV">
-															IV
-														</SelectItem>
-														<SelectItem value="V">
-															V
-														</SelectItem>
-													</SelectContent>
-												</Select>
-											</div>
-										</form>
-
-										<DrawerFooter>
-											<Button>Zapisz</Button>
-											<DrawerClose>
-												<Button
-													variant="outline"
-													className="min-w-full"
-												>
-													Anuluj
-												</Button>
-											</DrawerClose>
-										</DrawerFooter>
-									</DrawerContent>
-								</Drawer>
-
-								<AlertDialog>
-									<AlertDialogTrigger asChild>
-										<button className="align-right border rounded-md">
-											<img
-												src={trashIcon}
-												className="w-5 m-2 "
-												alt="."
-											/>
-										</button>
-									</AlertDialogTrigger>
-
-									<AlertDialogContent>
-										<AlertDialogHeader>
-											<AlertDialogTitle>
-												Czy na pewno chcesz usunąć
-												gracza Marlena Chlost?
-											</AlertDialogTitle>
-											<AlertDialogDescription>
-												Tej akcji nie da się odwrócić.
-											</AlertDialogDescription>
-										</AlertDialogHeader>
-										<AlertDialogFooter>
-											<AlertDialogCancel>
-												Anuluj
-											</AlertDialogCancel>
-											<Link to="/">
-												<AlertDialogAction className="min-w-full">
-													Usuń
-												</AlertDialogAction>
-											</Link>
-										</AlertDialogFooter>
-									</AlertDialogContent>
-								</AlertDialog>
-							</div>
-						</p>
+						{players.map((player) => (
+							<PlayerListItem player={player} />
+						))}
 					</CardContent>
 				</Card>
 			</div>
