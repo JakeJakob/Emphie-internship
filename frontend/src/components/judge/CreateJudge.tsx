@@ -1,54 +1,21 @@
-import { CreateDrawer } from "../common/CreateDrawerContent";
-import judgeIcon from "/icons/judge.svg";
-import { Button } from "@shadcn/button";
-import { Drawer, DrawerTrigger } from "@shadcn/drawer";
-import { useAuthStore } from "@stores/auth.store";
-import { useTournamentStore } from "@stores/tournament.store";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
+import { JudgeEditDrawer } from "./JudgeEditDrawer";
 import { addJudge } from "@api";
+import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 
-export function CreateJudgeDrawer() {
+export function CreateJudge({ trigger }: { trigger: ReactNode }) {
 	const [isOpen, setIsOpen] = useState(false);
-
-	const getAuthorization = useAuthStore((state) => state.getAuthorization);
-	const tournament_code = useTournamentStore((state) => state.code);
-	const storeAddJudge = useTournamentStore((state) => state.addJudge);
-
-	const onAddJudge = (formData: Record<string, string>) => {
-		const judge = addJudge(
-			getAuthorization,
-			storeAddJudge,
-			tournament_code || "",
-			{
-				name: formData.name || "",
-			}
-		);
-
-		if (!judge) return;
-		setIsOpen(false);
-	};
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
-			<DrawerTrigger asChild>
-				<Button>
-					{" "}
-					<img src={judgeIcon} className="w-5 m-2" alt="." />
-					Dodaj sędzię
-				</Button>
-			</DrawerTrigger>
-			<CreateDrawer
-				header="Dodaj sędzię"
-				description="Dodawanie nowego sędzi."
-				// TODO: Dropdown menu
-				fields={[
-					{
-						name: "Nazwa",
-						id: "name",
-						placeholder: "Mateusz Nowak",
-					},
-				]}
-				onSubmit={onAddJudge}
+			<DrawerTrigger asChild>{trigger}</DrawerTrigger>
+			<JudgeEditDrawer
+				title="Dodaj sędzię"
+				desc="Dodawanie nowego sędzi"
+				onSubmit={(judge) => {
+					addJudge(judge);
+					setIsOpen(false);
+				}}
 			/>
 		</Drawer>
 	);

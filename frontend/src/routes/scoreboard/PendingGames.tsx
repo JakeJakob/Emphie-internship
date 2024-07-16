@@ -1,5 +1,5 @@
-import scoreLogo from "/icons/scoreLogo.svg";
-import { VsCard } from "@components/scores/VsCard";
+import { ScoreBadge } from "@/components/player/ScoreBadge";
+import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
 
 export function PendingGamesPage() {
@@ -12,7 +12,7 @@ export function PendingGamesPage() {
 	);
 
 	return (
-		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/icons/chessgrowLogo.svg')] bg-no-repeat bg-right">
+		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/chessgrowLogo.svg')] bg-no-repeat bg-right">
 			<div className="h-frame48-height w-screen">
 				<div className="flex items-center h-frame32-height w-screen ">
 					<p className="font-sans text-white font-bold text-6xl">
@@ -28,22 +28,23 @@ export function PendingGamesPage() {
 
 			<div className="w-full h-[660px] mt-11 overflow-y-auto">
 				{pending_games.map((game) => (
-					<VsCard
-						white={
-							players.get(game.white_code) || {
-								name: "",
-								last_name: "",
-								rank: 0,
-							}
-						}
-						black={
-							players.get(game.black_code) || {
-								name: "",
-								last_name: "",
-								rank: 0,
-							}
-						}
-					/>
+					<div className="w-full mb-6 h-44 flex justify-between items-center">
+						<ScoreBadge
+							player={players.get(game.white_code)}
+							is_white
+						/>
+
+						<div className="w-32 h-18 ml-auto">
+							<p className="font-normal text-5xl text-white text-center">
+								vs.
+							</p>
+						</div>
+
+						<ScoreBadge
+							player={players.get(game.black_code)}
+							align_left
+						/>
+					</div>
 				))}
 			</div>
 

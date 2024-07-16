@@ -1,22 +1,22 @@
-import whitePiece from "/icons/whitePiece.svg";
-import blackPiece from "/icons/blackPiece.svg";
+import whitePawn from "/icons/whitePawn.svg";
+import blackPawn from "/icons/blackPawn.svg";
 import { ChessPlayer } from "@types";
 import { TitleToColor } from "@utils";
 
-export function PlayerCard({
+export function ScoreBadge({
 	player,
 	is_white,
 	align_left,
 }: {
-	player: ChessPlayer;
-	is_white: boolean;
-	align_left: boolean;
+	player: ChessPlayer | undefined;
+	is_white?: boolean;
+	align_left?: boolean;
 }) {
 	const playerPiece = (
-		<img src={is_white ? whitePiece : blackPiece} alt="Chess piece" />
+		<img src={is_white ? whitePawn : blackPawn} alt="Chess piece" />
 	);
-	const playerName = `${player.name} ${player.last_name[0]}.`;
-	const titleColor = player.title ? TitleToColor(player.title) : null;
+	const playerName = `${player?.name} ${player?.last_name[0]}.`;
+	const titleColor = player?.title ? TitleToColor(player.title) : null;
 
 	return (
 		<div className={`w-2/5 h-full ${align_left ? "ml-auto" : ""}`}>
@@ -35,7 +35,7 @@ export function PlayerCard({
 				<div
 					className={`flex items-center justify-between h-1/3 w-2/3 ${align_left ? "mr-auto" : "ml-auto"}`}
 				>
-					{player.title && (
+					{player?.title && (
 						<div
 							className="flex items-center justify-center w-[78px] h-[57px] rounded-sm"
 							style={{ backgroundColor: titleColor || "#FFFFFF" }}
@@ -47,7 +47,7 @@ export function PlayerCard({
 					)}
 					<p className="text-white text-[32px] font-normal">Ranga:</p>
 					<p className="text-white text-[32px] font-normal">
-						{player.rank}
+						{player?.rank}
 					</p>
 				</div>
 			</div>

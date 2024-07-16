@@ -10,7 +10,7 @@ export interface AuthState {
 
 export const useAuthStore = create<
 	AuthState & {
-		getAuthorization: () => string;
+		getAuthorization: () => string | undefined;
 		removeAuthorization: () => void;
 		setAuth: (auth: AuthState) => void;
 	}
@@ -33,7 +33,11 @@ export const useAuthStore = create<
 			return "Bearer " + state.tournament_code + "+" + state.judge_code;
 		}
 
-		return "Bearer " + state.tournament_code;
+		if (state.token_type == TokenType.Guest) {
+			return "Bearer " + state.tournament_code;
+		}
+
+		return undefined;
 	},
 	removeAuthorization: () => {
 		localStorage.clear();

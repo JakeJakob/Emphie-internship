@@ -1,32 +1,70 @@
-import judgeIcon from "/icons/judge.svg";
-import resultsIcon from "/icons/results.svg";
-import peopleIcon from "/icons/people.svg";
 import { Link } from "react-router-dom";
+
+import addIcon from "/icons/add.svg";
+import refIcon from "/icons/ref.svg";
+import resultsIcon from "/icons/results.svg";
+import listIcon from "/icons/list.svg";
+import createIcon from "/icons/create.svg";
 
 import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
+import { TokenType } from "@/types";
 
-import { CreatePlayerDrawer } from "@components/player/CreatePlayer";
-import { CreateGameDrawer } from "@components/game/CreateGame";
-import { CreateJudgeDrawer } from "@components/judge/CreateJudge";
-import { EndTournament } from "@components/tournament";
-import { TokenType } from "@types";
+import { CreatePlayer } from "../player/CreatePlayer";
+import { CreateGame } from "../game/CreateGame";
+import { CreateJudge } from "../judge/CreateJudge";
+import { EndTournament } from "./EndTournament";
 
-export function ActionListCard({ token_type }: { token_type: TokenType }) {
+export function TournamentActionList(props: { token_type: TokenType }) {
 	return (
 		<Card className="min-h-96">
 			<CardHeader>
 				<p className="text-xl font-semibold">Akcje</p>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				{(token_type === TokenType.Admin ||
-					token_type === TokenType.Judge) && (
+				{(props.token_type === TokenType.Admin ||
+					props.token_type === TokenType.Judge) && (
 					<>
-						<CreatePlayerDrawer />
-						<CreateGameDrawer />
+						<CreatePlayer
+							trigger={
+								<Button className="w-full">
+									<img
+										src={addIcon}
+										className="w-5 m-2"
+										alt="."
+									/>
+									Dodaj gracza
+								</Button>
+							}
+						/>
+						<CreateGame
+							trigger={
+								<Button className="w-full">
+									<img
+										src={createIcon}
+										className="w-5 m-2"
+										alt="."
+									/>
+									Utwórz grę
+								</Button>
+							}
+						/>
 					</>
 				)}
-				{token_type === TokenType.Admin && <CreateJudgeDrawer />}
+				{props.token_type === TokenType.Admin && (
+					<CreateJudge
+						trigger={
+							<Button className="w-full">
+								<img
+									src={refIcon}
+									className="w-5 m-2"
+									alt="."
+								/>
+								Dodaj sędzię
+							</Button>
+						}
+					/>
+				)}
 
 				<Link to="./games" className="w-full">
 					<Button className="w-full">
@@ -36,18 +74,18 @@ export function ActionListCard({ token_type }: { token_type: TokenType }) {
 				</Link>
 				<Link to="./players">
 					<Button className="w-full">
-						<img src={peopleIcon} className="w-5 m-2" alt="." />
+						<img src={listIcon} className="w-5 m-2" alt="." />
 						Lista Graczy
 					</Button>
 				</Link>
 				<Link to="./judges">
 					<Button className="w-full">
-						<img src={judgeIcon} className="w-5 m-2" alt="." />
+						<img src={refIcon} className="w-5 m-2" alt="." />
 						Lista Sędziów
 					</Button>
 				</Link>
 
-				{token_type === TokenType.Admin && <EndTournament />}
+				{props.token_type === TokenType.Admin && <EndTournament />}
 			</CardContent>
 		</Card>
 	);

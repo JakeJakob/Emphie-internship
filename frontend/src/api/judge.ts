@@ -1,23 +1,20 @@
-import { apiHeaders, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
 import { ChessJudge } from "@types";
+import { useTournamentStore } from "@/stores/tournament.store";
 
-export const getJudges = async (
-	getAuthorization: () => string,
-	storeAddJudge: (judge: ChessJudge) => void,
-	tournament_code: string
-): Promise<ChessJudge[] | undefined> => {
+const getJudges = async (): Promise<ChessJudge[] | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code + "/judges",
-			{
-				method: "GET",
-				headers: apiHeaders(getAuthorization),
-			}
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges`,
+			"GET"
 		);
 
 		const judges: ChessJudge[] = await handleResponse(response);
 		judges.forEach((judge) => {
-			storeAddJudge(judge);
+			addJudge(judge);
 		});
 		return judges;
 	} catch (error) {
@@ -25,28 +22,69 @@ export const getJudges = async (
 	}
 };
 
-export const addJudge = async (
-	getAuthorization: () => string,
-	storeAddJudge: (judge: ChessJudge) => void,
-	tournament_code: string,
-	judge: ChessJudge
-): Promise<ChessJudge | undefined> => {
+const addJudge = async (judge: ChessJudge): Promise<ChessJudge | undefined> => {
 	try {
-		const response = await fetch(
-			"http://localhost:3000/tournaments/" + tournament_code + "/judges",
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges`,
+			"POST",
 			{
-				method: "POST",
-				headers: apiHeaders(getAuthorization),
-				body: JSON.stringify({
-					name: judge.name,
-				}),
+				name: judge.name,
 			}
 		);
 
 		const new_judge: ChessJudge = await handleResponse(response);
-		storeAddJudge(new_judge);
+		addJudge(new_judge);
 		return new_judge;
 	} catch (error) {
 		handleError(error);
 	}
 };
+
+const editJudge = async (
+	judge_code: string,
+	judge: ChessJudge
+): Promise<ChessJudge | undefined> => {
+	try {
+		const { addJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges/${judge_code}`,
+			"PUT",
+			{
+				name: judge.name,
+			}
+		);
+
+		const new_judge: ChessJudge = await handleResponse(response);
+		addJudge(new_judge);
+		return new_judge;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+const deleteJudge = async (
+	judge_code: string
+): Promise<ChessJudge | undefined> => {
+	try {
+		const { removeJudge } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/judges/${judge_code}`,
+			"DELETE"
+		);
+
+		const deleted_judge: ChessJudge = await handleResponse(response);
+		removeJudge(deleted_judge.code || "");
+		return deleted_judge;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export { getJudges, addJudge, editJudge, deleteJudge };

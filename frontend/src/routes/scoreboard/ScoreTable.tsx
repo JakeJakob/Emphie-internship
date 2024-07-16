@@ -1,6 +1,6 @@
 export function ScoreTablePage() {
 	return (
-		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/icons/chessgrowLogo.svg')] bg-no-repeat bg-right">
+		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/chessgrowLogo.svg')] bg-no-repeat bg-right">
 			<div className="h-frame48-height w-screen ">
 				<div className="flex items-center h-frame32-height w-screen ">
 					<p className="font-sans text-white font-bold text-6xl">
