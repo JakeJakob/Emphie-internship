@@ -24,12 +24,12 @@ export const router = createBrowserRouter([
 		path: "/tournament/:id/games",
 		element: <GamesPage />,
 	},
-	// {
-	// 	path: "/tournament/:id/scoreboard",
-	// 	element: <ScoreTablePage />,
-	// },
-	// {
-	// 	path: "/tournament/:id/scoreboard/pending",
-	// 	element: <PendingGamesPage />,
-	// },
+	{
+		path: "/tournament/:id/scoreboard",
+		element: <ScoreTablePage />,
+	},
+	{
+		path: "/tournament/:id/scoreboard/pending",
+		element: <PendingGamesPage />,
+	},
 ]);
