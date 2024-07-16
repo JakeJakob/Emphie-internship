@@ -4,13 +4,14 @@ import addIcon from "/icons/add.svg";
 import refIcon from "/icons/ref.svg";
 import resultsIcon from "/icons/results.svg";
 import listIcon from "/icons/list.svg";
+import createIcon from "/icons/create.svg";
 
 import { Button } from "@shadcn/button";
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 import { TokenType } from "@/types";
 
 import { CreatePlayer } from "../player/CreatePlayer";
-import { CreateGame } from "./CreateGame";
+import { CreateGame } from "../game/CreateGame";
 import { CreateJudge } from "../judge/CreateJudge";
 import { EndTournament } from "./EndTournament";
 
@@ -36,7 +37,18 @@ export function TournamentActionList(props: { token_type: TokenType }) {
 								</Button>
 							}
 						/>
-						<CreateGame />
+						<CreateGame
+							trigger={
+								<Button className="w-full">
+									<img
+										src={createIcon}
+										className="w-5 m-2"
+										alt="."
+									/>
+									Utwórz grę
+								</Button>
+							}
+						/>
 					</>
 				)}
 				{props.token_type === TokenType.Admin && (

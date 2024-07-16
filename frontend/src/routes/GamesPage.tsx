@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from "@shadcn/card";
 import plusIcon from "/icons/plus.svg";
-import { PlayerListItem } from "@components/player/ListItem";
 import { useTournamentStore } from "@stores/tournament.store";
-import { CreatePlayer } from "@/components/player/CreatePlayer";
+import { CreateGame } from "@/components/game/CreateGame";
+import { GameListItem } from "@/components/game/ListItem";
 
-export default function PlayersPage() {
-	const players = useTournamentStore((state) => [...state.players.values()]);
+export default function GamesPage() {
+	const games = useTournamentStore((state) => [...state.games.values()]);
 
 	return (
 		<div className="min-h-screen p-0.5 box-border">
@@ -17,8 +17,8 @@ export default function PlayersPage() {
 			<Card className="border-none flex-col w-full lg:w-4/5 mx-auto">
 				<CardHeader>
 					<p className="justify-between flex w-full text-xl font-semibold border-b-2 pb-4">
-						Gracze
-						<CreatePlayer
+						Gry
+						<CreateGame
 							trigger={
 								<button className="justify-self-center w-max border rounded-md">
 									<img
@@ -32,8 +32,8 @@ export default function PlayersPage() {
 					</p>
 				</CardHeader>
 				<CardContent className="flex flex-col gap-2 border-none">
-					{players.map((player) => (
-						<PlayerListItem player={player} />
+					{games.map((game) => (
+						<GameListItem game={game} />
 					))}
 				</CardContent>
 			</Card>

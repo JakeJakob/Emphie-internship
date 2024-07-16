@@ -1,5 +1,5 @@
 import { CommonListCard } from "@/components/common/ListCard";
-import { TournamentInfoCard } from "@/components/tournamentInfoCard";
+import { TournamentInfoCard } from "@/components/tournament/InfoCard";
 import { useTournamentStore } from "@/stores/tournament.store";
 import { TournamentActionList } from "@components/tournament/ActionList";
 import { useAuthStore } from "@stores/auth.store";

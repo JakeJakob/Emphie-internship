@@ -8,7 +8,7 @@ interface JudgeFormProps {
 	title: string;
 	desc: string;
 	trigger: React.ReactNode;
-	onSubmit: (player: ChessJudge) => void;
+	onSubmit: (judge: ChessJudge) => void;
 	initialJudge?: Partial<ChessJudge>;
 }
 

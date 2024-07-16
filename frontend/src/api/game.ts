@@ -46,4 +46,51 @@ const addGame = async (game: ChessGame): Promise<ChessGame | undefined> => {
 	}
 };
 
-export { getGames, addGame };
+const editGame = async (
+	game_code: string,
+	game: ChessGame
+): Promise<ChessGame | undefined> => {
+	try {
+		const { addGame } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/games/${game_code}`,
+			"PUT",
+			{
+				white_code: game.white_code,
+				black_code: game.black_code,
+				round: game.round,
+				winner_code: game.winner_code,
+			}
+		);
+
+		const new_game: ChessGame = await handleResponse(response);
+		addGame(new_game);
+		return new_game;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+const deleteGame = async (
+	game_code: string
+): Promise<ChessGame | undefined> => {
+	try {
+		const { removeGame } = useTournamentStore.getState();
+		const { code: tournament_code } = useTournamentStore.getState();
+
+		const response = await apiFetch(
+			`${BASE_URL}/tournaments/${tournament_code}/games/${game_code}`,
+			"DELETE"
+		);
+
+		const deleted_game: ChessGame = await handleResponse(response);
+		removeGame(deleted_game.code || "");
+		return deleted_game;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export { getGames, addGame, editGame, deleteGame };
