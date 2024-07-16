@@ -1,14 +1,22 @@
-import { ReactNode } from "react";
-import { JudgeForm } from "./GameForm";
+import { ReactNode, useState } from "react";
+import { GameEditDrawer } from "./GameEditDrawer";
 import { addGame } from "@api";
+import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 
 export function CreateGame({ trigger }: { trigger: ReactNode }) {
+	const [isOpen, setIsOpen] = useState(false);
+
 	return (
-		<JudgeForm
-			title="Utwórz grę"
-			desc="Tworzenie gry."
-			trigger={trigger}
-			onSubmit={(game) => addGame(game)}
-		/>
+		<Drawer open={isOpen} onOpenChange={setIsOpen}>
+			<DrawerTrigger asChild>{trigger}</DrawerTrigger>
+			<GameEditDrawer
+				title="Utwórz grę"
+				desc="Tworzenie gry."
+				onSubmit={(game) => {
+					addGame(game);
+					setIsOpen(false);
+				}}
+			/>
+		</Drawer>
 	);
 }
