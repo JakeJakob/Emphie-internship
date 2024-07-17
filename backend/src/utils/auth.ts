@@ -36,11 +36,9 @@ function match_token(token: string): TokenType {
 
 export const onlyAdmin = (req: Request, res: Response, next: NextFunction) => {
 	if (res.locals.token_type != TokenType.Admin) {
-		return res
-			.status(401)
-			.json({
-				message: "You need to be an admin to perform this operation",
-			});
+		return res.status(401).json({
+			message: "You need to be an admin to perform this operation",
+		});
 	}
 
 	next();
@@ -55,12 +53,10 @@ export const judgeOrAdmin = (
 		res.locals.token_type != TokenType.Admin &&
 		res.locals.token_type != TokenType.Judge
 	) {
-		return res
-			.status(401)
-			.json({
-				message:
-					"You need to be a judge or an admin to perform this operation",
-			});
+		return res.status(401).json({
+			message:
+				"You need to be a judge or an admin to perform this operation",
+		});
 	}
 
 	next();
@@ -91,7 +87,13 @@ export const socketAuthMiddleware = (
 	socket: Socket,
 	next: (err?: Error) => void
 ) => {
-	const token = socket.handshake.auth.token;
+	const authHeader = socket.handshake.auth.token;
+	if (!authHeader) {
+		const err = new Error("No authorization header");
+		return next(err);
+	}
+
+	const token = authHeader.split(" ")[1];
 
 	if (match_token(token) == TokenType.Unauthorized) {
 		const err = new Error("Authentication error");
