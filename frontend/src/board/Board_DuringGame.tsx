@@ -48,7 +48,7 @@ function Board_DuringGame() {
 
                                 <p className="font-normal text-[75px] text-white ">Chlost M.</p>
                             </div>
-                            <div className="h-1/3 w-2/3 ml-auto flex items-center justify-between">
+                            <div className="h-1/3 w-2/3 ml-5 flex items-center justify-between">
                                 <div className="bg-[#B92B2B] w-[78px] h-[57px] flex items-center justify-between">
                                     <p className="font-bold text-white text-3xl text-center mx-auto">GM</p>
                                 </div>
@@ -95,7 +95,7 @@ function Board_DuringGame() {
 
                                 <p className="font-normal text-[75px] text-white ">Chlost M.</p>
                             </div>
-                            <div className="h-1/3 w-2/3 ml-auto flex items-center justify-between">
+                            <div className="h-1/3 w-2/3 ml-5 flex items-center justify-between">
                                 <div className="bg-[#B92B2B] w-[78px] h-[57px] flex items-center justify-between">
                                     <p className="font-bold text-white text-3xl text-center mx-auto">GM</p>
                                 </div>
@@ -142,7 +142,7 @@ function Board_DuringGame() {
 
                                 <p className="font-normal text-[75px] text-white ">Chlost M.</p>
                             </div>
-                            <div className="h-1/3 w-2/3 ml-auto flex items-center justify-between">
+                            <div className="h-1/3 w-2/3 ml-5 flex items-center justify-between">
                                 <div className="bg-[#B92B2B] w-[78px] h-[57px] flex items-center justify-between">
                                     <p className="font-bold text-white text-3xl text-center mx-auto">GM</p>
                                 </div>
@@ -189,7 +189,7 @@ function Board_DuringGame() {
 
                                 <p className="font-normal text-[75px] text-white ">Chlost M.</p>
                             </div>
-                            <div className="h-1/3 w-2/3 ml-auto flex items-center justify-between">
+                            <div className="h-1/3 w-2/3 ml-5 flex items-center justify-between">
                                 <div className="bg-[#B92B2B] w-[78px] h-[57px] flex items-center justify-between">
                                     <p className="font-bold text-white text-3xl text-center mx-auto">GM</p>
                                 </div>
@@ -236,7 +236,7 @@ function Board_DuringGame() {
 
                                 <p className="font-normal text-[75px] text-white ">Chlost M.</p>
                             </div>
-                            <div className="h-1/3 w-2/3 ml-auto flex items-center justify-between">
+                            <div className="h-1/3 w-2/3 ml-5 flex items-center justify-between">
                                 <div className="bg-[#B92B2B] w-[78px] h-[57px] flex items-center justify-between">
                                     <p className="font-bold text-white text-3xl text-center mx-auto">GM</p>
                                 </div>
