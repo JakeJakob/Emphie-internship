@@ -23,13 +23,13 @@ export class ChessPlayer extends StoreUID {
 	name: string;
 	last_name: string;
 	rank: number;
-	title: ChessTitle;
+	title?: ChessTitle;
 
 	constructor(
 		name: string,
 		last_name: string,
 		rank: number,
-		title: ChessTitle
+		title?: ChessTitle
 	) {
 		super();
 		this.name = name;
