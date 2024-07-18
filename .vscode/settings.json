@@ -1,16 +1,16 @@
 {
-	"editor.indentSize": 4,
-	"[typescript]": {
-		"editor.tabSize": 4,
-		"editor.detectIndentation": false
-	},
-	"prettier.tabWidth": 4,
-	"prettier.useTabs": true,
-	"prettier.printWidth": 80,
-	"[markdown]": {
-		"editor.formatOnSave": false
-	},
-	"[yaml]": {
-		"editor.formatOnSave": false
-	}
+  "editor.indentSize": 4,
+  "[typescript]": {
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false
+  },
+  "prettier.tabWidth": 4,
+  "prettier.useTabs": true,
+  "prettier.printWidth": 80,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false
+  }
 }
