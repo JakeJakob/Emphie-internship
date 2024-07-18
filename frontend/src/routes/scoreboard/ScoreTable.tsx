@@ -1,4 +1,4 @@
-import { PlayerTableBadge } from "@/components/player/TableBadge";
+import { PlayerBadge } from "@/components/player/PlayerBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
 
@@ -37,24 +37,26 @@ export function ScoreTablePage() {
 				))}
 
 				{numbersToN(n_rounds).map((n) => (
-					<div className="content-item flex flex-col text-white p-2 text-center bg-black bg-opacity-10 overflow-y-auto">
+					<div className="content-item flex flex-col text-white p-2 text-center bg-black bg-opacity-10">
 						{all_games
 							.filter((game) => game.round == n + 1)
 							.map((game) => (
 								<div className="p-4">
-									<PlayerTableBadge
+									<PlayerBadge
 										player={players.get(game.white_code)}
 										isWhite
 										starred={
 											game.white_code == game.winner_code
 										}
+										variant="table"
 									/>
 
-									<PlayerTableBadge
+									<PlayerBadge
 										player={players.get(game.black_code)}
 										starred={
 											game.black_code == game.winner_code
 										}
+										variant="table"
 									/>
 								</div>
 							))}

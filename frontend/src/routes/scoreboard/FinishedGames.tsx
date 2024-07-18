@@ -1,4 +1,4 @@
-import { PlayerScoreBadge } from "@/components/player/ScoreBadge";
+import { PlayerBadge } from "@/components/player/PlayerBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
 
@@ -29,7 +29,7 @@ export function FinishedGamesPage() {
 			<div className="h-[660px] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
 				{finished_games.map((game) => (
 					<div className="flex flex-row gap-16">
-						<PlayerScoreBadge
+						<PlayerBadge
 							player={players.get(game.white_code)}
 							isWhite
 							starred={game.white_code == game.winner_code}
@@ -41,7 +41,7 @@ export function FinishedGamesPage() {
 							</p>
 						</div>
 
-						<PlayerScoreBadge
+						<PlayerBadge
 							player={players.get(game.black_code)}
 							mirrored
 							starred={game.black_code == game.winner_code}

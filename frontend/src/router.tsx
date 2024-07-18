@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
 		element: <GamesPage />,
 	},
 	{
-		path: "/tournament/:id/scoreboard",
+		path: "/tournament/:id/scoreboard/table",
 		element: <ScoreTablePage />,
 	},
 	{

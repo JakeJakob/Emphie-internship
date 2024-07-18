@@ -56,7 +56,8 @@ function JoinAsGuestCard() {
 		});
 
 		const tournament = await getTournament(tournamentCode);
-		if (tournament) navigate(`/tournament/${tournament.code}/scoreboard`);
+		if (tournament)
+			navigate(`/tournament/${tournament.code}/scoreboard/table`);
 	};
 
 	return (

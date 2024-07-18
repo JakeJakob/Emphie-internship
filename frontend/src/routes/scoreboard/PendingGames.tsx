@@ -1,6 +1,6 @@
-import { PlayerScoreBadge } from "@/components/player/ScoreBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
+import { PlayerBadge } from "@/components/player/PlayerBadge";
 
 export function PendingGamesPage() {
 	const players = useTournamentStore((state) => state.players);
@@ -29,7 +29,7 @@ export function PendingGamesPage() {
 			<div className="h-[660px] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
 				{pending_games.map((game) => (
 					<div className="flex flex-row gap-16">
-						<PlayerScoreBadge
+						<PlayerBadge
 							player={players.get(game.white_code)}
 							isWhite
 						/>
@@ -40,7 +40,7 @@ export function PendingGamesPage() {
 							</p>
 						</div>
 
-						<PlayerScoreBadge
+						<PlayerBadge
 							player={players.get(game.black_code)}
 							mirrored
 						/>
