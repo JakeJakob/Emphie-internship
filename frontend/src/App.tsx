@@ -6,7 +6,10 @@ import { getGames, getJudges, getPlayers } from "@api";
 export function App() {
 	const getAuthorization = useAuthStore((state) => state.getAuthorization);
 
-	if (getAuthorization()) {
+	if (
+		window.location.pathname.split("/")[1] == "tournament" &&
+		getAuthorization()
+	) {
 		getPlayers();
 		getGames();
 		getJudges();

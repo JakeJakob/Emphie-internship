@@ -12,6 +12,7 @@ import { Button } from "../shadcn/button";
 import { ChessJudge } from "@/types";
 import { useTournamentStore } from "@/stores/tournament.store";
 import QRCode from "react-qr-code";
+import { Link } from "react-router-dom";
 
 export function QRCodeJoin({ judge }: { judge: ChessJudge }) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -34,22 +35,30 @@ export function QRCodeJoin({ judge }: { judge: ChessJudge }) {
 								{judge.name}
 							</p>
 						</div>
-						<div className='text-muted-foreground text-lg'>
+						<div className="text-muted-foreground text-lg">
 							<p className="text-lg text-muted-foreground mt-4">
 								Kod sędzi:
 							</p>
-							<h1 className="font-bold">{judge.code}</h1>
+							<h1 className="font-bold select-all">
+								{judge.code}
+							</h1>
 							<p className="text-lg text-muted-foreground mt-2">
 								Kod turnieju:
 							</p>
-							<h1 className="font-bold">{tournament_code}</h1>
+							<h1 className="font-bold select-all">
+								{tournament_code}
+							</h1>
 						</div>
 					</div>
 					<div className="p-4 content-center">
-						<QRCode
-							className="h-2/3"
-							value={`http://localhost:5173/tournament/${tournament_code}/joinAsJudge/${judge.code}`}
-						/>
+						<Link
+							to={`/join/judge/${tournament_code}+${judge.code}`}
+						>
+							<QRCode
+								className="h-2/3"
+								value={`http://localhost:5173/join/judge/${tournament_code}+${judge.code}`}
+							/>
+						</Link>
 					</div>
 				</div>
 				<DrawerFooter>

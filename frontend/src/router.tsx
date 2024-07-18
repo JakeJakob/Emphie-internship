@@ -9,6 +9,7 @@ import {
 import PlayersPage from "./routes/PlayersPage";
 import JudgesPage from "./routes/JudgesPage";
 import GamesPage from "./routes/GamesPage";
+import { JoinAsJudgePage } from "./routes/JoinPage";
 
 export const router = createBrowserRouter([
 	{ path: "/", element: <StartingPage /> },
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
 	{
 		path: "/tournament/:id/judges",
 		element: <JudgesPage />,
+	},
+	{
+		path: "/join/judge/:token",
+		element: <JoinAsJudgePage />,
 	},
 	{
 		path: "/tournament/:id/games",
