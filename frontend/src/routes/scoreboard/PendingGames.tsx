@@ -1,4 +1,4 @@
-import { ScoreBadge } from "@/components/player/ScoreBadge";
+import { PlayerScoreBadge } from "@/components/player/ScoreBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
 
@@ -26,23 +26,23 @@ export function PendingGamesPage() {
 				<hr className="text-white w-hr2-width border-2 mt-3" />
 			</div>
 
-			<div className="w-full h-[660px] mt-11 overflow-y-auto">
+			<div className="h-[660px] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
 				{pending_games.map((game) => (
-					<div className="w-full mb-6 h-44 flex justify-between items-center">
-						<ScoreBadge
+					<div className="flex flex-row gap-16">
+						<PlayerScoreBadge
 							player={players.get(game.white_code)}
-							is_white
+							isWhite
 						/>
 
-						<div className="w-32 h-18 ml-auto">
+						<div className="w-32 flex items-center justify-center">
 							<p className="font-normal text-5xl text-white text-center">
 								vs.
 							</p>
 						</div>
 
-						<ScoreBadge
+						<PlayerScoreBadge
 							player={players.get(game.black_code)}
-							align_left
+							mirrored
 						/>
 					</div>
 				))}

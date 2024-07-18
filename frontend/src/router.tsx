@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import StartingPage from "@/routes/LandingPage";
 import LandingPage from "@/routes/Dashboard";
-import { PendingGamesPage, ScoreTablePage } from "@routes/scoreboard";
+import {
+	PendingGamesPage,
+	ScoreTablePage,
+	FinishedGamesPage,
+} from "@routes/scoreboard";
 import PlayersPage from "./routes/PlayersPage";
 import JudgesPage from "./routes/JudgesPage";
 import GamesPage from "./routes/GamesPage";
@@ -31,5 +35,9 @@ export const router = createBrowserRouter([
 	{
 		path: "/tournament/:id/scoreboard/pending",
 		element: <PendingGamesPage />,
+	},
+	{
+		path: "/tournament/:id/scoreboard/finished",
+		element: <FinishedGamesPage />,
 	},
 ]);

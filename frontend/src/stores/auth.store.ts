@@ -17,7 +17,7 @@ export const useAuthStore = create<
 >()((set) => ({
 	token_type:
 		(localStorage.getItem("auth_token_type") as TokenType) ||
-		TokenType.Admin,
+		TokenType.Unauthorized,
 	tournament_code: localStorage.getItem("auth_tournament_code") || undefined,
 	access_key: localStorage.getItem("auth_access_key") || undefined,
 	judge_code: localStorage.getItem("auth_judge_code") || undefined,

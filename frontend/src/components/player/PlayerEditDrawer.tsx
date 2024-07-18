@@ -27,7 +27,7 @@ export function PlayerEditDrawer({
 	const [last_name, setLastName] = useState(initialPlayer.last_name || "");
 	const [rank, setRank] = useState(initialPlayer.rank || 0);
 	const [chess_title, setTitle] = useState(
-		initialPlayer.title || ("NONE" as ChessTitle)
+		initialPlayer.title || ("None" as ChessTitle)
 	);
 
 	const handleSubmit = () => {
@@ -35,7 +35,7 @@ export function PlayerEditDrawer({
 			name,
 			last_name,
 			rank,
-			title: chess_title,
+			...(chess_title != ChessTitle.NONE && { title: chess_title }),
 		});
 
 		onSubmit(player);
