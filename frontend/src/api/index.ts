@@ -10,7 +10,7 @@ export const handleResponse = async (response: Response) => {
 
 export const handleResponseWithoutAlert = async (response: Response) => {
 	if (!response.ok) {
-		throw new Error(response.statusText);
+		throw new Error(response.statusText + " code: " + response.status);
 	}
 	return response.json();
 };
