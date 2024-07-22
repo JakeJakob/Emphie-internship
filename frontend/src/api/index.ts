@@ -1,9 +1,12 @@
 import { useAuthStore } from "@/stores/auth.store";
+import { showErrorToast } from "@/utils";
 export const BASE_URL = "http://localhost:3000";
+import { toast } from 'react-toastify';
 
 export const handleResponse = async (response: Response) => {
 	if (!response.ok) {
-		alert(response.statusText);
+		//alert(response.statusText);
+		showErrorToast(response.statusText)
 	}
 	return handleResponseWithoutAlert(response);
 };
@@ -16,7 +19,8 @@ export const handleResponseWithoutAlert = async (response: Response) => {
 };
 
 export const handleError = (error: unknown) => {
-	console.error("API Error:", error);
+	showErrorToast(error + "");
+	//console.error("API Error:", error);
 	throw error;
 };
 

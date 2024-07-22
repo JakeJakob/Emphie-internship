@@ -104,7 +104,8 @@ function JoinAsJudgeCard() {
 			if (tournament) navigate(`/tournament/${tournament.code}`);
 		} catch (error) {
 			const message: string = getErrorMessage(error);
-			alert(message); //TODO
+			//alert(message); //TODO
+			//showErrorToast(message);
 		}
 	};
 

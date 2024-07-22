@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { ChessTitle } from "@types";
+import { toast } from "react-toastify";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -26,4 +27,9 @@ export function getErrorMessage(error: any): string {
         return error.message;
     }
     return String(error);
+}
+
+export function showErrorToast(message: string) {
+	const prefix = "Zgłoś ten błąd do obsługi technicznej turnieju! ";
+	toast.error(`${prefix}${message}`);
 }
