@@ -47,6 +47,7 @@ function JoinAsGuestCard() {
 	const [tournamentCode, setTournamentCode] = useState("");
 	const navigate = useNavigate();
 	const setAuth = useAuthStore((state) => state.setAuth);
+	const [tournamentDoesntExistError, setTournamentDoesntExistError] = useState(false);
 
 	const onSubmit = async () => {
 		localStorage.clear();
@@ -55,9 +56,13 @@ function JoinAsGuestCard() {
 			tournament_code: tournamentCode,
 		});
 
-		const tournament = await getTournament(tournamentCode);
-		if (tournament)
-			navigate(`/tournament/${tournament.code}/scoreboard/table`);
+		try {
+			const tournament = await getTournament(tournamentCode, false);
+			if (tournament)
+				navigate(`/tournament/${tournament.code}/scoreboard/table`);
+		} catch (error) {
+			setTournamentDoesntExistError(true);
+		}
 	};
 
 	return (
@@ -72,7 +77,8 @@ function JoinAsGuestCard() {
 				placeholder="np. AX46BF"
 				value={tournamentCode}
 				onChange={(e) => setTournamentCode(e.target.value)}
-				errorMessage="Błędny kod dostępu"
+				errorMessage="Błędny kod turnieju"
+				isError={tournamentDoesntExistError}
 			/>
 		</JoinFormCard>
 	);
@@ -92,8 +98,14 @@ function JoinAsJudgeCard() {
 			judge_code: judgeCode,
 		});
 
-		const tournament = await getTournament(tournamentCode);
-		if (tournament) navigate(`/tournament/${tournament.code}`);
+		try {
+			const tournament = await getTournament(tournamentCode, false);
+			if (tournament) navigate(`/tournament/${tournament.code}`);
+		} catch (error) {
+			//const message: string = getErrorMessage(error);
+			//alert(message); //TODO
+			//showErrorToast(message);
+		}
 	};
 
 	return (
@@ -125,6 +137,7 @@ function JoinAsJudgeCard() {
 function JoinAsAdminCard() {
 	const [accessKey, setAccessKey] = useState("");
 	const [tournamentName, setTournamentName] = useState("");
+	const [accessKeyError, setAccessKeyError] = useState(false);
 	const navigate = useNavigate();
 	const setAuth = useAuthStore((state) => state.setAuth);
 
@@ -135,8 +148,12 @@ function JoinAsAdminCard() {
 			access_key: accessKey,
 		});
 
-		const tournament = await createTournament(tournamentName);
-		if (tournament) navigate(`/tournament/${tournament.code}`);
+		try {
+			const tournament = await createTournament(tournamentName, false);
+			if (tournament) navigate(`/tournament/${tournament.code}`);
+		} catch (error) {
+			setAccessKeyError(true);
+		}
 	};
 
 	return (
@@ -152,6 +169,7 @@ function JoinAsAdminCard() {
 				value={accessKey}
 				onChange={(e) => setAccessKey(e.target.value)}
 				errorMessage="Błędny kod dostępu"
+				isError={accessKeyError}
 			/>
 			<LabeledInput
 				label="Nazwa turnieju"

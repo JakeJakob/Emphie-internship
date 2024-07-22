@@ -1,16 +1,25 @@
 import { useAuthStore } from "@/stores/auth.store";
+import { showErrorToast } from "@/utils";
 export const BASE_URL = "http://localhost:3000";
 
 export const handleResponse = async (response: Response) => {
 	if (!response.ok) {
-		alert(response.statusText);
-		throw new Error(response.statusText);
+		//alert(response.statusText);
+		showErrorToast(response.statusText)
+	}
+	return handleResponseWithoutAlert(response);
+};
+
+export const handleResponseWithoutAlert = async (response: Response) => {
+	if (!response.ok) {
+		throw new Error(response.statusText + " code: " + response.status);
 	}
 	return response.json();
 };
 
 export const handleError = (error: unknown) => {
-	console.error("API Error:", error);
+	showErrorToast(error + "");
+	//console.error("API Error:", error);
 	throw error;
 };
 

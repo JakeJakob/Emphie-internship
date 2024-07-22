@@ -1,10 +1,11 @@
-import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse, handleResponseWithoutAlert } from ".";
 import { ChessTournament } from "@types";
 import { useAuthStore } from "@stores/auth.store";
 import { useTournamentStore } from "@/stores/tournament.store";
 
 const getTournament = async (
-	code: string
+	code: string,
+	shouldAlert: boolean = true
 ): Promise<ChessTournament | undefined> => {
 	try {
 		const { addTournament } = useTournamentStore.getState();
@@ -13,7 +14,9 @@ const getTournament = async (
 			`${BASE_URL}/tournaments/${code}`,
 			"GET"
 		);
-		const tournament: ChessTournament = await handleResponse(response);
+		const tournament: ChessTournament = shouldAlert
+			? await handleResponse(response)
+			: await handleResponseWithoutAlert(response);
 		addTournament(tournament);
 		return tournament;
 	} catch (error) {
@@ -22,7 +25,8 @@ const getTournament = async (
 };
 
 const createTournament = async (
-	name: string
+	name: string,
+	shouldAlert: boolean = true
 ): Promise<ChessTournament | undefined> => {
 	try {
 		const { addTournament } = useTournamentStore.getState();
@@ -30,7 +34,9 @@ const createTournament = async (
 		const response = await apiFetch(`${BASE_URL}/tournaments/`, "POST", {
 			name,
 		});
-		const newTournament: ChessTournament = await handleResponse(response);
+		const newTournament: ChessTournament = shouldAlert
+			? await handleResponse(response)
+			: await handleResponseWithoutAlert(response);
 		addTournament(newTournament);
 		return newTournament;
 	} catch (error) {
