@@ -18,7 +18,7 @@ export const handleResponseWithoutAlert = async (response: Response) => {
 };
 
 export const handleError = (error: unknown) => {
-	showErrorToast(error + "");
+	//showErrorToast(error + "");
 	//console.error("API Error:", error);
 	throw error;
 };
