@@ -1,7 +1,6 @@
 import { useAuthStore } from "@/stores/auth.store";
 import { showErrorToast } from "@/utils";
 export const BASE_URL = "http://localhost:3000";
-import { toast } from 'react-toastify';
 
 export const handleResponse = async (response: Response) => {
 	if (!response.ok) {

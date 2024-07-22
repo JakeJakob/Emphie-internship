@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TokenType } from "@/types";
 import { LabeledInput } from "@/components/common/LabeledInput";
-import { getErrorMessage } from "@/utils";
 
 export default function LandingPage() {
 	return (
