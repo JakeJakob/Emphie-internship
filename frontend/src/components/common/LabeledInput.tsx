@@ -29,7 +29,7 @@ export function LabeledInput({
     <div className={`mb-4 ${inline ? "flex items-center" : ""}`}>
       <label
         htmlFor={id}
-        className={`font-medium ${inline ? "mr-1 w-1/5" : "block mb-1"}`}
+        className={`select-none font-medium ${inline ? "mr-1 w-1/5" : "block mb-1"}`}
       >
         {label}
       </label>
