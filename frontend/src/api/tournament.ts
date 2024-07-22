@@ -1,4 +1,4 @@
-import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse, handleResponseWithoutAlert } from ".";
 import { ChessTournament } from "@types";
 import { useAuthStore } from "@stores/auth.store";
 import { useTournamentStore } from "@/stores/tournament.store";
@@ -30,7 +30,7 @@ const createTournament = async (
 		const response = await apiFetch(`${BASE_URL}/tournaments/`, "POST", {
 			name,
 		});
-		const newTournament: ChessTournament = await handleResponse(response);
+		const newTournament: ChessTournament = await handleResponseWithoutAlert(response);
 		addTournament(newTournament);
 		return newTournament;
 	} catch (error) {

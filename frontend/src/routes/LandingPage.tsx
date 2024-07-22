@@ -125,6 +125,7 @@ function JoinAsJudgeCard() {
 function JoinAsAdminCard() {
 	const [accessKey, setAccessKey] = useState("");
 	const [tournamentName, setTournamentName] = useState("");
+	const [accessKeyError, setAccessKeyError] = useState(false);
 	const navigate = useNavigate();
 	const setAuth = useAuthStore((state) => state.setAuth);
 
@@ -135,8 +136,12 @@ function JoinAsAdminCard() {
 			access_key: accessKey,
 		});
 
-		const tournament = await createTournament(tournamentName);
-		if (tournament) navigate(`/tournament/${tournament.code}`);
+		try {
+			const tournament = await createTournament(tournamentName);
+			if (tournament) navigate(`/tournament/${tournament.code}`);
+		} catch (error) {
+			setAccessKeyError(true);
+		}
 	};
 
 	return (
@@ -152,6 +157,7 @@ function JoinAsAdminCard() {
 				value={accessKey}
 				onChange={(e) => setAccessKey(e.target.value)}
 				errorMessage="Błędny kod dostępu"
+				isError={accessKeyError}
 			/>
 			<LabeledInput
 				label="Nazwa turnieju"

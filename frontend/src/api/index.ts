@@ -4,6 +4,12 @@ export const BASE_URL = "http://localhost:3000";
 export const handleResponse = async (response: Response) => {
 	if (!response.ok) {
 		alert(response.statusText);
+	}
+	return handleResponseWithoutAlert(response);
+};
+
+export const handleResponseWithoutAlert = async (response: Response) => {
+	if (!response.ok) {
 		throw new Error(response.statusText);
 	}
 	return response.json();
