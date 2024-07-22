@@ -14,12 +14,14 @@ export function CommonListCard(props: {
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
 				{props.items.slice(0, 5).map((item: string, index: number) => (
-					<p
-						key={index}
-						className="border w-full p-2 font-bold pl-3 rounded-sm"
-					>
-						{item}
-					</p>
+					<Link to={props.overflow_href}>
+						<p
+							key={index}
+							className="border w-full p-2 font-bold pl-3 rounded-sm"
+						>
+							{item}
+						</p>
+					</Link>
 				))}
 				{props.items.length > 5 && (
 					<Link to={props.overflow_href}>
