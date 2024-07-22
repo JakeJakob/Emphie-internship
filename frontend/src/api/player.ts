@@ -1,6 +1,7 @@
 import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
 import { ChessPlayer } from "@types";
 import { useTournamentStore } from "@/stores/tournament.store";
+import { toast } from "react-toastify";
 
 const getPlayers = async (): Promise<ChessPlayer[] | undefined> => {
 	try {
@@ -43,6 +44,7 @@ const addPlayer = async (
 
 		const new_palyer: ChessPlayer = await handleResponse(response);
 		addPlayer(new_palyer);
+		toast.success("Gracz został dodany!");
 		return new_palyer;
 	} catch (error) {
 		handleError(error);
@@ -70,6 +72,7 @@ const editPlayer = async (
 
 		const new_palyer: ChessPlayer = await handleResponse(response);
 		addPlayer(new_palyer);
+		toast.success("Gracz został zmodyfikowany!");
 		return new_palyer;
 	} catch (error) {
 		handleError(error);
@@ -90,6 +93,7 @@ const deletePlayer = async (
 
 		const deleted_player: ChessPlayer = await handleResponse(response);
 		removePlayer(deleted_player.code || "");
+		toast.success("Gracz został usunięty!");
 		return deleted_player;
 	} catch (error) {
 		handleError(error);

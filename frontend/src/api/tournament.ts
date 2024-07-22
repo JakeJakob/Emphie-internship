@@ -2,6 +2,7 @@ import { apiFetch, BASE_URL, handleError, handleResponse, handleResponseWithoutA
 import { ChessTournament } from "@types";
 import { useAuthStore } from "@stores/auth.store";
 import { useTournamentStore } from "@/stores/tournament.store";
+import { toast } from "react-toastify";
 
 const getTournament = async (
 	code: string,
@@ -20,7 +21,8 @@ const getTournament = async (
 		addTournament(tournament);
 		return tournament;
 	} catch (error) {
-		handleError(error);
+		if(shouldAlert)
+			handleError(error);
 	}
 };
 
@@ -38,6 +40,7 @@ const createTournament = async (
 			? await handleResponse(response)
 			: await handleResponseWithoutAlert(response);
 		addTournament(newTournament);
+		toast.success("Utworzono turniej " + name);
 		return newTournament;
 	} catch (error) {
 		handleError(error);
@@ -58,6 +61,7 @@ const endTournament = async (): Promise<ChessTournament | undefined> => {
 		endTournament();
 		removeAuthorization();
 
+		toast.success("Zakończono turniej " + endedTournament.name)
 		return endedTournament;
 	} catch (error) {
 		handleError(error);
