@@ -17,6 +17,7 @@ export function TitleToColor(title: ChessTitle): string {
 		WIM: "#2BB953",
 		WFM: "#2B30B9",
 		WCM: "#B92B91",
+		[ChessTitle.NONE]: ""
 	};
 
 	return titleColors[title];

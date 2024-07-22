@@ -103,7 +103,7 @@ function JoinAsJudgeCard() {
 			const tournament = await getTournament(tournamentCode, false);
 			if (tournament) navigate(`/tournament/${tournament.code}`);
 		} catch (error) {
-			const message: string = getErrorMessage(error);
+			//const message: string = getErrorMessage(error);
 			//alert(message); //TODO
 			//showErrorToast(message);
 		}
