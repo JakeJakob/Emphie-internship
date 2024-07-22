@@ -10,7 +10,7 @@ export function CommonListCard(props: {
 	return (
 		<Card className="min-h-96">
 			<CardHeader>
-				<p className="text-xl font-semibold">{props.title}</p>
+				<p className="text-xl font-semibold"><Link to={props.overflow_href}>{props.title}</Link></p>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
 				{props.items.slice(0, 5).map((item: string, index: number) => (
