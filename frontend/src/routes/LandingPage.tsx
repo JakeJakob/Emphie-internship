@@ -11,7 +11,7 @@ import { showErrorToast } from "@/utils";
 
 export default function LandingPage() {
 	return (
-		<div className="box-border flex flex-col items-center justify-center min-h-screen p-3 font-inter">
+		<div className="flex flex-col items-center justify-center min-h-screen p-3 font-inter">
 			<div className="max-w-xs flex flex-col items-center">
 				<img
 					src={chessGrowLogo}
@@ -23,7 +23,10 @@ export default function LandingPage() {
 				</h1>
 			</div>
 
-			<Tabs defaultValue="create" className="w-xs text-sm">
+			<Tabs
+				defaultValue="create"
+				className="flex flex-col items-center justify-center w-xs text-sm"
+			>
 				<TabsList>
 					<TabsTrigger value="create">Utwórz turniej</TabsTrigger>
 					<TabsTrigger value="judge">Zarządzaj turniejem</TabsTrigger>
@@ -48,7 +51,8 @@ function JoinAsGuestCard() {
 	const [tournamentCode, setTournamentCode] = useState("");
 	const navigate = useNavigate();
 	const setAuth = useAuthStore((state) => state.setAuth);
-	const [tournamentDoesntExistError, setTournamentDoesntExistError] = useState(false);
+	const [tournamentDoesntExistError, setTournamentDoesntExistError] =
+		useState(false);
 
 	const onSubmit = async () => {
 		localStorage.clear();
@@ -120,7 +124,9 @@ function JoinAsJudgeCard() {
 			const tournament = await getTournament(tournamentCode);
 			if (tournament) navigate(`/tournament/${tournament.code}`);
 		} catch (error) {
-			showErrorToast("Wygląda na to, że turniej nie istnieje lub kod administratora jest nieprawidłowy.")
+			showErrorToast(
+				"Wygląda na to, że turniej nie istnieje lub kod administratora jest nieprawidłowy."
+			);
 		}
 	};
 

@@ -25,7 +25,6 @@ export function JoinFormCard(props: {
 	);
 }
 
-
 export function JoinFormCard2Buttons(props: {
 	desc: string;
 	children: ReactNode;
