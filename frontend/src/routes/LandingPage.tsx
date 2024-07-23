@@ -1,16 +1,17 @@
 import chessGrowLogo from "/chessgrow.svg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shadcn/tabs";
-import { JoinFormCard } from "@/components/joinFormCard";
+import { JoinFormCard, JoinFormCard2Buttons } from "@/components/joinFormCard";
 import { createTournament, getTournament } from "@/api";
 import { useAuthStore } from "@/stores/auth.store";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TokenType } from "@/types";
 import { LabeledInput } from "@/components/common/LabeledInput";
+import { showErrorToast } from "@/utils";
 
 export default function LandingPage() {
 	return (
-		<div className="box-border flex flex-col items-center justify-center min-h-screen p-3 font-inter">
+		<div className="flex flex-col items-center justify-center min-h-screen p-3 font-inter">
 			<div className="max-w-xs flex flex-col items-center">
 				<img
 					src={chessGrowLogo}
@@ -22,10 +23,13 @@ export default function LandingPage() {
 				</h1>
 			</div>
 
-			<Tabs defaultValue="create" className="w-xs text-sm">
+			<Tabs
+				defaultValue="create"
+				className="flex flex-col items-center justify-center w-xs text-sm"
+			>
 				<TabsList>
 					<TabsTrigger value="create">Utwórz turniej</TabsTrigger>
-					<TabsTrigger value="judge">Zostań sędzią</TabsTrigger>
+					<TabsTrigger value="judge">Zarządzaj turniejem</TabsTrigger>
 					<TabsTrigger value="guest">Wyświetl turniej</TabsTrigger>
 				</TabsList>
 
@@ -47,7 +51,8 @@ function JoinAsGuestCard() {
 	const [tournamentCode, setTournamentCode] = useState("");
 	const navigate = useNavigate();
 	const setAuth = useAuthStore((state) => state.setAuth);
-	const [tournamentDoesntExistError, setTournamentDoesntExistError] = useState(false);
+	const [tournamentDoesntExistError, setTournamentDoesntExistError] =
+		useState(false);
 
 	const onSubmit = async () => {
 		localStorage.clear();
@@ -108,11 +113,30 @@ function JoinAsJudgeCard() {
 		}
 	};
 
+	const onSubmitAdmin = async () => {
+		localStorage.clear();
+		setAuth({
+			token_type: TokenType.Admin,
+			access_key: judgeCode,
+		});
+
+		try {
+			const tournament = await getTournament(tournamentCode);
+			if (tournament) navigate(`/tournament/${tournament.code}`);
+		} catch (error) {
+			showErrorToast(
+				"Wygląda na to, że turniej nie istnieje lub kod administratora jest nieprawidłowy."
+			);
+		}
+	};
+
 	return (
-		<JoinFormCard
+		<JoinFormCard2Buttons
 			desc="Ta opcja pozwala na dołączenie do istniejącego turnieju i wprowadzanie zmian w jego wynikach."
-			submit_text="Dołącz"
+			submit_text="Dołącz jako sędzia"
 			onSubmit={onSubmit}
+			submit_text2="Dołącz jako administrator"
+			onSubmit2={onSubmitAdmin}
 		>
 			<LabeledInput
 				label="Kod turnieju"
@@ -123,14 +147,14 @@ function JoinAsJudgeCard() {
 				errorMessage="Błędny kod dostępu"
 			/>
 			<LabeledInput
-				label="Kod sędzi"
+				label="Kod sędzi/administratora"
 				id="judge_code"
 				placeholder="np. 5GAAA67"
 				value={judgeCode}
 				onChange={(e) => setJudgeCode(e.target.value)}
-				errorMessage="Błędny kod sędzi"
+				errorMessage="Błędny kod sędzi/administratora"
 			/>
-		</JoinFormCard>
+		</JoinFormCard2Buttons>
 	);
 }
 
