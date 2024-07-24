@@ -10,6 +10,7 @@ import PlayersPage from "./routes/PlayersPage";
 import JudgesPage from "./routes/JudgesPage";
 import GamesPage from "./routes/GamesPage";
 import { JoinAsJudgePage } from "./routes/JoinPage";
+import NotFound from "./routes/NotFound";
 
 export const router = createBrowserRouter([
 	{ path: "/", element: <StartingPage /> },
@@ -45,4 +46,8 @@ export const router = createBrowserRouter([
 		path: "/tournament/:id/scoreboard/finished",
 		element: <FinishedGamesPage />,
 	},
+	{
+		path: "*",
+		element: <NotFound />,
+	}
 ]);
