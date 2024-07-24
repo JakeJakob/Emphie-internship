@@ -1,6 +1,8 @@
 import { PlayerBadge } from "@/components/player/PlayerBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ScoreTablePage() {
 	function numbersToN(N: number) {
@@ -14,6 +16,19 @@ export function ScoreTablePage() {
 	const all_games = [...games.values()];
 	const n_rounds = Math.max(...all_games.map((game) => game.round));
 
+	const navigate = useNavigate()
+
+	const tournament_id = useTournamentStore((state) => state.code);
+
+	useEffect(()=>{
+		
+		setTimeout(()=>{
+			navigate(`/tournament/${tournament_id}/scoreboard/pending`)
+		}, 10000)
+	})
+
+
+	
 	return (
 		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/chessgrowLogo.svg')] bg-no-repeat bg-right">
 			<div className="h-frame48-height w-screen">

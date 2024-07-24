@@ -1,6 +1,8 @@
 import { PlayerBadge } from "@/components/player/PlayerBadge";
 import scoreLogo from "/chessgrowWhite.svg";
 import { useTournamentStore } from "@stores/tournament.store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function FinishedGamesPage() {
 	const players = useTournamentStore((state) => state.players);
@@ -10,6 +12,19 @@ export function FinishedGamesPage() {
 	const finished_games = [...games.values()].filter(
 		(game) => game.winner_code != undefined
 	);
+
+
+	const navigate = useNavigate()
+
+	const tournament_id = useTournamentStore((state) => state.code);
+
+	useEffect(()=>{
+		
+		setTimeout(()=>{
+			navigate(`/tournament/${tournament_id}/scoreboard/table`)
+		}, 10000)
+	})
+
 
 	return (
 		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/chessgrowLogo.svg')] bg-no-repeat bg-right">
