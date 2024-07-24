@@ -1,3 +1,4 @@
+import { Header } from "@/components/common/Header";
 import { CommonListCard } from "@/components/common/ListCard";
 import { TournamentInfoCard } from "@/components/tournament/InfoCard";
 import { useTournamentStore } from "@/stores/tournament.store";
@@ -16,13 +17,7 @@ export default function DashboardPage() {
 		return (
 			<>
 				<div className="min-h-screen p-0.5 box-border h-full">
-					<div className="max-w-screen py-1 px-6 border box-border">
-						<h1 className="text-project_primary text-2xl font-bold my-3 font-ptSans">
-							{" "}
-							Scoreboard{" "}
-						</h1>
-					</div>
-
+					<Header/>
 					<div className="grid md:grid-cols-4 grid-cols-none gap-2 p-4">
 						<TournamentInfoCard
 							name={tournament_name}
