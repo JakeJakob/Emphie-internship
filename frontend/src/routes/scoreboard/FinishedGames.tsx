@@ -13,18 +13,16 @@ export function FinishedGamesPage() {
 		(game) => game.winner_code != undefined
 	);
 
-
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const tournament_id = useTournamentStore((state) => state.code);
 
-	useEffect(()=>{
-		
-		setTimeout(()=>{
-			navigate(`/tournament/${tournament_id}/scoreboard/table`)
-		}, 10000)
-	})
+	// useEffect(()=>{
 
+	// 	setTimeout(()=>{
+	// 		navigate(`/tournament/${tournament_id}/scoreboard/table`)
+	// 	}, 10000)
+	// })
 
 	return (
 		<div className="h-screen bg-custom relative overflow-hidden px-4 pt-4 bg-[url('/chessgrowLogo.svg')] bg-no-repeat bg-right">
@@ -41,9 +39,15 @@ export function FinishedGamesPage() {
 				<hr className="text-white w-hr2-width border-2 mt-3" />
 			</div>
 
-			<div className="h-[660px] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
+			<div className="box-border max-h-[660px] no-scrollbar h-[80vh] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
 				{finished_games.map((game) => (
+
+
+
+
 					<div className=" flex flex-row gap-16">
+
+
 						<PlayerBadge
 							player={players.get(game.white_code)}
 							isWhite
@@ -56,11 +60,15 @@ export function FinishedGamesPage() {
 							</p>
 						</div>
 
-						<PlayerBadge
+						<PlayerBadge 
 							player={players.get(game.black_code)}
 							mirrored
 							starred={game.black_code == game.winner_code}
 						/>
+
+
+
+						
 					</div>
 				))}
 			</div>

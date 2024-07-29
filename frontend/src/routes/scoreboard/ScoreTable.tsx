@@ -48,7 +48,7 @@ export function ScoreTablePage() {
 				<hr className="text-white w-hr2-width border-2 mt-3" />
 			</div>
 
-			<div className="min-h-[660px] h-screen box-border mt-11 overflow-y-auto grid grid-cols-5 gap-4 text-white">
+			<div className="min-h-[660px] h-[80vh] box-border mt-11 overflow-y-auto grid grid-cols-5 gap-4 text-white no-scrollbar">
 				{numbersToN(n_rounds).map((n) => (
 					<div key={n} className="flex flex-col">
 						<div className="header-item py-2 text-center bg-black bg-opacity-20 font-bold text-3xl">
