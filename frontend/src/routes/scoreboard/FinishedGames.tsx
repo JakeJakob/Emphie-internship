@@ -43,7 +43,7 @@ export function FinishedGamesPage() {
 
 			<div className="h-[660px] mt-11 overflow-y-auto gap-6 flex flex-col items-center">
 				{finished_games.map((game) => (
-					<div className="flex flex-row gap-16">
+					<div className=" flex flex-row gap-16">
 						<PlayerBadge
 							player={players.get(game.white_code)}
 							isWhite

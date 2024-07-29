@@ -20,12 +20,16 @@ export function ScoreTablePage() {
 
 	const tournament_id = useTournamentStore((state) => state.code);
 
-	useEffect(()=>{
+	/*useEffect(()=>{
 		
 		setTimeout(()=>{
 			navigate(`/tournament/${tournament_id}/scoreboard/pending`)
 		}, 10000)
-	})
+	})*/
+
+
+
+
 
 
 	
@@ -44,33 +48,25 @@ export function ScoreTablePage() {
 				<hr className="text-white w-hr2-width border-2 mt-3" />
 			</div>
 
-			<div className="h-[660px] mt-11 overflow-y-auto grid grid-cols-3 text-white">
+			<div className="min-h-[660px] h-screen box-border mt-11 overflow-y-auto grid grid-cols-5 gap-4 text-white">
 				{numbersToN(n_rounds).map((n) => (
-					<div className="header-itepy-2 text-center bg-black bg-opacity-20 font-bold text-3xl">
-						Runda {n + 1}
-					</div>
-				))}
-
-				{numbersToN(n_rounds).map((n) => (
-					<div className="content-item flex flex-col text-white p-2 text-center bg-black bg-opacity-10">
+					<div key={n} className="flex flex-col">
+						<div className="header-item py-2 text-center bg-black bg-opacity-20 font-bold text-3xl">
+							Runda {n + 1}
+						</div>
 						{all_games
-							.filter((game) => game.round == n + 1)
+							.filter((game) => game.round === n + 1)
 							.map((game) => (
-								<div className="p-4">
+								<div className="content-item flex flex-col text-white p-2 text-center bg-black bg-opacity-10 ">
 									<PlayerBadge
 										player={players.get(game.white_code)}
 										isWhite
-										starred={
-											game.white_code == game.winner_code
-										}
+										starred={game.white_code === game.winner_code}
 										variant="table"
 									/>
-
 									<PlayerBadge
 										player={players.get(game.black_code)}
-										starred={
-											game.black_code == game.winner_code
-										}
+										starred={game.black_code === game.winner_code}
 										variant="table"
 									/>
 								</div>
