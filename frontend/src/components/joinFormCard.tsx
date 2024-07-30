@@ -24,3 +24,31 @@ export function JoinFormCard(props: {
 		</Card>
 	);
 }
+
+export function JoinFormCard2Buttons(props: {
+	desc: string;
+	children: ReactNode;
+	submit_text: string;
+	onSubmit: () => void;
+	submit_text2: string;
+	onSubmit2: () => void;
+}) {
+	return (
+		<Card className="w-xs max-w-[400px]">
+			<CardHeader>
+				<CardDescription>{props.desc}</CardDescription>
+			</CardHeader>
+
+			<CardContent>
+				{props.children}
+
+				<Button className="mt-3" onClick={props.onSubmit}>
+					{props.submit_text}
+				</Button>
+				<Button className="mt-3" onClick={props.onSubmit2}>
+					{props.submit_text2}
+				</Button>
+			</CardContent>
+		</Card>
+	);
+}

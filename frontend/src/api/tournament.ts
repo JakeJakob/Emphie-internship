@@ -1,10 +1,12 @@
-import { apiFetch, BASE_URL, handleError, handleResponse } from ".";
+import { apiFetch, BASE_URL, handleError, handleResponse, handleResponseWithoutAlert } from ".";
 import { ChessTournament } from "@types";
 import { useAuthStore } from "@stores/auth.store";
 import { useTournamentStore } from "@/stores/tournament.store";
+import { toast } from "react-toastify";
 
 const getTournament = async (
-	code: string
+	code: string,
+	shouldAlert: boolean = true
 ): Promise<ChessTournament | undefined> => {
 	try {
 		const { addTournament } = useTournamentStore.getState();
@@ -13,16 +15,20 @@ const getTournament = async (
 			`${BASE_URL}/tournaments/${code}`,
 			"GET"
 		);
-		const tournament: ChessTournament = await handleResponse(response);
+		const tournament: ChessTournament = shouldAlert
+			? await handleResponse(response)
+			: await handleResponseWithoutAlert(response);
 		addTournament(tournament);
 		return tournament;
 	} catch (error) {
-		handleError(error);
+		if(shouldAlert)
+			handleError(error);
 	}
 };
 
 const createTournament = async (
-	name: string
+	name: string,
+	shouldAlert: boolean = true
 ): Promise<ChessTournament | undefined> => {
 	try {
 		const { addTournament } = useTournamentStore.getState();
@@ -30,8 +36,11 @@ const createTournament = async (
 		const response = await apiFetch(`${BASE_URL}/tournaments/`, "POST", {
 			name,
 		});
-		const newTournament: ChessTournament = await handleResponse(response);
+		const newTournament: ChessTournament = shouldAlert
+			? await handleResponse(response)
+			: await handleResponseWithoutAlert(response);
 		addTournament(newTournament);
+		toast.success("Utworzono turniej " + name);
 		return newTournament;
 	} catch (error) {
 		handleError(error);
@@ -52,6 +61,7 @@ const endTournament = async (): Promise<ChessTournament | undefined> => {
 		endTournament();
 		removeAuthorization();
 
+		toast.success("Zakończono turniej " + endedTournament.name)
 		return endedTournament;
 	} catch (error) {
 		handleError(error);
