@@ -30,20 +30,20 @@ export function ScoreTablePage() {
   // code for autoscroll
 
   setInterval(scroll, 10);
-  const element = document.getElementById("table");
+  const element = document.querySelector("#table");
   let x = 5;
 
   function scroll() {
-    element.scrollBy({
+    element?.scrollBy({
       top: x,
       left: 0,
       behavior: "smooth",
     });
-    if (element.scrollTop + element.offsetHeight === element.scrollHeight) {
+    if (element?.scrollTop + element?.offsetHeight === element?.scrollHeight) {
       setTimeout(() => {
         x = -5;
       }, 5000);
-    } else if (element.scrollTop === 0) {
+    } else if (element?.scrollTop === 0) {
       setTimeout(() => {
         x = 5;
       }, 5000);
