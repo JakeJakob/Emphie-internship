@@ -40,7 +40,7 @@ export function FinishedGamesPage() {
 
       <div className="no-scrollbar mt-11 box-border h-[80vh] max-h-[660px] items-center gap-6 overflow-y-auto">
         {finished_games.map((game) => (
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-[3fr_1fr_3fr] ">
             <div className="justify-self-end">
               <PlayerBadge
                 player={players.get(game.white_code)}
