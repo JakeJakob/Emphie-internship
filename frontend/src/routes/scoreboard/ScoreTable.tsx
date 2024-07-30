@@ -28,16 +28,27 @@ export function ScoreTablePage() {
 	})*/
 
   // code for autoscroll
- 
-  setInterval(scroll, 100)
-  const e = document.getElementById("2");
+
+  setInterval(scroll, 10);
+  const element = document.getElementById("table");
+  let x = 5;
+
   function scroll() {
-    e.scrollHeight +=1;
-	
+    element.scrollBy({
+      top: x,
+      left: 0,
+      behavior: "smooth",
+    });
+    if (element.scrollTop + element.offsetHeight === element.scrollHeight) {
+      setTimeout(() => {
+        x = -5;
+      }, 5000);
+    } else if (element.scrollTop === 0) {
+      setTimeout(() => {
+        x = 5;
+      }, 5000);
+    }
   }
-
- 
-
   return (
     <div className="relative h-screen overflow-hidden bg-custom bg-[url('/chessgrowLogo.svg')] bg-right bg-no-repeat px-4 pt-4">
       <div className="h-frame48-height w-screen">
@@ -52,7 +63,7 @@ export function ScoreTablePage() {
       </div>
 
       <div
-        id="2"
+        id="table"
         className="no-scrollbar mt-11 box-border grid h-[80vh] min-h-[660px] grid-cols-5 gap-4 overflow-y-auto text-white"
       >
         {numbersToN(n_rounds).map((n) => (
