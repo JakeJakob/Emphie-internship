@@ -58,7 +58,7 @@ export function PlayerBadge({
           )}
         </div>
         <div
-          className={`flex flex-row gap-2 ${variant === "default" && !mirrored && "justify-start"}`}
+          className={`flex flex-row gap-2 ${variant === "default" && !mirrored && "justify-end"}`}
         >
           {player?.title && (
             <div

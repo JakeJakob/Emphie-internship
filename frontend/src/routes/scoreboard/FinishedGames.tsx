@@ -17,12 +17,11 @@ export function FinishedGamesPage() {
 
   const tournament_id = useTournamentStore((state) => state.code);
 
-  // useEffect(()=>{
-
-  // 	setTimeout(()=>{
-  // 		navigate(`/tournament/${tournament_id}/scoreboard/table`)
-  // 	}, 10000)
-  // })
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     navigate(`/tournament/${tournament_id}/scoreboard/table`);
+  //   }, 10000);
+  // });
 
   return (
     <div className="relative h-screen overflow-hidden bg-custom bg-[url('/chessgrowLogo.svg')] bg-right bg-no-repeat px-4 pt-4">
@@ -57,7 +56,6 @@ export function FinishedGamesPage() {
                 player={players.get(game.black_code)}
                 mirrored
                 starred={game.black_code == game.winner_code}
-				
               />
             </div>
           </div>
