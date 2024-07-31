@@ -1,25 +1,20 @@
 {
 	"compilerOptions": {
+		"lib": ["es5", "es6"],
 		"target": "ES2020",
-		"module": "commonjs",
-		"rootDir": ".",
-		"outDir": "dist",
-		"noImplicitAny": true,
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"outDir": "./build",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 		"sourceMap": true,
-		"removeComments": true,
-		"resolveJsonModule": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
+
 		"strict": true,
 		"strictNullChecks": true,
+		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"baseUrl": "./src"
+		"declaration": true
 	},
-	"include": ["src", "tests"],
-	"exclude": [
-		"node_modules",
-		"eslint.config.mjs",
-		"backend/jest.config.js",
-		"tsup.config.ts"
-	]
+	"include": ["src/**/*.ts", ".env", "src/**/*.d.ts", "test/**/*.ts"],
+	"exclude": ["node_modules"]
 }
