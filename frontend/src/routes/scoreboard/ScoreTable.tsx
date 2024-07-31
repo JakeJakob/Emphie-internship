@@ -30,7 +30,7 @@ export function ScoreTablePage() {
   // code for autoscroll
 
   setInterval(scroll, 10);
-  const element = document.querySelector("#table");
+  const element = document.querySelector("#table") as HTMLElement;
   let x = 5;
 
   function scroll() {
