@@ -2,62 +2,50 @@ import { create } from "zustand";
 import { TokenType } from "@types";
 
 export interface AuthState {
-	token_type: TokenType;
-	tournament_code?: string;
-	access_key?: string;
-	judge_code?: string;
+  token_type?: TokenType;
+  tournament_id?: number;
+  tournament_code?: string;
+  token?: string;
 }
 
 export const useAuthStore = create<
-	AuthState & {
-		getAuthorization: () => string | undefined;
-		removeAuthorization: () => void;
-		setAuth: (auth: AuthState) => void;
-	}
+  AuthState & {
+    getAuthorization: () => string | undefined;
+    removeAuthorization: () => void;
+    setAuth: (auth: AuthState) => void;
+  }
 >()((set) => ({
-	token_type:
-		(localStorage.getItem("auth_token_type") as TokenType) ||
-		TokenType.Unauthorized,
-	tournament_code: localStorage.getItem("auth_tournament_code") || undefined,
-	access_key: localStorage.getItem("auth_access_key") || undefined,
-	judge_code: localStorage.getItem("auth_judge_code") || undefined,
+  token_type: localStorage.getItem("auth_token_type") as TokenType,
+  tournament_id:
+    parseInt(localStorage.getItem("auth_tournament_id") || "") || undefined,
+  tournament_code: localStorage.getItem("auth_tournament_code") || undefined,
+  token: localStorage.getItem("auth_token") || undefined,
 
-	getAuthorization: () => {
-		const state: AuthState = useAuthStore.getState();
+  getAuthorization: () => {
+    const state: AuthState = useAuthStore.getState();
 
-		if (state.token_type == TokenType.Admin) {
-			return "Bearer " + state.access_key;
-		}
+    if (state.token) {
+      return "Bearer " + state.token;
+    }
 
-		if (state.token_type == TokenType.Judge) {
-			return "Bearer " + state.tournament_code + "+" + state.judge_code;
-		}
+    return undefined;
+  },
+  removeAuthorization: () => {
+    localStorage.clear();
 
-		if (state.token_type == TokenType.Guest) {
-			return "Bearer " + state.tournament_code;
-		}
+    return set({
+      token_type: undefined,
+      tournament_id: undefined,
+      tournament_code: undefined,
+      token: undefined,
+    });
+  },
+  setAuth: (auth: AuthState) => {
+    localStorage.setItem("auth_token_type", auth.token_type || "");
+    localStorage.setItem("auth_tournament_id", "" + auth.tournament_id || "");
+    localStorage.setItem("auth_tournament_code", auth.tournament_code || "");
+    localStorage.setItem("auth_token", auth.token || "");
 
-		return undefined;
-	},
-	removeAuthorization: () => {
-		localStorage.clear();
-
-		return set({
-			token_type: TokenType.Admin,
-			tournament_code: undefined,
-			access_key: undefined,
-			judge_code: undefined,
-		});
-	},
-	setAuth: (auth: AuthState) => {
-		localStorage.setItem("auth_token_type", auth.token_type);
-		localStorage.setItem(
-			"auth_tournament_code",
-			auth.tournament_code || ""
-		);
-		localStorage.setItem("auth_access_key", auth.access_key || "");
-		localStorage.setItem("auth_judge_code", auth.judge_code || "");
-
-		return set(auth);
-	},
+    return set(auth);
+  },
 }));

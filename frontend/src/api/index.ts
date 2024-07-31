@@ -3,49 +3,49 @@ import { showErrorToast } from "@/utils";
 export const BASE_URL = "http://localhost:3000";
 
 export const handleResponse = async (response: Response) => {
-	if (!response.ok) {
-		//alert(response.statusText);
-		showErrorToast(response.statusText)
-	}
-	return handleResponseWithoutAlert(response);
+  if (!response.ok) {
+    //alert(response.statusText);
+    showErrorToast(response.statusText);
+  }
+  return handleResponseWithoutAlert(response);
 };
 
 export const handleResponseWithoutAlert = async (response: Response) => {
-	if (!response.ok) {
-		throw new Error(response.statusText + " code: " + response.status);
-	}
-	return response.json();
+  if (!response.ok) {
+    throw new Error(response.statusText + " code: " + response.status);
+  }
+  return response.json();
 };
 
 export const handleError = (error: unknown) => {
-	//showErrorToast(error + "");
-	//console.error("API Error:", error);
-	throw error;
+  //showErrorToast(error + "");
+  //console.error("API Error:", error);
+  throw error;
 };
 
 export const apiHeaders = (getAuthorization: () => string | undefined) => ({
-	Accept: "application/json",
-	"Content-Type": "application/json",
-	Authorization: getAuthorization() || "",
+  Accept: "application/json",
+  "Content-Type": "application/json",
+  Authorization: getAuthorization() || "",
 });
 
 export const apiFetch = async (
-	url: string,
-	method: string,
-	body?: object
+  url: string,
+  method: string,
+  body?: object,
 ): Promise<Response> => {
-	const { getAuthorization } = useAuthStore.getState();
+  const { getAuthorization } = useAuthStore.getState();
 
-	const options: RequestInit = {
-		method,
-		headers: apiHeaders(getAuthorization),
-	};
+  const options: RequestInit = {
+    method,
+    headers: apiHeaders(getAuthorization),
+  };
 
-	if (body) {
-		options.body = JSON.stringify(body);
-	}
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
 
-	return fetch(url, options);
+  return fetch(url, options);
 };
 
 export * from "./tournament";

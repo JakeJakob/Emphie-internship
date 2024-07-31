@@ -6,24 +6,24 @@ import editIcon from "/icons/edit.svg";
 import { Drawer, DrawerTrigger } from "@shadcn/drawer";
 
 export function EditPlayer({ player }: { player: ChessPlayer }) {
-	const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-	return (
-		<Drawer open={isOpen} onOpenChange={setIsOpen}>
-			<DrawerTrigger asChild>
-				<button className="border rounded-md mx-4">
-					<img src={editIcon} className="w-5 m-2" alt="Edit" />
-				</button>
-			</DrawerTrigger>
-			<PlayerEditDrawer
-				title={`${player.name} ${player.last_name}`}
-				desc="Edycja danych użytkownika."
-				onSubmit={(player) => {
-					editPlayer(player.code || "", player);
-					setIsOpen(false);
-				}}
-				initialPlayer={player}
-			/>
-		</Drawer>
-	);
+  return (
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger asChild>
+        <button className="mx-4 rounded-md border">
+          <img src={editIcon} className="m-2 w-5" alt="Edit" />
+        </button>
+      </DrawerTrigger>
+      <PlayerEditDrawer
+        title={`${player.first_name} ${player.last_name}`}
+        desc="Edycja danych użytkownika."
+        onSubmit={(player) => {
+          editPlayer(player.id || 0, player);
+          setIsOpen(false);
+        }}
+        initialPlayer={player}
+      />
+    </Drawer>
+  );
 }

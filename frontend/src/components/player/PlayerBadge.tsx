@@ -17,8 +17,8 @@ export function PlayerBadge({
   starred?: boolean;
   variant?: "default" | "table";
 }) {
-  const playerName = `${player?.name} ${player?.last_name[0]}.`;
-  const titleColor = TitleToColor(player?.title || ChessTitle.NONE);
+  const playerName = `${player?.first_name} ${player?.last_name[0]}.`;
+  const titleColor = TitleToColor(player?.title);
 
   // Determine which piece image and classes to use based on the variant
   let pieceImage, pieceClass;
@@ -35,9 +35,7 @@ export function PlayerBadge({
       className={`flex flex-col gap-2 text-nowrap text-white ${variant === "default" ? "h-[186px]" : "h-[78px]"}`}
     >
       <div className="">
-        <div
-          className={`flex flex-row gap-4 ${starred && "text-[#FFC700]"}`}
-        >
+        <div className={`flex flex-row gap-4 ${starred && "text-[#FFC700]"}`}>
           {(variant === "table" || mirrored) && (
             <img src={pieceImage} className={pieceClass} alt="Chess piece" />
           )}
@@ -58,7 +56,7 @@ export function PlayerBadge({
           )}
         </div>
         <div
-          className={`flex flex-row gap-2 my-3 ${variant === "default" && !mirrored && "justify-end"}`}
+          className={`my-3 flex flex-row gap-2 ${variant === "default" && !mirrored && "justify-end"}`}
         >
           {player?.title && (
             <div

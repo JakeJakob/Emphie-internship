@@ -10,7 +10,7 @@ export function FinishedGamesPage() {
   const tournament_name = useTournamentStore((state) => state.name);
 
   const finished_games = [...games.values()].filter(
-    (game) => game.winner_code != undefined,
+    (game) => game.winner_id != undefined,
   );
 
   const navigate = useNavigate();
@@ -40,12 +40,12 @@ export function FinishedGamesPage() {
 
       <div className="no-scrollbar mt-11 box-border h-[80vh] max-h-[660px] items-center gap-6 overflow-y-auto">
         {finished_games.map((game) => (
-          <div className="grid grid-cols-[3fr_1fr_3fr] ">
+          <div className="grid grid-cols-[3fr_1fr_3fr]">
             <div className="justify-self-end">
               <PlayerBadge
-                player={players.get(game.white_code)}
+                player={players.get(game.white_id)}
                 isWhite
-                starred={game.white_code == game.winner_code}
+                starred={game.white_id == game.winner_id}
               />
             </div>
             <div className="align-around flex justify-center">
@@ -53,9 +53,9 @@ export function FinishedGamesPage() {
             </div>
             <div className="justify-self-start">
               <PlayerBadge
-                player={players.get(game.black_code)}
+                player={players.get(game.black_id)}
                 mirrored
-                starred={game.black_code == game.winner_code}
+                starred={game.black_id == game.winner_id}
               />
             </div>
           </div>

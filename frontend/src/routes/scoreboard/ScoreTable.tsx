@@ -76,14 +76,14 @@ export function ScoreTablePage() {
               .map((game) => (
                 <div className="content-item flex flex-col bg-black bg-opacity-10 p-2 text-center text-white">
                   <PlayerBadge
-                    player={players.get(game.white_code)}
+                    player={players.get(game.white_id)}
                     isWhite
-                    starred={game.white_code === game.winner_code}
+                    starred={game.white_id === game.winner_id}
                     variant="table"
                   />
                   <PlayerBadge
-                    player={players.get(game.black_code)}
-                    starred={game.black_code === game.winner_code}
+                    player={players.get(game.black_id)}
+                    starred={game.black_id === game.winner_id}
                     variant="table"
                   />
                 </div>
