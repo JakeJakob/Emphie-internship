@@ -20,12 +20,11 @@ export function ScoreTablePage() {
 
   const tournament_id = useTournamentStore((state) => state.code);
 
-  /*useEffect(()=>{
-		
-		setTimeout(()=>{
-			navigate(`/tournament/${tournament_id}/scoreboard/pending`)
-		}, 10000)
-	})*/
+  useEffect(() => {
+    setTimeout(() => {
+      navigate(`/tournament/${tournament_id}/scoreboard/pending`);
+    }, 10000);
+  });
 
   // code for autoscroll
 
@@ -42,11 +41,11 @@ export function ScoreTablePage() {
     if (element?.scrollTop + element?.offsetHeight === element?.scrollHeight) {
       setTimeout(() => {
         x = -5;
-      }, 5000);
+      }, 3000);
     } else if (element?.scrollTop === 0) {
       setTimeout(() => {
         x = 5;
-      }, 5000);
+      }, 3000);
     }
   }
   return (
@@ -64,7 +63,7 @@ export function ScoreTablePage() {
 
       <div
         id="table"
-        className="no-scrollbar mt-11 box-border grid h-[80vh] min-h-[660px] grid-cols-5 gap-4 overflow-y-auto text-white"
+        className="no-scrollbar mt-11 box-border grid h-[80vh] min-h-[660px] grid-cols-[repeat(auto-fit,_minmax(min(100%/3,_max(64px,_18%)),_1fr))] gap-4 overflow-y-auto text-white"
       >
         {numbersToN(n_rounds).map((n) => (
           <div key={n} className="flex flex-col">
